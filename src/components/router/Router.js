@@ -3,6 +3,7 @@ import { StatusBar, Platform } from 'react-native';
 import { createDrawerNavigator } from 'react-navigation';
 import Player from '../player/Player';
 import Playlist from '../Playlist';
+import Login from '../auth/Login';
 import DrawerScreen from './DrawerScreen';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -21,6 +22,13 @@ const Router = createDrawerNavigator({
       drawerIcon: ({ tintColor }) => <Icon name="favorite" size={25} color={tintColor} />,
     }
   },
+  Login: {
+    screen: Login,
+    navigationOptions: {
+      drawerLabel: 'LOGIN',
+      drawerIcon: ({ tintColor }) => <Icon name="favorite" size={25} color={tintColor} />,
+    }
+  }
 }, {
   contentComponent: DrawerScreen,
   drawerWidth: 315,

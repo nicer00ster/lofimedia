@@ -1,17 +1,8 @@
-import * as firebase from 'firebase';
-import * from './index';
+import RNFirebase from 'react-native-firebase';
 
-const config = {
-    apiKey: API_KEY,
-    authDomain: AUTH_DOMAIN,
-    databaseURL: DATABASE_URL,
-    projectId: PROJECT_ID,
-    storageBucket: STORAGE_BUCKET,
-    messagingSenderId: MESSAGING_SENDER_ID
+const configurationOptions = {
+  debug: true
 };
 
-firebase.initializeApp(config);
-
-export const database = firebase.database();
-export const auth = firebase.auth();
-export const storage = firebase.storage();
+const firebase = RNFirebase.initializeApp();
+export default firebase;

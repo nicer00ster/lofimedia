@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, Image, StyleSheet } from 'react-native';
-import { Icon, Avatar } from 'react-native-elements'
-import TextTicker from 'react-native-text-ticker';
+import { Icon, Avatar } from 'react-native-elements';
+import MarqueeText from 'react-native-marquee';
 
-const Header = ({ message, openDrawer, onQueuePress, onMessagePress }) => (
+const Header = ({ daily, message, openDrawer, onQueuePress, onMessagePress }) => (
   <View style={styles.container}>
     <TouchableOpacity onPress={openDrawer}>
       <Avatar
@@ -14,20 +14,18 @@ const Header = ({ message, openDrawer, onQueuePress, onMessagePress }) => (
         activeOpacity={0.75}
       />
     </TouchableOpacity>
-    {/* <Text onPress={onMessagePress} style={styles.message}>
-      {message.toUpperCase()}
-    </Text> */}
-    <View style={{ width: 200 }}>
-      <TextTicker
+    <View style={styles.marquee}>
+      <MarqueeText
         style={styles.message}
-        duration={3000}
+        duration={10000}
+        marqueeOnStart
         loop
-        scroll
-        bounce={false}
-        // repeatSpacer={100}
-        marqueeDelay={0}>
-        Streaming from Firebase
-      </TextTicker>
+        marqueeDelay={1250}
+        marqueeResetDelay={0}
+        useNativeDriver
+        >
+          {daily}
+        </MarqueeText>
     </View>
     <TouchableOpacity onPress={openDrawer}>
       <Icon style={styles.button} type="simple-line-icon" name="menu" color="white"/>
@@ -44,6 +42,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
+  marquee: {
+    flex: 1,
+    paddingLeft: 16,
+    paddingRight: 16
+  },
   button: {
     flex: 1,
   },
@@ -51,8 +54,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     color: 'white',
-    // textAlign: 'center',
-    margin: 8
+    margin: 8,
+    paddingLeft: 16,
+    paddingRight: 16,
   }
 });
 

@@ -1,26 +1,26 @@
-import { FETCH_MUSIC, FETCH_MUSIC_SUCCESS, FETCH_MUSIC_FAILURE } from '../constants'
+import { FETCH_DAILY, FETCH_DAILY_SUCCESS, FETCH_DAILY_FAILURE } from '../constants'
 
 const initialState = {
-  tracks: [],
+  daily: '',
   isFetching: false,
   error: false
 };
 
-export default function musicReducer (state = initialState, action) {
+export default function dailyReducer (state = initialState, action) {
   switch (action.type) {
-    case FETCH_MUSIC:
+    case FETCH_DAILY:
       return {
         ...state,
-        tracks: [],
+        daily: '',
         isFetching: true
       }
-    case FETCH_MUSIC_SUCCESS:
+    case FETCH_DAILY_SUCCESS:
       return {
         ...state,
-        tracks: action.data,
+        daily: action.data,
         isFetching: false
       }
-    case FETCH_MUSIC_FAILURE:
+    case FETCH_DAILY_FAILURE:
       return {
         ...state,
         error: true,

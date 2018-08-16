@@ -4,7 +4,7 @@ import { View, TouchableOpacity, Image, StyleSheet, Dimensions, Platform } from 
 const AlbumArt = ({ url, onPress }) => (
   <View style={styles.container}>
     <TouchableOpacity onPress={onPress}>
-      <Image style={styles.image} source={{ uri: url }}/>
+        <Image style={styles.image} source={{ uri: url }}/>
     </TouchableOpacity>
   </View>
 );
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     borderRadius: 1,
     width: imageSize,
     height: imageSize,
-  }
+  },
 });
 
 export default AlbumArt;
