@@ -4548,6 +4548,10 @@ react-native-tab-view@^1.0.0:
   dependencies:
     prop-types "^15.6.1"
 
+react-native-text-ticker@^0.12.0:
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/react-native-text-ticker/-/react-native-text-ticker-0.12.0.tgz#f11e939aa15460a05c5cadaf87f5bcf1075b620f"
+
 react-native-vector-icons@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/react-native-vector-icons/-/react-native-vector-icons-5.0.0.tgz#d0bd6fdda01159db409810718dd04904951a98f5"

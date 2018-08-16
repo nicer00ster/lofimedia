@@ -43,18 +43,17 @@ class Player extends React.Component {
       shuffleOn: false
     };
   };
-
   componentDidMount() {
     this.props.fetchMusic();
-  }
+  };
 
   setDuration(data) {
     this.setState({ totalLength: Math.floor(data.duration) });
-  }
+  };
 
   setTime(data) {
     this.setState({ currentPosition: Math.floor(data.currentTime) });
-  }
+  };
 
   seek(time) {
     time = Math.round(time);
@@ -63,17 +62,17 @@ class Player extends React.Component {
       currentPosition: time,
       paused: false,
     });
-  }
+  };
 
   onBack() {
     if (this.state.currentPosition < 10 && this.state.selectedTrack > 0) {
       this.refs.audioElement && this.refs.audioElement.seek(0);
-      this.setState({ isChanging: true });
+      this.setState({ changingTrack: true });
       setTimeout(() => this.setState({
         currentPosition: 0,
         paused: false,
         totalLength: 1,
-        isChanging: false,
+        changingTrack: false,
         selectedTrack: this.state.selectedTrack - 1,
       }), 0);
     } else {
@@ -81,34 +80,41 @@ class Player extends React.Component {
       this.setState({
         currentPosition: 0,
       });
-    }
-  }
+    };
+  };
 
   onForward() {
     if (this.state.selectedTrack < this.props.tracks.length - 1) {
       this.refs.audioElement && this.refs.audioElement.seek(0);
-      this.setState({ isChanging: true });
+      this.setState({ changingTrack: true });
       setTimeout(() => this.setState({
         currentPosition: 0,
         totalLength: 1,
         paused: false,
-        isChanging: false,
-        selectedTrack: this.state.selectedTrack + 1,
+        changingTrack: false,
+        selectedTrack: this.state.shuffleOn ? Math.floor(Math.random() * this.props.tracks.length) : this.state.selectedTrack + 1,
       }), 0);
-    }
+    };
   };
 
   onShuffle() {
-    this.setState({ shuffleOn: !this.state.shuffleOn })
-    console.log(Math.floor(Math.random() * this.props.tracks.length));
+    this.setState({ shuffleOn: !this.state.shuffleOn });
+    if(this.state.repeatOn) {
+      this.setState({ shuffleOn: false })
+    };
+  };
+
+  onRepeat() {
+    this.setState({ repeatOn: !this.state.repeatOn });
+    if(this.state.shuffleOn) {
+      this.setState({ repeatOn: false })
+    };
   };
 
 
   render() {
     const track = Object.assign({}, this.props.tracks[this.state.selectedTrack]);
-    console.log(track);
-    // const track = TRACKS[this.state.selectedTrack];
-    const player = this.state.isChanging ? null : (
+    const player = this.state.changingTrack ? null : (
       <Video source={{ uri: track.mp3url }}
         ref="audioElement"
         paused={this.state.paused}
@@ -130,8 +136,8 @@ class Player extends React.Component {
           opacity={.25}
         />
         <StatusBar hidden={true} />
-        <Header message={`Streaming from something.`} openDrawer={this.props.navigation.openDrawer} />
-        <AlbumArt url={TRACKS[0].albumArtUrl} />
+        <Header message="KEEP CALM" openDrawer={this.props.navigation.openDrawer} />
+        <AlbumArt url={track.trackphoto} />
         <TrackDetails title={track.title} artist={track.artist} />
         <SeekBar
           onSeek={this.seek.bind(this)}
@@ -144,6 +150,7 @@ class Player extends React.Component {
           shuffleOn={this.state.shuffleOn}
           forwardDisabled={this.state.selectedTrack === this.props.tracks.length - 1}
           onPressShuffle={() => this.onShuffle()}
+          onPressRepeat={() => this.onRepeat()}
           onPressPlay={() => this.setState({ paused: false })}
           onPressPause={() => this.setState({ paused: true })}
           onBack={this.onBack.bind(this)}
