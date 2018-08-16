@@ -40,7 +40,7 @@ class Player extends React.Component {
       currentPosition: 0,
       selectedTrack: 0,
       repeatOn: false,
-      shuffleOn: false,
+      shuffleOn: false
     };
   };
 
@@ -105,28 +105,25 @@ class Player extends React.Component {
 
 
   render() {
-    if(!this.props.tracks) {
-      return null;
-    } else {
-      const track = this.props.tracks[this.state.selectedTrack];
-      console.log(track);
-    }
-    // const player = this.state.isChanging ? null : (
-    //   <Video source={{ uri: track.Mp3Url }}
-    //     ref="audioElement"
-    //     paused={this.state.paused}
-    //     resizeMode="cover"
-    //     repeat={this.state.repeatOn}
-    //     onLoadStart={this.loadStart}
-    //     onLoad={this.setDuration.bind(this)}
-    //     onProgress={this.setTime.bind(this)}
-    //     onEnd={this.onForward.bind(this)}
-    //     onError={this.videoError}
-    //     style={styles.audioElement} />
-    // );
+    const track = Object.assign({}, this.props.tracks[this.state.selectedTrack]);
+    console.log(track);
+    // const track = TRACKS[this.state.selectedTrack];
+    const player = this.state.isChanging ? null : (
+      <Video source={{ uri: track.mp3url }}
+        ref="audioElement"
+        paused={this.state.paused}
+        resizeMode="cover"
+        repeat={this.state.repeatOn}
+        onLoadStart={this.loadStart}
+        onLoad={this.setDuration.bind(this)}
+        onProgress={this.setTime.bind(this)}
+        onEnd={this.onForward.bind(this)}
+        onError={this.videoError}
+        style={styles.audioElement} />
+    );
     return (
       <View style={styles.container}>
-        {/* <Image
+        <Image
           source={require('../../assets/img/cover.jpg')}
           style={styles.background}
           resizeMode="cover"
@@ -134,8 +131,8 @@ class Player extends React.Component {
         />
         <StatusBar hidden={true} />
         <Header message={`Streaming from something.`} openDrawer={this.props.navigation.openDrawer} />
-        <AlbumArt url={track.ArtworkPictureUrl} />
-        <TrackDetails title={track.Title} artist={track.User.FirstName} />
+        <AlbumArt url={TRACKS[0].albumArtUrl} />
+        <TrackDetails title={track.title} artist={track.artist} />
         <SeekBar
           onSeek={this.seek.bind(this)}
           trackLength={this.state.totalLength}
@@ -152,7 +149,7 @@ class Player extends React.Component {
           onBack={this.onBack.bind(this)}
           onForward={this.onForward.bind(this)}
           paused={this.state.paused}/>
-        {player} */}
+        {player}
       </View>
     );
   };
