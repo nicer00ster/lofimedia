@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1081113158562",
+    "firebase_url": "https://lofi-media.firebaseio.com",
+    "project_id": "lofi-media",
+    "storage_bucket": "lofi-media.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1081113158562:android:7a01946919f9c43f",
+        "android_client_info": {
+          "package_name": "com.lofimedia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1081113158562-3is6q63qaj8vk6ku5r7pvn2tnsk08kgs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCM2eUuLZu2x6NFoGtWTTX2ug4M81dydVs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
