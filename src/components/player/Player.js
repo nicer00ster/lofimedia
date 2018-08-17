@@ -1,7 +1,9 @@
 import React from 'react';
 import Video from 'react-native-video';
+import Spinner from 'react-native-spinkit';
 import { View, Text, StatusBar, Image, Button } from 'react-native';
-
+import { checkObject } from '../../helpers';
+import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
 
 import Header from './Header';
 import AlbumArt from './AlbumArt';
@@ -18,12 +20,9 @@ class Player extends React.Component {
       currentPosition: 0,
       selectedTrack: 0,
       repeatOn: false,
-      shuffleOn: false,
-      user: null
+      shuffleOn: false
     };
   };
-
-
 
   setDuration(data) {
     this.setState({ totalLength: Math.floor(data.duration) });
@@ -89,10 +88,20 @@ class Player extends React.Component {
     };
   };
 
+  onSwipeLeft() {
+    this.onForward();
+  };
+
+  onSwipeRight() {
+    this.onBack();
+  };
 
   render() {
+    const config = {
+      velocityThreshold: 0.3,
+      directionalOffsetThreshold: 80
+    };
     const track = Object.assign({}, this.props.screenProps.tracks[this.state.selectedTrack]);
-    // const avatar = this.state.user ? this.state.user.data.url : "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg"
     const player = this.state.changingTrack ? null : (
       <Video
         source={{ uri: track.mp3url }}
@@ -108,37 +117,48 @@ class Player extends React.Component {
         onError={this.videoError}
         style={styles.audioRef} />
     );
-    return (
-      <View style={styles.container}>
-        <Image
-          source={require('../../assets/img/cover.jpg')}
-          style={styles.background}
-          resizeMode="cover"
-          opacity={.25}
-        />
-        <StatusBar hidden={true} />
-        <Header  daily={this.props.screenProps.daily} openDrawer={this.props.navigation.openDrawer} />
-        <AlbumArt url={track.trackphoto} />
-        <TrackDetails title={track.title} artist={track.artist} />
-        <SeekBar
-          onSeek={this.seek.bind(this)}
-          trackLength={this.state.totalLength}
-          onSlidingStart={() => this.setState({ paused: true })}
-          currentPosition={this.state.currentPosition} />
-        <Controls
-          repeatOn={this.state.repeatOn}
-          shuffleOn={this.state.shuffleOn}
-          forwardDisabled={this.state.selectedTrack === this.props.screenProps.tracks.length - 1}
-          onPressShuffle={() => this.onShuffle()}
-          onPressRepeat={() => this.onRepeat()}
-          onPressPlay={() => this.setState({ paused: false })}
-          onPressPause={() => this.setState({ paused: true })}
-          onBack={this.onBack.bind(this)}
-          onForward={this.onForward.bind(this)}
-          paused={this.state.paused}/>
-        {player}
-      </View>
-    );
+      return (
+        <View style={styles.container}>
+          <Image
+            source={require('../../assets/img/cover.jpg')}
+            style={styles.background}
+            resizeMode="cover"
+            opacity={.25}
+          />
+          <StatusBar hidden={true} />
+          {
+            checkObject(this.props.screenProps.user)
+            ? <Spinner type="9CubeGrid" size={100} color="white" style={{ flex: 1, alignSelf: 'center' }}/>
+            : <React.Fragment>
+              <Header avatar={this.props.screenProps.user.data.url} daily={this.props.screenProps.daily} openDrawer={this.props.navigation.openDrawer} />
+              <GestureRecognizer
+                onSwipeLeft={() => this.onSwipeLeft()}
+                onSwipeRight={() => this.onSwipeRight()}
+                config={config}>
+              <AlbumArt url={track.trackphoto} />
+              </GestureRecognizer>
+              <TrackDetails title={track.title} artist={track.artist} />
+              <SeekBar
+                onSeek={this.seek.bind(this)}
+                trackLength={this.state.totalLength}
+                onSlidingStart={() => this.setState({ paused: true })}
+                currentPosition={this.state.currentPosition} />
+              <Controls
+                repeatOn={this.state.repeatOn}
+                shuffleOn={this.state.shuffleOn}
+                forwardDisabled={this.state.selectedTrack === this.props.screenProps.tracks.length - 1}
+                onPressShuffle={() => this.onShuffle()}
+                onPressRepeat={() => this.onRepeat()}
+                onPressPlay={() => this.setState({ paused: false })}
+                onPressPause={() => this.setState({ paused: true })}
+                onBack={this.onBack.bind(this)}
+                onForward={this.onForward.bind(this)}
+                paused={this.state.paused}/>
+              {player}
+              </React.Fragment>
+          }
+        </View>
+      )
   };
 };
 

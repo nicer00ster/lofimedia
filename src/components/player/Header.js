@@ -7,11 +7,11 @@ const Header = ({ avatar, daily, message, openDrawer, onQueuePress, onMessagePre
   <View style={styles.container}>
     <TouchableOpacity onPress={openDrawer}>
       <Avatar
-        small
         rounded
         source={{ uri: avatar }}
         onPress={() => console.log("Works!")}
         activeOpacity={0.75}
+        containerStyle={{ marginBottom: 25 }}
       />
     </TouchableOpacity>
     <View style={styles.marquee}>

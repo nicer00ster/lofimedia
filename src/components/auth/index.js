@@ -1,9 +1,9 @@
-import { fbLoginPermissions } from '../../constants';
+import { fbPermissions } from '../../constants';
 import firebase from '../../config/firebase';
 import Auth from '../../config/auth';
 
-export const handleFbLogin = () => (
-  Auth.Facebook.login(fbLoginPermissions)
+export const fbLogin = () => (
+  Auth.Facebook.login(fbPermissions)
     .then((token) => {
       firebase.auth()
       .signInWithCredential(firebase.auth.FacebookAuthProvider.credential(token))
@@ -14,7 +14,7 @@ export const handleFbLogin = () => (
     })
 );
 
-export const handleFbLogout = () => (
+export const fbLogout = () => (
   Auth.Facebook.logout()
   .then(() => {
     console.log('logged out');

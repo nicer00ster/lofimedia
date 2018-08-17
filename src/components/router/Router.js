@@ -1,38 +1,78 @@
 import React from 'react';
-import { StatusBar, Platform } from 'react-native';
-import { createDrawerNavigator } from 'react-navigation';
+import { StatusBar, Platform, Animated, Easing } from 'react-native';
+import { createStackNavigator, createDrawerNavigator, createBottomTabNavigator } from 'react-navigation';
 import { FBLoginManager } from 'react-native-facebook-login';
+import { Icon } from 'react-native-elements';
 
 import { connect } from 'react-redux';
 import { fetchMusic, fetchDaily, fetchUser } from '../../actions';
 
 import Player from '../player/Player';
 import Playlist from '../Playlist';
+import Search from '../Search';
 import Login from '../auth/Login';
 import DrawerScreen from './DrawerScreen';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const Router = createDrawerNavigator({
-  Media: {
-    screen: Player,
-    navigationOptions: {
-      drawerLabel: 'MEDIA',
-      drawerIcon: ({ tintColor }) => <Icon name="home" size={25} color={tintColor} />
-    }
-  },
-  Playlist: {
-    screen: Playlist,
-    navigationOptions: {
-      drawerLabel: 'PLAYLIST',
-      drawerIcon: ({ tintColor }) => <Icon name="favorite" size={25} color={tintColor} />,
-    }
+  // Media: {
+  //   screen: Player,
+  //   navigationOptions: {
+  //     drawerLabel: 'MEDIA',
+  //     drawerIcon: ({ tintColor }) => <Icon name="home" size={25} color={tintColor} />
+  //   }
+  // },
+  // Playlist: {
+  //   screen: Playlist,
+  //   navigationOptions: {
+  //     drawerLabel: 'PLAYLIST',
+  //     drawerIcon: ({ tintColor }) => <Icon name="favorite" size={25} color={tintColor} />,
+  //   }
+  // },
+  Home: {
+    screen: createBottomTabNavigator({
+      Media: {
+        screen: Player,
+        navigationOptions: {
+          tabBarLabel: 'MEDIA',
+          tabBarIcon: ({ tintColor }) => <Icon name="home" size={25} color={tintColor} />
+        }
+      },
+      Playlist: {
+        screen: Playlist,
+        navigationOptions: {
+          tabBarLabel: 'PLAYLIST',
+          tabBarIcon: ({ tintColor }) => <Icon name="playlist-play" size={25} color={tintColor} />
+        }
+      },
+      Search: {
+        screen: Search,
+        navigationOptions: {
+          tabBarLabel: 'SEARCH',
+          tabBarIcon: ({ tintColor }) => <Icon name="search" size={25} color={tintColor} />
+        }
+      }
+    }, {
+      tabBarOptions: {
+        activeTintColor: '#fff',
+        inactiveTintColor: '#666',
+        labelStyle: {
+          fontWeight: '600',
+        },
+        tabStyle: {
+          backgroundColor: '#181a24'
+        },
+      },
+    })
   },
   Login: {
-    screen: Login,
-    navigationOptions: {
-      drawerLabel: 'LOGIN',
-      drawerIcon: ({ tintColor }) => <Icon name="favorite" size={25} color={tintColor} />,
-    }
+    screen: createStackNavigator({
+      Login: {
+        screen: Login
+      }
+    }, {
+      headerMode: 'none',
+      mode: 'modal'
+    }),
   }
 }, {
   contentComponent: props => (
@@ -55,26 +95,21 @@ const Router = createDrawerNavigator({
 });
 
 class Root extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: null
-    }
-  }
   componentDidMount() {
     this.getUser()
     .then(data => {
       const { token, userId } = data.credentials;
       this.props.fetchUser(userId, token);
     })
-    this.props.fetchMusic();
+    this.props.fetchMusic()
     this.props.fetchDaily();
-    console.log(this.props.user);
-  }
+  };
+
   getUser() {
     return new Promise((resolve, reject) => {
       FBLoginManager.getCredentials((error, user) => {
         if (!error) {
+          console.log(user);
           this.setState({ user : user.credentials });
           resolve(user);
         } else {
@@ -92,10 +127,10 @@ class Root extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  tracks: state.tracks.tracks,
-  daily: state.daily.daily.dailyMessage,
-  user: state.user.user
+const mapStateToProps = ({ tracks, daily, user }) => ({
+  tracks: tracks.tracks,
+  daily: daily.daily.dailyMessage,
+  user: user.user
 });
 
 const mapDispatchToProps = { fetchMusic, fetchDaily, fetchUser };

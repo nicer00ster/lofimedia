@@ -10,18 +10,20 @@ const AlbumArt = ({ url, onPress }) => (
 );
 
 const { width, height } = Dimensions.get('window');
-const imageSize = width - 48;
+const imageWidth = width - 24
+const imageHeight = width - 76;
 
 const styles = StyleSheet.create({
   container: {
     paddingLeft: 24,
     paddingRight: 24,
+    alignSelf: 'center'
   },
   image: {
     borderWidth: .5,
     borderRadius: 1,
-    width: imageSize,
-    height: imageSize,
+    width: imageWidth,
+    height: imageHeight,
   },
 });
 

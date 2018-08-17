@@ -5,7 +5,7 @@ import createSagaMiddleware from 'redux-saga';
 
 import rootSaga from './sagas';
 import rootReducer from './reducers';
-import Root from './components/router/Router';
+import Navigator from './components/router/Router';
 
 // Uncomment in production
 console.disableYellowBox = true;
@@ -22,7 +22,7 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <Root />
+        <Navigator />
       </Provider>
     );
   };
