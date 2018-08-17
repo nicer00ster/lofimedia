@@ -6,5 +6,9 @@ export const FETCH_DAILY = 'FETCH_DAILY';
 export const FETCH_DAILY_SUCCESS = 'FETCH_DAILY_SUCCESS';
 export const FETCH_DAILY_FAILURE = 'FETCH_DAILY_FAILURE';
 
+export const FETCH_USER = 'FETCH_USER';
+export const FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS';
+export const FETCH_USER_FAILURE = 'FETCH_USER_FAILURE';
+
 
 export const fbLoginPermissions = ['email'];

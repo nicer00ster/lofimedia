@@ -17,3 +17,13 @@ export const apiDaily = async () => {
     console.log(error);
   };
 };
+
+export const apiUser = async (userId, token) => {
+  try {
+    const res = await fetch(`https://graph.facebook.com/v2.3/${userId}/picture?width=200&redirect=false&access_token=${token}`);
+    const data = await res.json();
+    return data;
+  } catch(error) {
+    console.log(error);
+  };
+};

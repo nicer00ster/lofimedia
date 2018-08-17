@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, Text, StatusBar, Image } from 'react-native';
+import { View, Text, StatusBar, Image, Button } from 'react-native';
 import Video from 'react-native-video';
 import { connect } from 'react-redux';
-import { fetchMusic, fetchDaily } from '../../actions';
+import { fetchMusic, fetchDaily, fetchUser } from '../../actions';
 
 import Header from './Header';
 import AlbumArt from './AlbumArt';
@@ -24,7 +24,8 @@ class Player extends React.Component {
   };
   componentDidMount() {
     this.props.fetchMusic();
-    this.props.fetchDaily()
+    this.props.fetchDaily();
+    this.props.fetchUser();
   };
 
   setDuration(data) {
@@ -162,9 +163,10 @@ const styles = {
 
 const mapStateToProps = state => ({
   tracks: state.tracks.tracks,
-  daily: state.daily.daily.dailyMessage
+  daily: state.daily.daily.dailyMessage,
+  user: state.user.user
 });
 
-const mapDispatchToProps = { fetchMusic, fetchDaily };
+const mapDispatchToProps = { fetchMusic, fetchDaily, fetchUser };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Player);

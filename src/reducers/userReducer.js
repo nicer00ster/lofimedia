@@ -1,26 +1,26 @@
-import { FETCH_MUSIC, FETCH_MUSIC_SUCCESS, FETCH_MUSIC_FAILURE } from '../constants'
+import { FETCH_USER, FETCH_USER_SUCCESS, FETCH_USER_FAILURE } from '../constants'
 
 const initialState = {
-  tracks: [],
+  user: {},
   isFetching: false,
   error: false
 };
 
-export default function musicReducer (state = initialState, action = {}) {
+export default function userReducer (state = initialState, action = {}) {
   switch (action.type) {
-    case FETCH_MUSIC:
+    case FETCH_USER:
       return {
         ...state,
-        tracks: [],
+        user: {},
         isFetching: true
       }
-    case FETCH_MUSIC_SUCCESS:
+    case FETCH_USER_SUCCESS:
       return {
         ...state,
-        tracks: action.data,
+        user: action.data,
         isFetching: false
       }
-    case FETCH_MUSIC_FAILURE:
+    case FETCH_USER_FAILURE:
       return {
         ...state,
         error: true,

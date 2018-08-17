@@ -6,7 +6,17 @@ export const handleFbLogin = () => (
   Auth.Facebook.login(fbLoginPermissions)
     .then((token) => {
       firebase.auth()
-        .signInWithCredential(firebase.auth.FacebookAuthProvider.credential(token))
+      .signInWithCredential(firebase.auth.FacebookAuthProvider.credential(token))
     })
-    .catch((err) => this.onError && this.onError(err))
+    .catch((err) => {
+      console.log(err);
+      this.onError && this.onError(err)
+    })
+);
+
+export const handleFbLogout = () => (
+  Auth.Facebook.logout()
+  .then(() => {
+    console.log('logged out');
+  })
 );

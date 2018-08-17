@@ -7,6 +7,7 @@ import rootSaga from './sagas';
 import rootReducer from './reducers';
 import Router from './components/router/Router';
 
+// Uncomment in production
 console.disableYellowBox = true;
 
 const sagaMiddleware = createSagaMiddleware();

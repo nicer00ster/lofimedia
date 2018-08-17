@@ -4,11 +4,14 @@ import {
   FETCH_MUSIC_FAILURE,
   FETCH_DAILY,
   FETCH_DAILY_SUCCESS,
-  FETCH_DAILY_FAILURE
+  FETCH_DAILY_FAILURE,
+  FETCH_USER,
+  FETCH_USER_SUCCESS,
+  FETCH_USER_FAILURE
 } from '../constants';
 
 import { put, takeEvery, call } from 'redux-saga/effects'
-import { apiMusic, apiDaily } from '../api';
+import { apiMusic, apiDaily, apiUser } from '../api';
 
 function* fetchMusic(action) {
   try {
@@ -28,9 +31,19 @@ function* fetchDaily(action) {
   };
 };
 
+function* fetchUser(action) {
+  try {
+    const data = yield call(apiUser, userId, token);
+    yield put({ type: FETCH_USER_SUCCESS, data });
+  } catch (error) {
+    yield put({ type: FETCH_USER_FAILURE })
+  };
+};
+
 function* rootSaga () {
   yield takeEvery(FETCH_MUSIC, fetchMusic)
   yield takeEvery(FETCH_DAILY, fetchDaily)
+  yield takeEvery(FETCH_USER, fetchUser)
 };
 
 export default rootSaga;

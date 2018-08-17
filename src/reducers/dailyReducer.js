@@ -1,4 +1,4 @@
-import { FETCH_DAILY, FETCH_DAILY_SUCCESS, FETCH_DAILY_FAILURE } from '../constants'
+import { FETCH_DAILY, FETCH_DAILY_SUCCESS, FETCH_DAILY_FAILURE } from '../constants';
 
 const initialState = {
   daily: '',

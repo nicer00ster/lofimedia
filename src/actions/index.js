@@ -1,4 +1,4 @@
-import { FETCH_MUSIC, FETCH_DAILY } from '../constants'
+import { FETCH_MUSIC, FETCH_DAILY, FETCH_USER } from '../constants'
 
 export function fetchMusic() {
   return {
@@ -9,5 +9,11 @@ export function fetchMusic() {
 export function fetchDaily() {
   return {
     type: FETCH_DAILY
+  };
+};
+
+export function fetchUser() {
+  return {
+    type: FETCH_USER
   };
 };
