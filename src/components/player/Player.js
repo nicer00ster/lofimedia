@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text, StatusBar, Image, Button } from 'react-native';
 import Video from 'react-native-video';
+import { View, Text, StatusBar, Image, Button } from 'react-native';
 import { connect } from 'react-redux';
 import { fetchMusic, fetchDaily, fetchUser } from '../../actions';
+import { FBLoginManager } from 'react-native-facebook-login';
 
 import Header from './Header';
 import AlbumArt from './AlbumArt';
@@ -19,13 +20,37 @@ class Player extends React.Component {
       currentPosition: 0,
       selectedTrack: 0,
       repeatOn: false,
-      shuffleOn: false
+      shuffleOn: false,
+      user: null
     };
   };
   componentDidMount() {
+    this.getUser()
+    .then(() => {
+      const { userId, token } = this.state.user;
+      console.log(this.state.user);
+      console.log(this.props.user);
+      this.props.fetchUser(userId, token);
+      this.setState(prevState => ({
+        user: Object.assign({...prevState.user}, this.props.user.data)
+      }))
+    })
     this.props.fetchMusic();
     this.props.fetchDaily();
-    this.props.fetchUser();
+  };
+
+  getUser() {
+    return new Promise((resolve, reject) => {
+      FBLoginManager.getCredentials((error, user) => {
+        if (!error) {
+          this.setState({ user : user.credentials });
+          resolve(user);
+        } else {
+          this.setState({ user : null });
+          reject(error)
+        }
+      });
+    })
   };
 
   setDuration(data) {
@@ -95,6 +120,7 @@ class Player extends React.Component {
 
   render() {
     const track = Object.assign({}, this.props.tracks[this.state.selectedTrack]);
+    // const avatar = this.state.user ? this.state.user.data.url : "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg"
     const player = this.state.changingTrack ? null : (
       <Video
         source={{ uri: track.mp3url }}
@@ -119,7 +145,7 @@ class Player extends React.Component {
           opacity={.25}
         />
         <StatusBar hidden={true} />
-        <Header daily={this.props.daily} openDrawer={this.props.navigation.openDrawer} />
+        <Header  daily={this.props.daily} openDrawer={this.props.navigation.openDrawer} />
         <AlbumArt url={track.trackphoto} />
         <TrackDetails title={track.title} artist={track.artist} />
         <SeekBar

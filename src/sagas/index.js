@@ -33,8 +33,8 @@ function* fetchDaily(action) {
 
 function* fetchUser(action) {
   try {
-    const data = yield call(apiUser, userId, token);
-    yield put({ type: FETCH_USER_SUCCESS, data });
+    const user = yield call(apiUser, action.userId, action.token);
+    yield put({ type: FETCH_USER_SUCCESS, user });
   } catch (error) {
     yield put({ type: FETCH_USER_FAILURE })
   };

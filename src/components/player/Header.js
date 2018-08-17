@@ -3,13 +3,13 @@ import { View, TouchableOpacity, Text, Image, StyleSheet } from 'react-native';
 import { Icon, Avatar } from 'react-native-elements';
 import MarqueeText from 'react-native-marquee';
 
-const Header = ({ daily, message, openDrawer, onQueuePress, onMessagePress }) => (
+const Header = ({ avatar, daily, message, openDrawer, onQueuePress, onMessagePress }) => (
   <View style={styles.container}>
     <TouchableOpacity onPress={openDrawer}>
       <Avatar
         small
         rounded
-        source={{uri: "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg"}}
+        source={{ uri: avatar }}
         onPress={() => console.log("Works!")}
         activeOpacity={0.75}
       />

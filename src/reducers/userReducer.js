@@ -17,7 +17,7 @@ export default function userReducer (state = initialState, action = {}) {
     case FETCH_USER_SUCCESS:
       return {
         ...state,
-        user: action.data,
+        user: action.user,
         isFetching: false
       }
     case FETCH_USER_FAILURE:

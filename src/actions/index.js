@@ -12,8 +12,10 @@ export function fetchDaily() {
   };
 };
 
-export function fetchUser() {
+export function fetchUser(userId, token) {
   return {
-    type: FETCH_USER
+    type: FETCH_USER,
+    userId,
+    token
   };
 };
