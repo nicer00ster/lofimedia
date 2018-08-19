@@ -6,7 +6,7 @@ import userReducer from './userReducer';
 const rootReducer = combineReducers({
   tracks: musicReducer,
   daily: dailyReducer,
-  user: userReducer,
+  user: userReducer
 });
 
 export default rootReducer;

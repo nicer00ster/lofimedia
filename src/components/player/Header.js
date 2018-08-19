@@ -3,13 +3,13 @@ import { View, TouchableOpacity, Text, Image, StyleSheet } from 'react-native';
 import { Icon, Avatar } from 'react-native-elements';
 import MarqueeText from 'react-native-marquee';
 
-const Header = ({ avatar, daily, message, openDrawer, onQueuePress, onMessagePress }) => (
+const Header = ({ avatar, daily, openDrawer, navigation }) => (
   <View style={styles.container}>
     <TouchableOpacity onPress={openDrawer}>
       <Avatar
         rounded
         source={{ uri: avatar }}
-        onPress={() => console.log("Works!")}
+        onPress={() => navigation.navigate('Profile')}
         activeOpacity={0.75}
         containerStyle={{ marginBottom: 25 }}
       />

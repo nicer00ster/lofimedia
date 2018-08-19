@@ -1,3 +1,5 @@
+import { fbLogin } from './components/auth/index';
+
 export const apiMusic = async () => {
   try {
     const res = await fetch('https://lofi-media.firebaseio.com/tracks.json');
@@ -20,7 +22,7 @@ export const apiDaily = async () => {
 
 export const apiUser = async (userId, token) => {
   try {
-    const res = await fetch(`https://graph.facebook.com/v2.3/${userId}/picture?width=200&redirect=false&access_token=${token}`);
+    const res = await fetch(`https://graph.facebook.com/v2.3/${userId}/picture?width=400&redirect=false&access_token=${token}`);
     const user = await res.json();
     return user;
   } catch(error) {

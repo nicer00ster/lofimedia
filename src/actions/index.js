@@ -1,4 +1,4 @@
-import { FETCH_MUSIC, FETCH_DAILY, FETCH_USER } from '../constants'
+import { FETCH_MUSIC, FETCH_DAILY, FETCH_USER, LOGIN, LOGOUT, AUTHED_USER_UPDATED } from '../constants'
 
 export function fetchMusic() {
   return {
@@ -17,5 +17,24 @@ export function fetchUser(userId, token) {
     type: FETCH_USER,
     userId,
     token
+  };
+};
+
+export function updateUserInfo(data) {
+  return {
+    type: AUTHED_USER_UPDATED,
+    data
+  };
+};
+
+export function onfbLogin() {
+  return {
+    type: LOGIN
+  };
+};
+
+export function onfbLogout() {
+  return {
+    type: LOGOUT
   };
 };

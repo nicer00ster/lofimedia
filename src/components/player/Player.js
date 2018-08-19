@@ -1,8 +1,9 @@
 import React from 'react';
 import Video from 'react-native-video';
 import Spinner from 'react-native-spinkit';
-import { View, Text, StatusBar, Image, Button } from 'react-native';
+import { View, Text, StatusBar, Image, Button, Animated } from 'react-native';
 import { checkObject } from '../../helpers';
+import { Transition } from 'react-navigation-fluid-transitions';
 import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
 
 import Header from './Header';
@@ -20,7 +21,8 @@ class Player extends React.Component {
       currentPosition: 0,
       selectedTrack: 0,
       repeatOn: false,
-      shuffleOn: false
+      shuffleOn: false,
+      animateImageX: 0
     };
   };
 
@@ -88,12 +90,8 @@ class Player extends React.Component {
     };
   };
 
-  onSwipeLeft() {
-    this.onForward();
-  };
-
-  onSwipeRight() {
-    this.onBack();
+  renderLoading() {
+    return <Spinner type="9CubeGrid" size={100} color="white" style={{ flex: 1, alignSelf: 'center' }}/>
   };
 
   render() {
@@ -116,7 +114,7 @@ class Player extends React.Component {
         onEnd={this.onForward.bind(this)}
         onError={this.videoError}
         style={styles.audioRef} />
-    );
+      );
       return (
         <View style={styles.container}>
           <Image
@@ -127,13 +125,13 @@ class Player extends React.Component {
           />
           <StatusBar hidden={true} />
           {
-            checkObject(this.props.screenProps.user)
-            ? <Spinner type="9CubeGrid" size={100} color="white" style={{ flex: 1, alignSelf: 'center' }}/>
+            this.props.screenProps.user.fetchingUserData
+            ? this.renderLoading()
             : <React.Fragment>
-              <Header avatar={this.props.screenProps.user.data.url} daily={this.props.screenProps.daily} openDrawer={this.props.navigation.openDrawer} />
+              <Header navigation={this.props.navigation} avatar={this.props.screenProps.user.user.photoURL} daily={this.props.screenProps.daily} openDrawer={this.props.navigation.openDrawer} />
               <GestureRecognizer
-                onSwipeLeft={() => this.onSwipeLeft()}
-                onSwipeRight={() => this.onSwipeRight()}
+                onSwipeLeft={() => this.onForward()}
+                onSwipeRight={() => this.onBack()}
                 config={config}>
               <AlbumArt url={track.trackphoto} />
               </GestureRecognizer>
@@ -153,7 +151,7 @@ class Player extends React.Component {
                 onPressPause={() => this.setState({ paused: true })}
                 onBack={this.onBack.bind(this)}
                 onForward={this.onForward.bind(this)}
-                paused={this.state.paused}/>
+                paused={this.state.paused} />
               {player}
               </React.Fragment>
           }
