@@ -2,7 +2,7 @@ import { FETCH_DAILY, FETCH_DAILY_SUCCESS, FETCH_DAILY_FAILURE } from '../consta
 
 const initialState = {
   daily: '',
-  isFetching: false,
+  fetching: false,
   error: false
 };
 
@@ -12,19 +12,19 @@ export default function dailyReducer (state = initialState, action) {
       return {
         ...state,
         daily: '',
-        isFetching: true
+        fetching: true
       }
     case FETCH_DAILY_SUCCESS:
       return {
         ...state,
         daily: action.data,
-        isFetching: false
+        fetching: false
       }
     case FETCH_DAILY_FAILURE:
       return {
         ...state,
         error: true,
-        isFetching: false
+        fetching: false
       }
     default:
       return state;

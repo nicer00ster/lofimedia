@@ -1,13 +1,12 @@
 import {
-  FETCH_USER,
-  FETCH_USER_SUCCESS,
-  FETCH_USER_FAILURE,
   LOGIN,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
   LOGOUT,
   LOGOUT_SUCCESS,
-  AUTHED_USER_UPDATED
+  USER_UPDATED,
+  USER_UPDATED_SUCCESS,
+  USER_UPDATED_FAILURE,
 } from '../constants'
 
 const initialState = {
@@ -18,7 +17,7 @@ const initialState = {
     email: '',
     photoURL: '',
   },
-  isFetching: false,
+  fetching: false,
   error: false
 };
 
@@ -30,10 +29,32 @@ export default function userReducer (state = initialState, action = {}) {
         user: {
           ...state.user,
           fetchingUserData: true,
-        }
+        },
+        fetching: true,
+        error: false
+      }
+      // case FETCH_USER_SUCCESS:
+    case LOGIN_SUCCESS:
+      return {
+        ...state,
+        user: {
+          authenticated: true,
+          ...state.user
+        },
+        fetching: false,
+        error: false
+      }
+    // case FETCH_USER_FAILURE:
+    case LOGIN_FAILURE:
+      return {
+        ...state,
+        user: {
+          authenticated: false
+        },
+        error: true,
+        fetching: false
       }
     case LOGOUT:
-    case LOGOUT_SUCCESS:
       return {
         ...state,
         user: {
@@ -43,10 +64,19 @@ export default function userReducer (state = initialState, action = {}) {
           email: '',
           photoURL: '',
         },
-        isFetching: false,
+        fetching: true,
         error: false
       }
-    case AUTHED_USER_UPDATED:
+    case LOGOUT_SUCCESS:
+      return {
+        ...state,
+        user: {
+          ...state.user
+        },
+        fetching: false,
+        error: false
+      }
+    case USER_UPDATED:
       return {
         ...state,
         user: {
@@ -56,40 +86,41 @@ export default function userReducer (state = initialState, action = {}) {
           photoURL: `${action.data[0].photoURL}?width=400`,
           fetchingUserData: false,
         },
-        isFetching: true
+        fetching: true
       }
-    case FETCH_USER:
+    case USER_UPDATED_SUCCESS:
       return {
         ...state,
         user: {
-          authenticated: true,
-          displayName: action.loginResult.profile.name,
-          email: action.loginResult.profile.email,
-          photoURL: action.loginResult.profile.picture.data.url,
-          fetchingUserData: false,
-        },
-        isFetching: true
-      }
-    case LOGIN_SUCCESS:
-    case FETCH_USER_SUCCESS:
-      return {
-        ...state,
-        user: {
-          authenticated: true,
           ...state.user
         },
-        isFetching: false
+        fetching: false
       }
-    case LOGIN_FAILURE:
-    case FETCH_USER_FAILURE:
+    case USER_UPDATED_FAILURE:
       return {
         ...state,
         user: {
-          authenticated: false
+          authenticated: false,
+          fetchingUserData: false,
+          displayName: '',
+          email: '',
+          photoURL: '',
         },
-        error: true,
-        isFetching: false
+        fetching: true,
+        error: false
       }
+    // case FETCH_USER:
+    //   return {
+    //     ...state,
+    //     user: {
+    //       authenticated: true,
+    //       displayName: action.loginResult.profile.name,
+    //       email: action.loginResult.profile.email,
+    //       photoURL: action.loginResult.profile.picture.data.url,
+    //       fetchingUserData: false,
+    //     },
+    //     fetching: true
+    //   }
     default:
       return state;
   };

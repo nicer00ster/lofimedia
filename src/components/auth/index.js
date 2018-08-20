@@ -24,7 +24,7 @@ export const fbLogout = () => {
   return firebase.auth().signOut();
 };
 
-export const checkCredentials = updateUserInfo => {
+export const fetchUser = updateUserInfo => {
   firebase.auth().onAuthStateChanged(user => {
     if(!user) {
       return null;
@@ -33,18 +33,3 @@ export const checkCredentials = updateUserInfo => {
     }
   })
 };
-
-// export const getUser = () => {
-//     return new Promise((resolve, reject) => {
-//       FBLoginManager.getCredentials((error, user) => {
-//         if (!error) {
-//           console.log(user);
-//           // this.setState({ user : user.credentials });
-//           resolve(user);
-//         } else {
-//           // this.setState({ user : null });
-//           reject(error)
-//         }
-//       });
-//     })
-//   };

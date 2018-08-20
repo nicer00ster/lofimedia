@@ -2,7 +2,7 @@ import { FETCH_MUSIC, FETCH_MUSIC_SUCCESS, FETCH_MUSIC_FAILURE } from '../consta
 
 const initialState = {
   tracks: [],
-  isFetching: false,
+  fetching: false,
   error: false
 };
 
@@ -12,19 +12,19 @@ export default function musicReducer (state = initialState, action = {}) {
       return {
         ...state,
         tracks: [],
-        isFetching: true
+        fetching: true
       }
     case FETCH_MUSIC_SUCCESS:
       return {
         ...state,
         tracks: action.data,
-        isFetching: false
+        fetching: false
       }
     case FETCH_MUSIC_FAILURE:
       return {
         ...state,
         error: true,
-        isFetching: false
+        fetching: false
       }
     default:
       return state;

@@ -1,15 +1,9 @@
 import React from 'react';
-import { StatusBar, Platform, Easing, Animated } from 'react-native';
-import { createStackNavigator, createDrawerNavigator, createBottomTabNavigator } from 'react-navigation';
-import { FBLoginManager } from 'react-native-facebook-login';
-import { connect } from 'react-redux';
+import { StatusBar, Platform } from 'react-native';
+import { createDrawerNavigator, createBottomTabNavigator } from 'react-navigation';
 import { Icon } from 'react-native-elements';
 
-import { fetchMusic, fetchDaily, fetchUser, onfbLogin, onfbLogout, updateUserInfo } from '../../actions';
-// import { getUser } from '../auth/index';
-import { checkCredentials } from '../auth/index';
-// import rootSaga from '../sagas/index';
-
+import UserStack from './UserStack';
 import Player from '../player/Player';
 import Profile from '../profile/Profile';
 import Playlist from '../Playlist';
@@ -38,6 +32,13 @@ const RootStack = createBottomTabNavigator({
       tabBarIcon: ({ tintColor }) => <Icon name="search" size={25} color={tintColor} />
     }
   },
+  Profile: {
+    screen: UserStack,
+    navigationOptions: {
+      tabBarLabel: 'PROFILE',
+      tabBarIcon: ({ tintColor }) => <Icon type="font-awesome" name="user-circle" size={25} color={tintColor} />
+    }
+  }
 }, {
   tabBarOptions: {
     activeTintColor: '#fff',
@@ -51,45 +52,9 @@ const RootStack = createBottomTabNavigator({
   },
 });
 
-const AuthStack = createStackNavigator({
-  Profile: {
-    screen: Profile
-  }
-}, {
-    headerMode: 'none',
-    mode: 'modal',
-    navigationOptions: {
-      gesturesEnabled: true,
-    },
-    transitionConfig: () => ({
-      transitionSpec: {
-        duration: 300,
-        easing: Easing.out(Easing.poly(4)),
-        timing: Animated.timing,
-      },
-      screenInterpolator: sceneProps => {
-        const { layout, position, scene } = sceneProps;
-        const { index } = scene;
-
-        const height = layout.initHeight;
-        const translateY = position.interpolate({
-          inputRange: [index - 1, index, index + 1],
-          outputRange: [height, 0, 0],
-        });
-
-        const opacity = position.interpolate({
-          inputRange: [index - 1, index - 0.99, index],
-          outputRange: [0, 1, 1],
-        });
-
-        return { opacity, transform: [{ translateY }] };
-      },
-    }),
-  });
-
 const drawerConfig = {
   contentComponent: props => (
-    <DrawerScreen {...props} />
+    <DrawerScreen {...props} currentScreen={props.navigation.state.routeName} />
   ),
   drawerWidth: 315,
   contentOptions: {
@@ -116,7 +81,7 @@ const Router = createDrawerNavigator({
     },
   },
   Profile: {
-    screen: AuthStack,
+    screen: UserStack,
     navigationOptions: {
       drawerLabel: 'PROFILE',
       drawerIcon: ({ tintColor }) => <Icon type="font-awesome" name="user-circle" color={tintColor} />
@@ -124,26 +89,4 @@ const Router = createDrawerNavigator({
   }
 }, drawerConfig);
 
-class Root extends React.Component {
- componentDidMount() {
-    checkCredentials(this.props.updateUserInfo);
-    this.props.fetchMusic();
-    this.props.fetchDaily();
-  };
-
-  render() {
-    return (
-        <Router {...this.props} screenProps={this.props} />
-    );
-  }
-}
-
-const mapStateToProps = ({ tracks, daily, user }) => ({
-  tracks: tracks.tracks,
-  user: user,
-  daily: daily.daily.dailyMessage,
-});
-
-const mapDispatchToProps = { fetchMusic, fetchDaily, onfbLogin, onfbLogout, updateUserInfo };
-
-export default connect(mapStateToProps, mapDispatchToProps)(Root);
+export default Router;

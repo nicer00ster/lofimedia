@@ -1,14 +1,17 @@
 import React from 'react';
 import { StyleSheet, View, Image, Dimensions, Text } from 'react-native';
-import LoginMethods from './LoginMethods';
 import { fbLogout } from '../auth/index';
-// import { FBLogin, FBLoginManager } from 'react-native-facebook-login';
 import { SocialIcon, Button } from 'react-native-elements';
 import { checkObject } from '../../helpers'
+import Spinner from 'react-native-spinkit';
+import LoginMethods from './LoginMethods';
 
 
 export default class Profile extends React.Component {
   render() {
+    if(this.props.screenProps.user.fetching) {
+      return <Spinner type="9CubeGrid" size={100} color="#1f222e" style={{ flex: 1, alignSelf: 'center' }}/>
+    }
     if(!this.props.screenProps.user.user.authenticated) {
       return (
         <View style={styles.container}>
@@ -22,10 +25,11 @@ export default class Profile extends React.Component {
           {
             this.props.screenProps.user.user.photoURL !== '' && <Image style={styles.image} source={{ uri: this.props.screenProps.user.user.photoURL }} />
           }
-          <View style={styles.imageText}>
-            <Text style={styles.nameText}>{this.props.screenProps.user.user.displayName}</Text>
-            <Text style={styles.text}>{this.props.screenProps.user.user.email}</Text>
-          </View>
+            <View style={styles.imageText}>
+              <Text style={styles.nameText}>{this.props.screenProps.user.user.displayName}</Text>
+              <Text style={styles.text}>{this.props.screenProps.user.user.email}</Text>
+            </View>
+
           </View>
             <Button
               onPress={() => this.props.screenProps.onfbLogout()}

@@ -63,7 +63,7 @@ class Player extends React.Component {
   };
 
   onForward() {
-    if (this.state.selectedTrack < this.props.screenProps.tracks.length - 1) {
+    if (this.state.selectedTrack < this.props.screenProps.tracks.tracks.length - 1) {
       this.refs.audioRef && this.refs.audioRef.seek(0);
       this.setState({ changingTrack: true });
       setTimeout(() => this.setState({
@@ -71,7 +71,7 @@ class Player extends React.Component {
         totalLength: 1,
         paused: false,
         changingTrack: false,
-        selectedTrack: this.state.shuffleOn ? Math.floor(Math.random() * this.props.screenProps.tracks.length) : this.state.selectedTrack + 1,
+        selectedTrack: this.state.shuffleOn ? Math.floor(Math.random() * this.props.screenProps.tracks.tracks.length) : this.state.selectedTrack + 1,
       }), 0);
     };
   };
@@ -99,7 +99,7 @@ class Player extends React.Component {
       velocityThreshold: 0.3,
       directionalOffsetThreshold: 80
     };
-    const track = Object.assign({}, this.props.screenProps.tracks[this.state.selectedTrack]);
+    const track = Object.assign({}, this.props.screenProps.tracks.tracks[this.state.selectedTrack]);
     const player = this.state.changingTrack ? null : (
       <Video
         source={{ uri: track.mp3url }}
@@ -125,7 +125,7 @@ class Player extends React.Component {
           />
           <StatusBar hidden={true} />
           {
-            this.props.screenProps.user.fetchingUserData
+            this.props.screenProps.tracks.fetching
             ? this.renderLoading()
             : <React.Fragment>
               <Header navigation={this.props.navigation} avatar={this.props.screenProps.user.user.photoURL} daily={this.props.screenProps.daily} openDrawer={this.props.navigation.openDrawer} />
@@ -144,7 +144,7 @@ class Player extends React.Component {
               <Controls
                 repeatOn={this.state.repeatOn}
                 shuffleOn={this.state.shuffleOn}
-                forwardDisabled={this.state.selectedTrack === this.props.screenProps.tracks.length - 1}
+                forwardDisabled={this.state.selectedTrack === this.props.screenProps.tracks.tracks.length - 1}
                 onPressShuffle={() => this.onShuffle()}
                 onPressRepeat={() => this.onRepeat()}
                 onPressPlay={() => this.setState({ paused: false })}

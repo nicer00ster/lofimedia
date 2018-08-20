@@ -1,4 +1,4 @@
-import { FETCH_MUSIC, FETCH_DAILY, FETCH_USER, LOGIN, LOGOUT, AUTHED_USER_UPDATED } from '../constants'
+import { FETCH_MUSIC, FETCH_DAILY, FETCH_USER, LOGIN, LOGOUT, USER_UPDATED } from '../constants'
 
 export function fetchMusic() {
   return {
@@ -12,17 +12,9 @@ export function fetchDaily() {
   };
 };
 
-export function fetchUser(userId, token) {
-  return {
-    type: FETCH_USER,
-    userId,
-    token
-  };
-};
-
 export function updateUserInfo(data) {
   return {
-    type: AUTHED_USER_UPDATED,
+    type: USER_UPDATED,
     data
   };
 };

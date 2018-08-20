@@ -6,8 +6,8 @@ import createSagaMiddleware from 'redux-saga';
 
 import rootSaga from './sagas';
 import rootReducer from './reducers';
-import Navigator from './components/router/Router';
-
+// import Navigator from './components/router/Router';
+import Navigator from './Root';
 // Uncomment in production
 console.disableYellowBox = true;
 

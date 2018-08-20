@@ -18,6 +18,8 @@ export const LOGOUT = 'LOGOUT';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 
-export const AUTHED_USER_UPDATED = 'AUTHED_USER_UPDATED';
+export const USER_UPDATED = 'USER_UPDATED';
+export const USER_UPDATED_SUCCESS = 'USER_UPDATED_SUCCESS';
+export const USER_UPDATED_FAILURE = 'USER_UPDATED_FAILURE';
 
 export const fbPermissions = ['email'];

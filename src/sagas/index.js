@@ -13,12 +13,16 @@ import {
   LOGIN_FAILURE,
   LOGOUT,
   LOGOUT_SUCCESS,
-  LOGOUT_FAILURE
+  LOGOUT_FAILURE,
+  USER_UPDATED,
+  USER_UPDATED_SUCCESS,
+  USER_UPDATED_FAILURE
 } from '../constants';
 
 import { fbLogin, fbLogout } from '../components/auth/index';
 
 import { put, takeEvery, call } from 'redux-saga/effects';
+import { delay } from 'redux-saga';
 import { apiMusic, apiDaily, apiUser } from '../api';
 
 function* fetchMusic(action) {
@@ -42,7 +46,7 @@ function* fetchDaily(action) {
 function* facebookLogin(action) {
   try {
     const loginResult = yield call(fbLogin);
-    yield put({ type: FETCH_USER, loginResult })
+    yield put({ type: LOGIN_SUCCESS, loginResult })
   } catch (error) {
     yield put({ type: LOGIN_FAILURE })
   };
@@ -51,6 +55,7 @@ function* facebookLogin(action) {
 function* facebookLogout(action) {
   try {
     console.log(action);
+    yield delay(3000)
     yield call(fbLogout);
     yield put({ type: LOGOUT_SUCCESS })
   } catch (error) {
@@ -59,11 +64,22 @@ function* facebookLogout(action) {
   };
 };
 
+function* updateUser(action) {
+  try {
+    console.log('here', action);
+    yield put({ type: USER_UPDATED_SUCCESS })
+  } catch (error) {
+    console.log(error);
+    yield put({ type: USER_UPDATED_FAILURE })
+  };
+};
+
 function* rootSaga () {
   yield takeEvery(FETCH_MUSIC, fetchMusic)
   yield takeEvery(FETCH_DAILY, fetchDaily)
   yield takeEvery(LOGIN, facebookLogin)
   yield takeEvery(LOGOUT, facebookLogout)
+  yield takeEvery(USER_UPDATED, updateUser)
 };
 
 export default rootSaga;
