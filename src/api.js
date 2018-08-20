@@ -1,5 +1,3 @@
-import { fbLogin } from './components/auth/index';
-
 export const apiMusic = async () => {
   try {
     const res = await fetch('https://lofi-media.firebaseio.com/tracks.json');

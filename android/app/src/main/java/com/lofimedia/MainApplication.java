@@ -3,6 +3,7 @@ package com.lofimedia;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.tanguyantoine.react.MusicControl;
 import com.react.rnspinkit.RNSpinkitPackage;
 import com.brentvatne.react.ReactVideoPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -29,6 +30,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new MusicControl(),
             new RNSpinkitPackage(),
             new ReactVideoPackage(),
             new VectorIconsPackage(),

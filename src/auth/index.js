@@ -1,6 +1,6 @@
-import { fbPermissions } from '../../constants';
-import firebase from '../../config/firebase';
-import Auth from '../../config/auth';
+import { fbPermissions } from '../constants';
+import firebase from '../config/firebase';
+import Auth from '../config/auth';
 import { FBLoginManager } from 'react-native-facebook-login';
 
 export const fbLogin = () => {

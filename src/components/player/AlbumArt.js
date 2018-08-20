@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Image, StyleSheet, Dimensions, Platform } from 'react-native';
+import { View, Text, TouchableOpacity, Image, StyleSheet, Dimensions, Platform, Animated } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 const AlbumArt = ({ url, onPress }) => (
@@ -25,9 +25,9 @@ const imageHeight = width - 76;
 
 const styles = StyleSheet.create({
   container: {
+    alignSelf: 'center',
     paddingLeft: 24,
     paddingRight: 24,
-    alignSelf: 'center'
   },
   imageText: {
     position: 'absolute',

@@ -24,17 +24,17 @@ const Controls = ({
       <Icon type="simple-line-icon" name="control-start" color="white"/>
     </TouchableOpacity>
     <View style={{width: 20}} />
-    {!paused ?
-      <TouchableOpacity onPress={onPressPause}>
-        <View style={styles.playButton}>
-          <Icon type="simple-line-icon" name="control-pause" color="white"/>
-        </View>
-      </TouchableOpacity> :
-      <TouchableOpacity onPress={onPressPlay}>
-        <View style={styles.playButton}>
-          <Icon type="simple-line-icon" name="control-play" color="white"/>
-        </View>
-      </TouchableOpacity>
+    {!paused
+      ? <TouchableOpacity onPress={onPressPause}>
+          <View style={styles.playButton}>
+            <Icon type="simple-line-icon" name="control-pause" color="white"/>
+          </View>
+        </TouchableOpacity>
+      : <TouchableOpacity onPress={onPressPlay}>
+          <View style={styles.playButton}>
+            <Icon type="simple-line-icon" name="control-play" color="white"/>
+          </View>
+        </TouchableOpacity>
     }
     <View style={{width: 20}} />
     <TouchableOpacity onPress={onForward}

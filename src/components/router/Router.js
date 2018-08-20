@@ -21,6 +21,7 @@ const RootStack = createBottomTabNavigator({
   Playlist: {
     screen: Playlist,
     navigationOptions: {
+      mode: 'modal',
       tabBarLabel: 'PLAYLIST',
       tabBarIcon: ({ tintColor }) => <Icon name="playlist-play" size={25} color={tintColor} />
     }
@@ -32,13 +33,6 @@ const RootStack = createBottomTabNavigator({
       tabBarIcon: ({ tintColor }) => <Icon name="search" size={25} color={tintColor} />
     }
   },
-  Profile: {
-    screen: UserStack,
-    navigationOptions: {
-      tabBarLabel: 'PROFILE',
-      tabBarIcon: ({ tintColor }) => <Icon type="font-awesome" name="user-circle" size={25} color={tintColor} />
-    }
-  }
 }, {
   tabBarOptions: {
     activeTintColor: '#fff',
@@ -86,7 +80,7 @@ const Router = createDrawerNavigator({
       drawerLabel: 'PROFILE',
       drawerIcon: ({ tintColor }) => <Icon type="font-awesome" name="user-circle" color={tintColor} />
     }
-  }
+  },
 }, drawerConfig);
 
 export default Router;

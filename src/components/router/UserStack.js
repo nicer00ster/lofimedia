@@ -13,7 +13,7 @@ const UserStack = createStackNavigator({
   }
 }, {
     headerMode: 'none',
-    // mode: 'modal',
+    mode: 'modal',
     navigationOptions: () => ({
       // title: 'Profile',
       // headerBackTitle: null,

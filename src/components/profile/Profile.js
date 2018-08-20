@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Image, Dimensions, Text } from 'react-native';
-import { fbLogout } from '../auth/index';
+import { fbLogout } from '../../auth/index';
 import { SocialIcon, Button } from 'react-native-elements';
 import { checkObject } from '../../helpers'
 import Spinner from 'react-native-spinkit';
