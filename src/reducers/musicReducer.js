@@ -13,6 +13,8 @@ import {
   SEEK_TIME
 } from '../constants'
 
+import dotProp from 'dot-prop-immutable';
+
 const initialState = {
   tracks: [],
   shuffle: false,
@@ -51,13 +53,11 @@ export default function musicReducer (state = initialState, action = {}) {
     case PLAY_MUSIC:
       return {
         ...state,
-        position: state.position,
         paused: false,
       }
     case PAUSE_MUSIC:
       return {
         ...state,
-        position: state.position,
         paused: true,
       }
     case NEXT_SONG:
@@ -88,8 +88,7 @@ export default function musicReducer (state = initialState, action = {}) {
     console.log('seektime2', action);
       return {
         ...state,
-        paused: true,
-        position: Math.floor(action.time),
+        position: action.time,
       }
     case SET_DURATION:
     console.log('duration', action);
@@ -101,7 +100,7 @@ export default function musicReducer (state = initialState, action = {}) {
     console.log('set_time', action.data.currentTime);
       return {
         ...state,
-        position: Math.floor(action.data.currentTime),
+        position: Math.floor(action.data.currentTime)
       }
     default:
       return state;

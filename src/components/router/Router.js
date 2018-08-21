@@ -47,8 +47,8 @@ const RootStack = createBottomTabNavigator({
 });
 
 const drawerConfig = {
-  contentComponent: props => (
-    <DrawerScreen {...props} />
+  contentComponent: (props, onRef) => (
+    <DrawerScreen {...props} onRef={onRef} />
   ),
   drawerWidth: 315,
   contentOptions: {
@@ -66,7 +66,7 @@ const drawerConfig = {
   },
 };
 
-const Router = createDrawerNavigator({
+const Navigator = createDrawerNavigator({
   Root: {
     screen: RootStack,
     navigationOptions: {
@@ -83,4 +83,4 @@ const Router = createDrawerNavigator({
   },
 }, drawerConfig);
 
-export default Router;
+export default Navigator;

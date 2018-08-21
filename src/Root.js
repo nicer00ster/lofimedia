@@ -18,9 +18,9 @@ import {
 } from './actions';
 
 import { fetchUser } from './auth/index';
-import Router from './components/router/Router';
+import Navigator from './components/router/Router';
 import Video from 'react-native-video';
-
+// import Player from './components/player/Player';
 
 class Root extends React.Component {
   componentDidMount() {
@@ -29,12 +29,16 @@ class Root extends React.Component {
     this.props.fetchDaily();
   };
 
+  testSeek() {
+    this.refs.audio.seek(43)
+  }
+
   render() {
     const { tracks, setDuration, setTime, nextSong } = this.props;
     const track = Object.assign({}, this.props.tracks.tracks[this.props.tracks.index]);
     return (
       <React.Fragment>
-        <Router {...this.props} audioRef={this.audio} screenProps={this.props} />
+        <Navigator {...this.props} onRef={this.audio} screenProps={this.props} />
         <Video
           source={{ uri: track.mp3url }}
           ref={ref => this.audio = ref}
@@ -42,8 +46,8 @@ class Root extends React.Component {
           paused={tracks.paused}
           repeat={tracks.repeat}
           onLoadStart={this.loadStart}
-          onLoad={this.audio.seek(0)}
-          onProgress={setTime}
+          onLoad={setDuration}
+          onProgress={this.lazySeek.bind(this)}
           progressUpdateInterval={1000}
           onEnd={nextSong}
           onError={this.videoError}

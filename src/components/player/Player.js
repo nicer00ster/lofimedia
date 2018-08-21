@@ -1,8 +1,11 @@
 import React from 'react';
-import Video from 'react-native-video';
+// import Video from 'react-native-video';
+// import { withNavigation } from 'react-navigation';
+import { connect } from 'react-redux';
 import Spinner from 'react-native-spinkit';
 import { View, Text, StatusBar, Image } from 'react-native';
 import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
+import Navigator from '../router/Router';
 
 import Header from './Header';
 import AlbumArt from './AlbumArt';
@@ -11,6 +14,10 @@ import SeekBar from './SeekBar';
 import Controls from './Controls';
 
 class Player extends React.Component {
+  // static navigationOptions = ({ navigation }) => ({
+  //   tabBarLabel: 'MEDIA',
+  //   tabBarIcon: ({ tintColor }) => <Icon name="home" size={25} color={tintColor} />,
+  // });
   constructor(props) {
     super(props);
     this.state = {
@@ -23,7 +30,10 @@ class Player extends React.Component {
       animateImageX: 0
     };
   };
-
+  componentDidMount() {
+     // const parentNavigator = this.props.navigation.getScreenProps();
+     // console.log(parentNavigator);
+  }
   // seek(time) {
   //   time = Math.round(time);
   //   this.refs.audioRef && this.refs.audioRef.seek(time);
@@ -111,7 +121,7 @@ class Player extends React.Component {
                 onSwipeLeft={() => this.onForward()}
                 onSwipeRight={() => this.onBack()}
                 config={config}> */}
-              <AlbumArt tracks={screenProps.tracks.tracks} url={track.trackphoto} />
+              <AlbumArt onPress={() => console.log(this.props.onRef)} tracks={screenProps.tracks.tracks} url={track.trackphoto} />
               {/* </GestureRecognizer> */}
               <TrackDetails title={track.title} artist={track.artist} />
               <SeekBar
@@ -154,4 +164,5 @@ const styles = {
   }
 };
 
+// export default connect(null, null, null, { withRef: true })(Player);
 export default Player;

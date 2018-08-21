@@ -99,15 +99,10 @@ export function setTime(data) {
 };
 
 export function seek(time) {
-  // this.props.audio && this.props.audio.seek(time);
+  time = Math.round(time);
   console.log('time here', time);
   return {
     type: SEEK_TIME,
     time
-  }
-  // time = Math.round(time);
-  // this.setState({
-  //   currentPosition: time,
-  //   paused: false,
-  // });
+  };
 };

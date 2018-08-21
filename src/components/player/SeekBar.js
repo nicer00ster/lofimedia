@@ -1,5 +1,6 @@
 import React from 'react';
-
+import { pad, minutesAndSeconds } from '../../helpers';
+import Slider from 'react-native-slider';
 import {
   View,
   Text,
@@ -7,9 +8,6 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-
-import Slider from 'react-native-slider';
-import { pad, minutesAndSeconds } from '../../helpers';
 
 const SeekBar = ({
   trackLength,
