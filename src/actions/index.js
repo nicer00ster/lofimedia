@@ -8,10 +8,11 @@ import {
   PAUSE_MUSIC,
   NEXT_SONG,
   PREV_SONG,
-  SHUFFLE_MUSIC,
-  REPEAT_MUSIC,
+  TOGGLE_SHUFFLE,
+  TOGGLE_REPEAT,
   SET_TIME,
   SET_DURATION,
+  SEEK_TIME
 } from '../constants'
 
 export function fetchMusic() {
@@ -72,7 +73,14 @@ export function prevSong() {
 
 export function shuffleMusic() {
   return {
-    type: SHUFFLE_MUSIC
+    type: TOGGLE_SHUFFLE
+  };
+};
+
+
+export function repeatMusic() {
+  return {
+    type: TOGGLE_REPEAT
   };
 };
 
@@ -91,19 +99,15 @@ export function setTime(data) {
 };
 
 export function seek(time) {
-  time = Math.round(time);
-  this.refs.audioRef && this.refs.audioRef.seek(time);
-  this.setState({
-    currentPosition: time,
-    paused: false,
-  });
-};
-
-
-
-export function onRepeat() {
-  this.setState({ repeatOn: !this.state.repeatOn });
-  if(this.state.shuffleOn) {
-    this.setState({ shuffleOn: false, repeatOn: true });
-  };
+  // this.props.audio && this.props.audio.seek(time);
+  console.log('time here', time);
+  return {
+    type: SEEK_TIME,
+    time
+  }
+  // time = Math.round(time);
+  // this.setState({
+  //   currentPosition: time,
+  //   paused: false,
+  // });
 };

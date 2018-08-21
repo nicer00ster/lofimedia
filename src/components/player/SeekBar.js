@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import {
   View,
@@ -9,16 +9,7 @@ import {
 } from 'react-native';
 
 import Slider from 'react-native-slider';
-
-function pad(n, width, z=0) {
-  n = n + '';
-  return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
-}
-
-const minutesAndSeconds = (position) => ([
-  pad(Math.floor(position / 60), 2),
-  pad(position % 60, 2),
-]);
+import { pad, minutesAndSeconds } from '../../helpers';
 
 const SeekBar = ({
   trackLength,
@@ -28,14 +19,15 @@ const SeekBar = ({
 }) => {
   const elapsed = minutesAndSeconds(currentPosition);
   const remaining = minutesAndSeconds(trackLength - currentPosition);
+
   return (
     <View style={styles.container}>
-      <View style={{flexDirection: 'row'}}>
+      <View style={{ flexDirection: 'row' }}>
         <Text style={styles.text}>
           {elapsed[0] + ":" + elapsed[1]}
         </Text>
-        <View style={{flex: 1}} />
-        <Text style={[styles.text, {width: 40}]}>
+        <View style={{ flex: 1 }} />
+        <Text style={[ styles.text, {width: 40} ]}>
           {trackLength > 1 && "-" + remaining[0] + ":" + remaining[1]}
         </Text>
       </View>
@@ -52,8 +44,6 @@ const SeekBar = ({
     </View>
   );
 };
-
-export default SeekBar;
 
 const styles = StyleSheet.create({
   slider: {
@@ -80,3 +70,5 @@ const styles = StyleSheet.create({
     textAlign:'center',
   }
 });
+
+export default SeekBar;

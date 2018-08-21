@@ -33,7 +33,6 @@ export default function userReducer (state = initialState, action = {}) {
         fetching: true,
         error: false
       }
-      // case FETCH_USER_SUCCESS:
     case LOGIN_SUCCESS:
       return {
         ...state,
@@ -44,7 +43,6 @@ export default function userReducer (state = initialState, action = {}) {
         fetching: false,
         error: false
       }
-    // case FETCH_USER_FAILURE:
     case LOGIN_FAILURE:
       return {
         ...state,
@@ -56,16 +54,7 @@ export default function userReducer (state = initialState, action = {}) {
       }
     case LOGOUT:
       return {
-        ...state,
-        user: {
-          authenticated: false,
-          fetchingUserData: false,
-          displayName: '',
-          email: '',
-          photoURL: '',
-        },
-        fetching: true,
-        error: false
+        ...initialState
       }
     case LOGOUT_SUCCESS:
       return {
@@ -109,18 +98,6 @@ export default function userReducer (state = initialState, action = {}) {
         fetching: true,
         error: false
       }
-    // case FETCH_USER:
-    //   return {
-    //     ...state,
-    //     user: {
-    //       authenticated: true,
-    //       displayName: action.loginResult.profile.name,
-    //       email: action.loginResult.profile.email,
-    //       photoURL: action.loginResult.profile.picture.data.url,
-    //       fetchingUserData: false,
-    //     },
-    //     fetching: true
-    //   }
     default:
       return state;
   };

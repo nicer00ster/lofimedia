@@ -14,30 +14,6 @@ import {
   USER_UPDATED,
   USER_UPDATED_SUCCESS,
   USER_UPDATED_FAILURE,
-  PLAY_MUSIC,
-  PLAY_MUSIC_SUCCESS,
-  PLAY_MUSIC_FAILURE,
-  PAUSE_MUSIC,
-  PAUSE_MUSIC_SUCCESS,
-  PAUSE_MUSIC_FAILURE,
-  NEXT_SONG,
-  NEXT_SONG_SUCCESS,
-  NEXT_SONG_FAILURE,
-  PREV_SONG,
-  PREV_SONG_SUCCESS,
-  PREV_SONG_FAILURE,
-  SHUFFLE_MUSIC,
-  SHUFFLE_MUSIC_SUCCESS,
-  SHUFFLE_MUSIC_FAILURE,
-  REPEAT_MUSIC,
-  REPEAT_MUSIC_SUCCESS,
-  REPEAT_MUSIC_FAILURE,
-  SET_TIME,
-  SET_TIME_SUCCESS,
-  SET_TIME_FAILURE,
-  SET_DURATION,
-  SET_DURATION_SUCCESS,
-  SET_DURATION_FAILURE,
 } from '../constants';
 
 import { put, takeEvery, takeLatest, call } from 'redux-saga/effects';
@@ -74,7 +50,6 @@ function* facebookLogin(action) {
 
 function* facebookLogout(action) {
   try {
-    console.log(action);
     yield delay(3000)
     yield call(fbLogout);
     yield put({ type: LOGOUT_SUCCESS })
@@ -86,7 +61,6 @@ function* facebookLogout(action) {
 
 function* updateUser(action) {
   try {
-    console.log('here', action);
     yield put({ type: USER_UPDATED_SUCCESS })
   } catch (error) {
     console.log(error);
@@ -94,57 +68,12 @@ function* updateUser(action) {
   };
 };
 
-function* playMusic(action) {
-  try {
-    yield put({ type: PLAY_MUSIC_SUCCESS })
-  } catch(error) {
-    console.log(error);
-    yield put({ type: PLAY_MUSIC_FAILURE })
-  };
-};
-
-function* pauseMusic(action) {
-  try {
-    yield put({ type: PAUSE_MUSIC_SUCCESS })
-  } catch(error) {
-    console.log(error);
-    yield put({ type: PAUSE_MUSIC_FAILURE })
-  };
-};
-
-function* playNext(action) {
-  try {
-    yield put({ type: NEXT_SONG_SUCCESS })
-  } catch(error) {
-    console.log(error);
-    yield put({ type: NEXT_SONG_FAILURE })
-  };
-};
-
-function* playPrev(action) {
-  try {
-    yield put({ type: PREV_SONG_SUCCESS })
-  } catch(error) {
-    console.log(error);
-    yield put({ type: PREV_SONG_FAILURE })
-  };
-};
-
-function* shuffle(action) {
-  yield put({ type: SHUFFLE_MUSIC })
-}
-
 function* rootSaga() {
   yield takeEvery(FETCH_MUSIC, fetchMusic)
   yield takeEvery(FETCH_DAILY, fetchDaily)
   yield takeEvery(LOGIN, facebookLogin)
   yield takeEvery(LOGOUT, facebookLogout)
   yield takeEvery(USER_UPDATED, updateUser)
-  yield takeEvery(PLAY_MUSIC, playMusic)
-  yield takeEvery(PAUSE_MUSIC, pauseMusic)
-  yield takeEvery(NEXT_SONG, playNext)
-  yield takeEvery(PREV_SONG, playPrev)
-  yield takeLatest(SHUFFLE_MUSIC, shuffle)
 };
 
 export default rootSaga;

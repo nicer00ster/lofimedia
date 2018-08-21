@@ -24,69 +24,47 @@ class Player extends React.Component {
     };
   };
 
-  setDuration(data) {
-    this.setState({ totalLength: Math.floor(data.duration) });
-  };
+  // seek(time) {
+  //   time = Math.round(time);
+  //   this.refs.audioRef && this.refs.audioRef.seek(time);
+  //   this.setState({
+  //     currentPosition: time,
+  //     paused: false,
+  //   });
+  // };
 
-  setTime(data) {
-    this.setState({ currentPosition: Math.floor(data.currentTime) });
-  };
-
-  seek(time) {
-    time = Math.round(time);
-    this.refs.audioRef && this.refs.audioRef.seek(time);
-    this.setState({
-      currentPosition: time,
-      paused: false,
-    });
-  };
-
-  onBack() {
-    if (this.state.currentPosition < 10 && this.state.selectedTrack > 0) {
-      this.refs.audioRef && this.refs.audioRef.seek(0);
-      this.setState({ changingTrack: true });
-      setTimeout(() => this.setState({
-        currentPosition: 0,
-        paused: false,
-        totalLength: 1,
-        changingTrack: false,
-        selectedTrack: this.state.selectedTrack - 1,
-      }), 0);
-    } else {
-      this.refs.audioRef.seek(0);
-      this.setState({
-        currentPosition: 0,
-      });
-    };
-  };
-
-  onForward() {
-    if (this.state.selectedTrack < this.props.screenProps.tracks.tracks.length - 1) {
-      this.refs.audioRef && this.refs.audioRef.seek(0);
-      this.setState({ changingTrack: true });
-      setTimeout(() => this.setState({
-        currentPosition: 0,
-        totalLength: 1,
-        paused: false,
-        changingTrack: false,
-        selectedTrack: this.state.shuffleOn ? Math.floor(Math.random() * this.props.screenProps.tracks.tracks.length) : this.state.selectedTrack + 1,
-      }), 0);
-    };
-  };
-
-  onShuffle() {
-    this.setState({ shuffleOn: !this.state.shuffleOn });
-    if(this.state.repeatOn) {
-      this.setState({ repeatOn: false, shuffleOn: true });
-    };
-  };
-
-  onRepeat() {
-    this.setState({ repeatOn: !this.state.repeatOn });
-    if(this.state.shuffleOn) {
-      this.setState({ shuffleOn: false, repeatOn: true });
-    };
-  };
+  // onBack() {
+  //   if (this.state.currentPosition < 10 && this.state.selectedTrack > 0) {
+  //     this.refs.audioRef && this.refs.audioRef.seek(0);
+  //     this.setState({ changingTrack: true });
+  //     setTimeout(() => this.setState({
+  //       currentPosition: 0,
+  //       paused: false,
+  //       totalLength: 1,
+  //       changingTrack: false,
+  //       selectedTrack: this.state.selectedTrack - 1,
+  //     }), 0);
+  //   } else {
+  //     this.refs.audioRef.seek(0);
+  //     this.setState({
+  //       currentPosition: 0,
+  //     });
+  //   };
+  // };
+  //
+  // onForward() {
+  //   if (this.state.selectedTrack < this.props.screenProps.tracks.tracks.length - 1) {
+  //     this.refs.audioRef && this.refs.audioRef.seek(0);
+  //     this.setState({ changingTrack: true });
+  //     setTimeout(() => this.setState({
+  //       currentPosition: 0,
+  //       totalLength: 1,
+  //       paused: false,
+  //       changingTrack: false,
+  //       selectedTrack: this.state.shuffleOn ? Math.floor(Math.random() * this.props.screenProps.tracks.tracks.length) : this.state.selectedTrack + 1,
+  //     }), 0);
+  //   };
+  // };
 
   renderLoading() {
     return <Spinner type="9CubeGrid" size={100} color="white" style={{ flex: 1, alignSelf: 'center' }}/>
@@ -137,12 +115,12 @@ class Player extends React.Component {
               {/* </GestureRecognizer> */}
               <TrackDetails title={track.title} artist={track.artist} />
               <SeekBar
-                onSeek={this.seek.bind(this)}
-                trackLength={this.state.totalLength}
-                onSlidingStart={() => this.setState({ paused: true })}
-                currentPosition={this.state.currentPosition} />
+                onSeek={screenProps.seek}
+                trackLength={screenProps.tracks.duration}
+                onSlidingStart={screenProps.pauseMusic}
+                currentPosition={screenProps.tracks.position} />
               <Controls
-                repeatOn={this.state.repeatOn}
+                repeatOn={screenProps.tracks.repeat}
                 shuffleOn={screenProps.tracks.shuffle}
                 forwardDisabled={screenProps.tracks.index === screenProps.tracks.tracks.length - 1}
                 onPressShuffle={screenProps.shuffleMusic}
