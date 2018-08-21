@@ -47,7 +47,7 @@ class Root extends React.Component {
           repeat={tracks.repeat}
           onLoadStart={this.loadStart}
           onLoad={setDuration}
-          onProgress={this.lazySeek.bind(this)}
+          onProgress={setTime}
           progressUpdateInterval={1000}
           onEnd={nextSong}
           onError={this.videoError}
