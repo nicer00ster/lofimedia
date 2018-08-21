@@ -47,8 +47,8 @@ const RootStack = createBottomTabNavigator({
 });
 
 const drawerConfig = {
-  contentComponent: props => (
-    <DrawerScreen {...props} />
+  contentComponent: (props) => (
+    <DrawerScreen {...props} audioRef={this.props.audioRef} />
   ),
   drawerWidth: 315,
   contentOptions: {
@@ -82,8 +82,8 @@ const Navigator = createDrawerNavigator({
     }
   },
 }, {
-  contentComponent: (props, audioRef) => (
-    <DrawerScreen {...props} audioRef={audioRef} />
+  contentComponent: props => (
+    <DrawerScreen {...props} />
   ),
   drawerWidth: 315,
   contentOptions: {

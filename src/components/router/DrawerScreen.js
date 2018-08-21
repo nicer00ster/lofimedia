@@ -3,7 +3,7 @@ import { StyleSheet, Platform, StatusBar, ScrollView, Image, View, Text, Dimensi
 import { DrawerItems, SafeAreaView } from 'react-navigation';
 import { Divider, SocialIcon, Icon } from 'react-native-elements';
 
-const DrawerScreen = props => (
+const DrawerScreen = (props, audioRef) => (
    <ScrollView>
      <View style={{ height: Dimensions.get('window').height }}>
        <Image
@@ -20,8 +20,7 @@ const DrawerScreen = props => (
              color="#1f222e"
              containerStyle={styles.cancel}
              size={32}
-             onPress={() => console.log(props.navigation.getScreenProps())}
-             // onPress={() => props.navigation.closeDrawer()}
+             onPress={() => props.navigation.closeDrawer()}
            />
          {/* </View> */}
          <Text style={styles.header}>Lofi Media</Text>

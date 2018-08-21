@@ -57,7 +57,7 @@ class Root extends React.Component {
 const mapStateToProps = ({ tracks, daily, user }) => ({
   tracks: tracks,
   user: user,
-  daily: daily.daily.dailyMessage,
+  daily: daily.daily.dailyMessage
 });
 
 const mapDispatchToProps = {
