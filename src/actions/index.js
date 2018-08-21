@@ -99,6 +99,7 @@ export function setTime(data) {
 };
 
 export function seek(time) {
+  // this.props.screenProps.forwardedRef && this.props.screenProps.forwardedRef.seek(time);
   time = Math.round(time);
   console.log('time here', time);
   return {

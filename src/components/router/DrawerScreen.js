@@ -20,7 +20,8 @@ const DrawerScreen = props => (
              color="#1f222e"
              containerStyle={styles.cancel}
              size={32}
-             onPress={() => props.navigation.closeDrawer()}
+             onPress={() => console.log(props.navigation.getScreenProps())}
+             // onPress={() => props.navigation.closeDrawer()}
            />
          {/* </View> */}
          <Text style={styles.header}>Lofi Media</Text>

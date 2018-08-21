@@ -25,21 +25,21 @@ export default class Profile extends React.Component {
           {
             this.props.screenProps.user.user.photoURL !== '' && <Image style={styles.image} source={{ uri: this.props.screenProps.user.user.photoURL }} />
           }
-            <View style={styles.imageText}>
-              <Text style={styles.nameText}>{this.props.screenProps.user.user.displayName}</Text>
-              <Text style={styles.text}>{this.props.screenProps.user.user.email}</Text>
-            </View>
+          <View style={styles.imageText}>
+            <Text style={styles.nameText}>{this.props.screenProps.user.user.displayName}</Text>
+            <Text style={styles.text}>{this.props.screenProps.user.user.email}</Text>
+          </View>
 
           </View>
-            <Button
-              onPress={() => this.props.screenProps.onfbLogout()}
-              medium
-              raised
-              backgroundColor='#1f222e'
-              containerViewStyle={{ width: imageWidth }}
-              textStyle={styles.text}
-              icon={{ name: 'logout', type: 'simple-line-icon' }}
-              title='LOGOUT' />
+          <Button
+            onPress={() => this.props.screenProps.onfbLogout()}
+            medium
+            raised
+            backgroundColor='#1f222e'
+            containerViewStyle={{ width: imageWidth }}
+            textStyle={styles.text}
+            icon={{ name: 'logout', type: 'simple-line-icon' }}
+            title='LOGOUT' />
         </View>
       );
     };

@@ -27,27 +27,24 @@ class Root extends React.Component {
     fetchUser(this.props.updateUserInfo);
     this.props.fetchMusic();
     this.props.fetchDaily();
+    this.audio = React.createRef();
   };
-
-  testSeek() {
-    this.refs.audio.seek(43)
-  }
 
   render() {
     const { tracks, setDuration, setTime, nextSong } = this.props;
     const track = Object.assign({}, this.props.tracks.tracks[this.props.tracks.index]);
     return (
       <React.Fragment>
-        <Navigator {...this.props} onRef={this.audio} screenProps={this.props} />
+        <Navigator {...this.props} audioRef={this.audio} screenProps={this.props} />
         <Video
           source={{ uri: track.mp3url }}
-          ref={ref => this.audio = ref}
+          ref={this.audio}
           playInBackground={true}
           paused={tracks.paused}
           repeat={tracks.repeat}
           onLoadStart={this.loadStart}
-          onLoad={setDuration}
-          onProgress={setTime}
+          onLoad={setDuration.bind(this)}
+          onProgress={setTime.bind(this)}
           progressUpdateInterval={1000}
           onEnd={nextSong}
           onError={this.videoError}
@@ -81,3 +78,12 @@ const mapDispatchToProps = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Root);
+
+// const ConnectedRoot = connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(Root);
+
+// export default React.forwardRef((props, ref) => {
+//   return <ConnectedRoot {...props} forwardedRef={ref => this.audio = ref} />
+// });

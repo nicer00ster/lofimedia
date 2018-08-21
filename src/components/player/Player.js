@@ -31,7 +31,7 @@ class Player extends React.Component {
     };
   };
   componentDidMount() {
-     // const parentNavigator = this.props.navigation.getScreenProps();
+     // const parentNavigator = this.props();
      // console.log(parentNavigator);
   }
   // seek(time) {
@@ -121,11 +121,11 @@ class Player extends React.Component {
                 onSwipeLeft={() => this.onForward()}
                 onSwipeRight={() => this.onBack()}
                 config={config}> */}
-              <AlbumArt onPress={() => console.log(this.props.onRef)} tracks={screenProps.tracks.tracks} url={track.trackphoto} />
+              <AlbumArt onPress={() => console.log(screenProps.forwardedRef)} tracks={screenProps.tracks.tracks} url={track.trackphoto} />
               {/* </GestureRecognizer> */}
               <TrackDetails title={track.title} artist={track.artist} />
               <SeekBar
-                onSeek={screenProps.seek}
+                onSeek={screenProps.seek.bind(this)}
                 trackLength={screenProps.tracks.duration}
                 onSlidingStart={screenProps.pauseMusic}
                 currentPosition={screenProps.tracks.position} />

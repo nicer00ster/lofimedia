@@ -47,8 +47,8 @@ const RootStack = createBottomTabNavigator({
 });
 
 const drawerConfig = {
-  contentComponent: (props, onRef) => (
-    <DrawerScreen {...props} onRef={onRef} />
+  contentComponent: props => (
+    <DrawerScreen {...props} />
   ),
   drawerWidth: 315,
   contentOptions: {
@@ -81,6 +81,24 @@ const Navigator = createDrawerNavigator({
       drawerIcon: ({ tintColor }) => <Icon type="font-awesome" name="user-circle" color={tintColor} />
     }
   },
-}, drawerConfig);
+}, {
+  contentComponent: (props, audioRef) => (
+    <DrawerScreen {...props} audioRef={audioRef} />
+  ),
+  drawerWidth: 315,
+  contentOptions: {
+    activeTintColor: '#1f222e',
+    inactiveTintColor: '#666',
+    style: {
+      paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0
+    },
+    itemsContainerStyle: {
+      flex: 1
+    },
+    labelStyle: {
+      fontWeight: '600'
+    }
+  },
+});
 
 export default Navigator;
