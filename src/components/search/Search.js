@@ -3,25 +3,41 @@ import { StyleSheet, View, Text, Image, Dimensions, FlatList, ScrollView } from 
 import { Icon, SearchBar, ListItem } from 'react-native-elements';
 import Spinner from 'react-native-spinkit';
 import Header from '../Header';
+import { filterArrayOfObjects } from '../../helpers';
 
 export default class Search extends React.Component {
   constructor() {
     super();
     this.state = {
-      results: '',
+      tracks: '',
       search: '',
-      searching: false
+      searching: false,
+      results: ''
     };
   };
+
   renderLoading() {
     return <Spinner type="9CubeGrid" size={100} color="white" style={{ flex: 1, alignSelf: 'center' }}/>
   };
+
   searchMusic() {
-    this.setState({ searching: true, results: this.props.screenProps.tracks.tracks })
+    this.setState({ searching: true, tracks: this.props.screenProps.tracks.tracks });
     setTimeout(() => {
-      this.setState({ searching: false })
-    }, 2000)
-  }
+      filterArrayOfObjects(this.state.tracks, this.state.search)
+      .then(results => {
+        this.setState({ results })
+      })
+      this.setState({ searching: false, search: '' })
+    }, 2000);
+  };
+
+  // filterArrayOfObjects = (array, query) => {
+  //   let results = array.filter(item => {
+  //     return item.title.includes(query) || item.artist.includes(query)
+  //   });
+  //   this.setState({ results })
+  // };
+
   renderItems() {
     if(!this.state.results) {
       return (
@@ -34,7 +50,7 @@ export default class Search extends React.Component {
       return (
         <ScrollView>
           <FlatList
-            data={this.props.screenProps.tracks.tracks}
+            data={this.state.results}
             renderItem={({item}) =>
             <ListItem
               onPress={() => this.props.navigation.navigate('Selected', { ...item })}
@@ -46,9 +62,9 @@ export default class Search extends React.Component {
               subtitle={item.artist} />}
             />
           </ScrollView>
-      )
-    }
-  }
+      );
+    };
+  };
   render() {
     return (
       <View style={styles.container}>
