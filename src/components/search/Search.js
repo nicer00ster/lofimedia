@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, Dimensions, FlatList, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, Image, Dimensions, FlatList, ScrollView, Platform } from 'react-native';
 import { Icon, SearchBar, ListItem } from 'react-native-elements';
 import Spinner from 'react-native-spinkit';
 import Header from '../Header';
@@ -9,10 +9,10 @@ export default class Search extends React.Component {
   constructor() {
     super();
     this.state = {
-      tracks: '',
+      tracks: null,
       search: '',
       searching: false,
-      results: ''
+      results: null
     };
   };
 
@@ -23,28 +23,25 @@ export default class Search extends React.Component {
   searchMusic() {
     this.setState({ searching: true, tracks: this.props.screenProps.tracks.tracks });
     setTimeout(() => {
-      filterArrayOfObjects(this.state.tracks, this.state.search)
-      .then(results => {
-        this.setState({ results })
-      })
+      if(this.state.search) {
+        filterArrayOfObjects(this.state.tracks, this.state.search)
+        .then(results => {
+          this.setState({ results })
+        })
+      } else {
+        this.setState({ results: null });
+      }
       this.setState({ searching: false, search: '' })
     }, 2000);
   };
 
-  // filterArrayOfObjects = (array, query) => {
-  //   let results = array.filter(item => {
-  //     return item.title.includes(query) || item.artist.includes(query)
-  //   });
-  //   this.setState({ results })
-  // };
-
   renderItems() {
     if(!this.state.results) {
       return (
-        <React.Fragment>
+        <View style={{ width: screenWidth }}>
           <Text style={styles.text}>Search for a song.</Text>
           <Icon name="search" size={225} color='rgba(255, 255, 255, 0.5)' />
-        </React.Fragment>
+        </View>
       )
     } else {
       return (
@@ -65,6 +62,7 @@ export default class Search extends React.Component {
       );
     };
   };
+
   render() {
     return (
       <View style={styles.container}>
@@ -75,7 +73,7 @@ export default class Search extends React.Component {
           opacity={.25}
         />
         <Header navigation={this.props.navigation} avatar={this.props.screenProps.user.user.photoURL} daily={this.props.screenProps.daily} />
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'space-between' }}>
           <SearchBar
             ref={ref => this.search = ref}
             value={this.state.search}
@@ -115,11 +113,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   text: {
-    fontSize: 64,
-    fontFamily: 'sans-serif-thin',
+    fontSize: 52,
+    fontFamily: Platform.OS === 'android' ? 'sans-serif-thin' : 'Courier New',
     textAlign: 'center',
     textAlignVertical: 'bottom',
-    flex: 1,
     color: 'rgba(255, 255, 255, 0.50)',
   },
   searchInput: {
