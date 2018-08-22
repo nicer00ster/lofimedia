@@ -2,22 +2,26 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet, Dimensions, Platform, Animated } from 'react-native';
 import { Icon } from 'react-native-elements';
 
-const AlbumArt = ({ url, onPress }) => (
-  <View style={styles.container}>
-    <TouchableOpacity onPress={onPress}>
-        <Image style={styles.image} source={{ uri: url }}/>
-    </TouchableOpacity>
-    <View style={styles.imageText}>
-      <Icon
-        type="font-awesome"
-        name="heart"
-        color="#1f222e"
-        raised
-        onPress={() => console.log('You liked this song')}
-        />
-    </View>
-  </View>
-);
+class AlbumArt extends React.PureComponent {
+  render() {
+    return (
+      <View style={styles.container}>
+        <TouchableOpacity onPress={this.props.onPress}>
+          <Image style={styles.image} source={{ uri: this.props.url }}/>
+        </TouchableOpacity>
+        <View style={styles.imageText}>
+          <Icon
+            type="font-awesome"
+            name="heart"
+            color="#1f222e"
+            raised
+            onPress={() => console.log('You liked this song')}
+          />
+        </View>
+      </View>
+    );
+  };
+};
 
 const { width, height } = Dimensions.get('window');
 const imageWidth = width - 24

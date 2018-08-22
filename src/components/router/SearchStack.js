@@ -1,12 +1,16 @@
 import React from 'react';
 import { Animated, Easing } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
-import Profile from '../profile/Profile';
+import Search from '../search/Search';
+import SearchSelect from '../search/SearchSelect';
 
-const UserStack = createStackNavigator({
-  Profile: {
-    screen: Profile
+const SearchStack = createStackNavigator({
+  Search: {
+    screen: Search
   },
+  Selected: {
+    screen: SearchSelect
+  }
 }, {
     headerMode: 'none',
     mode: 'modal',
@@ -35,7 +39,7 @@ const UserStack = createStackNavigator({
         const height = layout.initHeight;
         const translateY = position.interpolate({
           inputRange: [index - 1, index, index + 1],
-          outputRange: [height, 0, 0],
+          outputRange: [height, 0, 200],
         });
 
         const opacity = position.interpolate({
@@ -48,4 +52,4 @@ const UserStack = createStackNavigator({
     }),
   });
 
-export default UserStack;
+export default SearchStack;

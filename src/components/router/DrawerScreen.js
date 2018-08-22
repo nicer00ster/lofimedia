@@ -3,7 +3,7 @@ import { StyleSheet, Platform, StatusBar, ScrollView, Image, View, Text, Dimensi
 import { DrawerItems, SafeAreaView } from 'react-navigation';
 import { Divider, SocialIcon, Icon } from 'react-native-elements';
 
-const DrawerScreen = (props, audioRef) => (
+const DrawerScreen = props => (
    <ScrollView>
      <View style={{ height: Dimensions.get('window').height }}>
        <Image
@@ -13,16 +13,13 @@ const DrawerScreen = (props, audioRef) => (
          resizeMode='cover'
        />
        <SafeAreaView style={{ flex: 1, backgroundColor: 'transparent' }} forceInset={{ top: 'always', horizontal: 'never' }}>
-         {/* <View style={styles.cancel}> */}
-           <Icon
-             type="font-awesome"
-             name="times-circle"
-             color="#1f222e"
-             containerStyle={styles.cancel}
-             size={32}
-             onPress={() => props.navigation.closeDrawer()}
-           />
-         {/* </View> */}
+         <Icon
+           type="font-awesome"
+           name="times-circle"
+           color="#1f222e"
+           containerStyle={styles.cancel}
+           size={32}
+           onPress={() => props.navigation.closeDrawer()}/>
          <Text style={styles.header}>Lofi Media</Text>
          <Divider style={styles.divider} />
          <DrawerItems {...props} />
@@ -49,7 +46,7 @@ const DrawerScreen = (props, audioRef) => (
 const styles = StyleSheet.create({
   header: {
     marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-    fontFamily: 'sans-serif-thin',
+    fontFamily: Platform.OS === "android" ? 'sans-serif-thin' : 'Courier New',
     fontSize: 36,
     fontWeight: '200',
     textAlign: 'center',

@@ -6,8 +6,6 @@ import createSagaMiddleware from 'redux-saga';
 
 import rootSaga from './sagas';
 import rootReducer from './reducers';
-import { SET_TIME } from './constants';
-// import Navigator from './components/router/Router';
 import Root from './Root';
 // Uncomment in production
 console.disableYellowBox = true;
@@ -26,7 +24,7 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <Root/>
+        <Root />
       </Provider>
     );
   };

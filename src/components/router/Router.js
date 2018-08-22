@@ -4,10 +4,11 @@ import { createDrawerNavigator, createBottomTabNavigator } from 'react-navigatio
 import { Icon } from 'react-native-elements';
 
 import UserStack from './UserStack';
+import SearchStack from './SearchStack';
 import Player from '../player/Player';
 import Profile from '../profile/Profile';
 import Playlist from '../Playlist';
-import Search from '../Search';
+import Search from '../search/Search';
 import DrawerScreen from './DrawerScreen';
 
 const RootStack = createBottomTabNavigator({
@@ -27,7 +28,7 @@ const RootStack = createBottomTabNavigator({
     }
   },
   Search: {
-    screen: Search,
+    screen: SearchStack,
     navigationOptions: {
       tabBarLabel: 'SEARCH',
       tabBarIcon: ({ tintColor }) => <Icon name="search" size={25} color={tintColor} />
@@ -47,8 +48,8 @@ const RootStack = createBottomTabNavigator({
 });
 
 const drawerConfig = {
-  contentComponent: (props) => (
-    <DrawerScreen {...props} audioRef={this.props.audioRef} />
+  contentComponent: props => (
+    <DrawerScreen {...props} />
   ),
   drawerWidth: 315,
   contentOptions: {
@@ -81,24 +82,6 @@ const Navigator = createDrawerNavigator({
       drawerIcon: ({ tintColor }) => <Icon type="font-awesome" name="user-circle" color={tintColor} />
     }
   },
-}, {
-  contentComponent: props => (
-    <DrawerScreen {...props} />
-  ),
-  drawerWidth: 315,
-  contentOptions: {
-    activeTintColor: '#1f222e',
-    inactiveTintColor: '#666',
-    style: {
-      paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0
-    },
-    itemsContainerStyle: {
-      flex: 1
-    },
-    labelStyle: {
-      fontWeight: '600'
-    }
-  },
-});
+}, drawerConfig);
 
 export default Navigator;

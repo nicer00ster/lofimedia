@@ -5,8 +5,8 @@ import { Icon } from 'react-native-elements';
 
 const Controls = ({
   paused,
-  shuffleOn,
-  repeatOn,
+  shuffle,
+  repeat,
   onPressPlay,
   onPressPause,
   onBack,
@@ -17,7 +17,7 @@ const Controls = ({
 }) => (
   <View style={styles.container}>
     <TouchableOpacity activeOpacity={0.0} onPress={onPressShuffle}>
-      <Icon iconStyle={[styles.secondaryControl, shuffleOn ? [] : styles.off]} type="simple-line-icon" name="shuffle" color="white"/>
+      <Icon iconStyle={[styles.secondaryControl, shuffle ? [] : styles.off]} type="simple-line-icon" name="shuffle" color="white"/>
     </TouchableOpacity>
     <View style={{width: 40}} />
     <TouchableOpacity onPress={onBack}>
@@ -43,7 +43,7 @@ const Controls = ({
     </TouchableOpacity>
     <View style={{width: 40}} />
     <TouchableOpacity activeOpacity={0.0} onPress={onPressRepeat}>
-      <Icon iconStyle={[styles.secondaryControl, repeatOn ? [] : styles.off]} type="simple-line-icon" name="loop" color="white" />
+      <Icon iconStyle={[styles.secondaryControl, repeat ? [] : styles.off]} type="simple-line-icon" name="loop" color="white" />
     </TouchableOpacity>
   </View>
 );
@@ -72,4 +72,4 @@ const styles = StyleSheet.create({
   off: {
     opacity: 0.30,
   }
-})
+});

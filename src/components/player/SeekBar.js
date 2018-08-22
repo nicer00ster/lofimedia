@@ -9,14 +9,9 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-const SeekBar = ({
-  trackLength,
-  currentPosition,
-  onSeek,
-  onSlidingStart,
-}) => {
-  const elapsed = minutesAndSeconds(currentPosition);
-  const remaining = minutesAndSeconds(trackLength - currentPosition);
+const SeekBar = ({ duration, position, onSeek, onSlidingStart }) => {
+  const elapsed = minutesAndSeconds(position);
+  const remaining = minutesAndSeconds(duration - position);
 
   return (
     <View style={styles.container}>
@@ -26,14 +21,14 @@ const SeekBar = ({
         </Text>
         <View style={{ flex: 1 }} />
         <Text style={[ styles.text, {width: 40} ]}>
-          {trackLength > 1 && "-" + remaining[0] + ":" + remaining[1]}
+          {duration > 1 && "-" + remaining[0] + ":" + remaining[1]}
         </Text>
       </View>
       <Slider
-        maximumValue={Math.max(trackLength, 1, currentPosition + 1)}
+        maximumValue={Math.max(duration, 1, position + 1)}
         onSlidingStart={onSlidingStart}
         onSlidingComplete={onSeek}
-        value={currentPosition}
+        value={position}
         style={styles.slider}
         minimumTrackTintColor='#fff'
         maximumTrackTintColor='rgba(255, 255, 255, 0.14)'
