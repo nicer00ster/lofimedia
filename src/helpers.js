@@ -14,6 +14,9 @@ export const minutesAndSeconds = position => ([
 
 export const filterArrayOfObjects = (array, query) => {
   return new Promise((resolve, reject) => {
+    if (query.length === 0) {
+      return resolve();
+    };
     let results = array.filter(item => {
       return item.title.includes(query) || item.artist.includes(query)
     })

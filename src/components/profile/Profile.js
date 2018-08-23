@@ -22,14 +22,11 @@ export default class Profile extends React.Component {
       return (
         <View style={styles.container}>
           <View style={styles.imageContainer}>
-          {
-            this.props.screenProps.user.user.photoURL !== '' && <Image style={styles.image} source={{ uri: this.props.screenProps.user.user.photoURL }} />
-          }
+          {this.props.screenProps.user.user.photoURL !== '' && <Image style={styles.image} source={{ uri: this.props.screenProps.user.user.photoURL }} />}
           <View style={styles.imageText}>
             <Text style={styles.nameText}>{this.props.screenProps.user.user.displayName}</Text>
             <Text style={styles.text}>{this.props.screenProps.user.user.email}</Text>
           </View>
-
           </View>
           <Button
             onPress={() => this.props.screenProps.onfbLogout()}
@@ -55,9 +52,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-between'
-  },
-  imageContainer: {
-    // alignSelf: 'flex-start'
   },
   image: {
     borderWidth: .5,

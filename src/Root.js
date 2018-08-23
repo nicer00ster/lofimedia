@@ -14,7 +14,8 @@ import {
   prevSong,
   setDuration,
   setTime,
-  seek
+  seek,
+  searchMusic
 } from './actions';
 
 import { fetchUser } from './auth/index';
@@ -32,10 +33,11 @@ class Root extends React.Component {
   };
 };
 
-const mapStateToProps = ({ tracks, daily, user }) => ({
+const mapStateToProps = ({ tracks, daily, user, search }) => ({
   tracks: tracks,
   user: user,
-  daily: daily.daily.dailyMessage
+  daily: daily.daily.dailyMessage,
+  search: search
 });
 
 const mapDispatchToProps = {
@@ -50,6 +52,7 @@ const mapDispatchToProps = {
   repeatMusic,
   nextSong,
   prevSong,
+  searchMusic
   // setDuration,
   // setTime,
   // seek

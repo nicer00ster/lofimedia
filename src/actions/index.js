@@ -12,7 +12,8 @@ import {
   TOGGLE_REPEAT,
   SET_TIME,
   SET_DURATION,
-  SEEK_TIME
+  SEEK_TIME,
+  SEARCH
 } from '../constants'
 
 export function fetchMusic() {
@@ -84,25 +85,33 @@ export function repeatMusic() {
   };
 };
 
-export function setDuration(data) {
+export function searchMusic(query, tracks) {
   return {
-    type: SET_DURATION,
-    data
+    type: SEARCH,
+    query,
+    tracks
   };
 };
 
-export function setTime(data) {
-  return {
-    type: SET_TIME,
-    data
-  };
-};
-
-export function seek(time) {
-  // this.props.screenProps.forwardedRef && this.props.screenProps.forwardedRef.seek(time);
-  time = Math.round(time);
-  return {
-    type: SEEK_TIME,
-    time
-  };
-};
+// export function setDuration(data) {
+//   return {
+//     type: SET_DURATION,
+//     data
+//   };
+// };
+//
+// export function setTime(data) {
+//   return {
+//     type: SET_TIME,
+//     data
+//   };
+// };
+//
+// export function seek(time) {
+//   // this.props.screenProps.forwardedRef && this.props.screenProps.forwardedRef.seek(time);
+//   time = Math.round(time);
+//   return {
+//     type: SEEK_TIME,
+//     time
+//   };
+// };

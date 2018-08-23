@@ -14,12 +14,16 @@ import {
   USER_UPDATED,
   USER_UPDATED_SUCCESS,
   USER_UPDATED_FAILURE,
+  SEARCH,
+  SEARCH_SUCCESS,
+  SEARCH_FAILURE
 } from '../constants';
 
 import { put, takeEvery, takeLatest, call } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import { apiMusic, apiDaily, apiUser } from '../api';
 import { fbLogin, fbLogout } from '../auth/index';
+import { filterArrayOfObjects } from '../helpers';
 
 function* fetchMusic(action) {
   try {
@@ -68,12 +72,24 @@ function* updateUser(action) {
   };
 };
 
+function* searchQuery(action) {
+  try {
+    const results = yield call(filterArrayOfObjects, action.tracks, action.query);
+    yield delay(1250);
+    yield put({ type: SEARCH_SUCCESS, results })
+  } catch(error) {
+    console.log(error);
+    yield put({ type: SEARCH_FAILURE })
+  };
+};
+
 function* rootSaga() {
   yield takeEvery(FETCH_MUSIC, fetchMusic)
   yield takeEvery(FETCH_DAILY, fetchDaily)
   yield takeEvery(LOGIN, facebookLogin)
   yield takeEvery(LOGOUT, facebookLogout)
   yield takeEvery(USER_UPDATED, updateUser)
+  yield takeEvery(SEARCH, searchQuery)
 };
 
 export default rootSaga;
