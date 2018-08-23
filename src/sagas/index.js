@@ -54,7 +54,7 @@ function* facebookLogin(action) {
 
 function* facebookLogout(action) {
   try {
-    yield delay(3000)
+    yield delay(2000);
     yield call(fbLogout);
     yield put({ type: LOGOUT_SUCCESS })
   } catch (error) {
@@ -65,6 +65,7 @@ function* facebookLogout(action) {
 
 function* updateUser(action) {
   try {
+    console.log(action);
     yield put({ type: USER_UPDATED_SUCCESS })
   } catch (error) {
     console.log(error);

@@ -18,6 +18,10 @@ These instructions will get you a copy of the project up and running on your loc
 - [x] Transfer search functionality to redux
 - [ ] Have app up and running on both iOS and Android with near identical UI & functionality
 - [ ] Fill up profile page with relative information
+- [ ] Add delay to the logout button and display loading indicator
+- [x] Add authentication methods to drawer screen (Login & Logout)
+- [x] Add social icons to drawer screen
+- [x] Fixed error routing from nested screen within tab back to root
 - [ ]
 
 ### Installing

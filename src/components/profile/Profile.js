@@ -1,42 +1,47 @@
 import React from 'react';
-import { StyleSheet, View, Image, Dimensions, Text } from 'react-native';
-import { fbLogout } from '../../auth/index';
-import { SocialIcon, Button } from 'react-native-elements';
-import { checkObject } from '../../helpers'
+import { StyleSheet, View, Image, Dimensions, Text, StatusBar } from 'react-native';
+import { Button } from 'react-native-elements';
 import Spinner from 'react-native-spinkit';
 import LoginMethods from './LoginMethods';
-
+import Header from '../Header';
 
 export default class Profile extends React.Component {
   render() {
-    if(this.props.screenProps.user.fetching) {
+    const { screenProps } = this.props;
+    if(screenProps.user.fetching) {
       return <Spinner type="9CubeGrid" size={100} color="#1f222e" style={{ flex: 1, alignSelf: 'center' }}/>
     }
-    if(!this.props.screenProps.user.user.authenticated) {
+    if(!screenProps.user.user.authenticated) {
       return (
         <View style={styles.container}>
-          <LoginMethods onfbLogin={this.props.screenProps.onfbLogin} />
+          <StatusBar hidden={true} />
+          <Header navigation={this.props.navigation} avatar={screenProps.user.user.photoURL} daily={screenProps.daily} />
+          <LoginMethods onfbLogin={screenProps.onfbLogin} />
         </View>
         );
       } else {
       return (
         <View style={styles.container}>
-          <View style={styles.imageContainer}>
-          {this.props.screenProps.user.user.photoURL !== '' && <Image style={styles.image} source={{ uri: this.props.screenProps.user.user.photoURL }} />}
-          <View style={styles.imageText}>
-            <Text style={styles.nameText}>{this.props.screenProps.user.user.displayName}</Text>
-            <Text style={styles.text}>{this.props.screenProps.user.user.email}</Text>
+          <StatusBar hidden={true} />
+          <Header navigation={this.props.navigation} avatar={screenProps.user.user.photoURL} daily={screenProps.daily} />
+          <View>
+            {screenProps.user.user.photoURL !== '' && <Image style={styles.image} source={{ uri: screenProps.user.user.photoURL }} />}
+            <View style={styles.textContainer}>
+              <Text style={styles.name}>{screenProps.user.user.displayName}</Text>
+              <Text style={styles.text}>{screenProps.user.user.email}</Text>
+            </View>
           </View>
+          <View style={styles.bottomContent}>
+            <Button
+              onPress={() => screenProps.onfbLogout()}
+              medium
+              raised
+              backgroundColor='#1f222e'
+              containerViewStyle={{ width: width }}
+              textStyle={styles.text}
+              icon={{ name: 'logout', type: 'simple-line-icon' }}
+              title='LOGOUT' />
           </View>
-          <Button
-            onPress={() => this.props.screenProps.onfbLogout()}
-            medium
-            raised
-            backgroundColor='#1f222e'
-            containerViewStyle={{ width: imageWidth }}
-            textStyle={styles.text}
-            icon={{ name: 'logout', type: 'simple-line-icon' }}
-            title='LOGOUT' />
         </View>
       );
     };
@@ -44,14 +49,15 @@ export default class Profile extends React.Component {
 };
 
 const { width, height } = Dimensions.get('window');
-const imageWidth = width;
+const imageWidth = width - 12;
 const imageHeight = width - 76;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'flex-start',
+    backgroundColor: 'rgba(31, 34, 46, 0.75)'
   },
   image: {
     borderWidth: .5,
@@ -59,7 +65,7 @@ const styles = StyleSheet.create({
     width: imageWidth,
     height: imageHeight,
   },
-  imageText: {
+  textContainer: {
     position: 'absolute',
     justifyContent: 'flex-end',
     alignItems: 'flex-start',
@@ -69,7 +75,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     margin: 12
   },
-  nameText: {
+  name: {
     fontSize: 18,
     fontWeight: 'bold',
     color: 'white',
@@ -78,5 +84,10 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
     color: 'white',
-  }
+  },
+  bottomContent: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end'
+  },
 })

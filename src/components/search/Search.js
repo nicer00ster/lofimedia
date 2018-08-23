@@ -1,14 +1,12 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, Dimensions, FlatList, ScrollView, Platform } from 'react-native';
+import { StyleSheet, View, Text, Dimensions, FlatList, ScrollView, Platform } from 'react-native';
 import { Icon, SearchBar, ListItem } from 'react-native-elements';
 import Spinner from 'react-native-spinkit';
 import Header from '../Header';
-import { filterArrayOfObjects } from '../../helpers';
+import Container from '../Container';
 
 export default class Search extends React.Component {
-  state = {
-    query: '',
-  };
+  state = { query: '' };
 
   renderLoading() {
     return <Spinner type="9CubeGrid" size={100} color="white" style={{ flex: 1, alignSelf: 'center' }}/>
@@ -27,7 +25,7 @@ export default class Search extends React.Component {
         <ScrollView>
           <FlatList
             data={this.props.screenProps.search.results}
-            renderItem={({item}) =>
+            renderItem={({ item }) =>
           <ListItem
             onPress={() => this.props.navigation.navigate('Selected', { ...item })}
             containerStyle={{ width: screenWidth }}
@@ -45,30 +43,24 @@ export default class Search extends React.Component {
   render() {
     const { screenProps } = this.props;
     return (
-      <View style={styles.container}>
-        <Image
-          source={require('../../assets/img/cover.jpg')}
-          style={styles.background}
-          resizeMode="cover"
-          opacity={.25}
-        />
-        <Header navigation={this.props.navigation} avatar={this.props.screenProps.user.user.photoURL} daily={this.props.screenProps.daily} />
+      <Container navigation={this.props.navigation} avatar={screenProps.user.user.photoURL} daily={screenProps.daily}>
         <SearchBar
           ref={ref => this.search = ref}
           value={this.state.query}
           onChangeText={search => this.setState({ query: search })}
-          showLoadingIcon={screenProps.search.searching}
-          onEndEditing={() => screenProps.searchMusic(this.state.query, screenProps.tracks.tracks)}
+          onSubmitEditing={() => screenProps.searchMusic(this.state.query, screenProps.tracks.tracks)}
+          onEndEditing={() => this.search.clearText()}
           inputStyle={styles.searchInput}
           containerStyle={styles.searchContainer}
+          showLoadingIcon={screenProps.search.searching}
           icon={{ type: 'font-awesome', name: 'search' }}
-          placeholder='...' />
+          placeholder='Search...' />
         <View style={styles.content}>
         {screenProps.search.searching
           ? this.renderLoading()
           : this.renderItems()}
         </View>
-      </View>
+      </Container>
     )
   };
 };
@@ -78,22 +70,10 @@ const screenWidth = width - 36
 const screenHeight = width - 76;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#1f222e',
-  },
   content: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
-  },
-  background: {
-    flex: 1,
-    height: '100%',
-    width: '100%',
-    position: 'absolute',
   },
   text: {
     fontSize: 52,
@@ -107,6 +87,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(31, 34, 46, 0.5)'
   },
   searchContainer: {
+    alignSelf: 'center',
     borderRadius: 2,
     borderTopWidth: 0,
     borderBottomWidth: 0,

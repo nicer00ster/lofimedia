@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Platform, StatusBar, ScrollView, Image, View, Text, Dimensions } from 'react-native';
 import { DrawerItems, SafeAreaView } from 'react-navigation';
-import { Divider, SocialIcon, Icon } from 'react-native-elements';
+import { Divider, SocialIcon, Icon, Button } from 'react-native-elements';
 
 const DrawerScreen = props => (
    <ScrollView>
@@ -22,22 +22,35 @@ const DrawerScreen = props => (
            onPress={() => props.navigation.closeDrawer()}/>
          <Text style={styles.header}>Lofi Media</Text>
          <Divider style={styles.divider} />
-         <DrawerItems {...props} />
+         <DrawerItems {...props} onItemPress={routeOptions => {
+                props.navigation.navigate(routeOptions.route.routes[routeOptions.route.index].routeName, {})
+            }} />
          <Divider style={styles.divider} />
          <View style={styles.social}>
-           <SocialIcon
-             light
-             type='github'
-           />
-           <SocialIcon
-             light
-             type='stack-overflow'
-           />
-           <SocialIcon
-             light
-             type='soundcloud'
-           />
+              <SocialIcon
+                type='github'
+              />
          </View>
+         {props.screenProps.user.user.authenticated
+           ? <Button
+             onPress={() => props.screenProps.onfbLogout()}
+             loading={props.screenProps.user.fetching}
+             backgroundColor='#1f222e'
+             medium
+             raised
+             textStyle={styles.text}
+             icon={{ name: 'logout', type: 'simple-line-icon' }}
+             title='LOGOUT' />
+           : <Button
+             onPress={() => props.screenProps.onfbLogin()}
+             loading={props.screenProps.user.user.fetchingUserData}
+             backgroundColor='#3b5998'
+             raised
+             medium
+             textStyle={styles.text}
+             icon={{ name: 'social-facebook', type: 'simple-line-icon' }}
+             title="LOGIN WITH FACEBOOK"
+           />}
        </SafeAreaView>
      </View>
    </ScrollView>
@@ -61,6 +74,11 @@ const styles = StyleSheet.create({
     top: 0,
     height: Dimensions.get('window').height,
     width: Dimensions.get('window').width
+  },
+  text: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: 'white',
   },
   divider: {
     height: 1,

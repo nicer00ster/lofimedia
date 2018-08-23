@@ -13,18 +13,6 @@ const LoginMethods = props => (
         backgroundColor='#3b5998'
         icon={{ name: 'social-facebook', type: 'simple-line-icon' }}
         title='LOGIN WITH FACEBOOK' />
-      {/* <SocialIcon
-        onPress={() => fbLogin()}
-        type='twitter'
-      />
-      <SocialIcon
-        onPress={() => fbLogin()}
-        type='github'
-      />
-      <SocialIcon
-        onPress={() => fbLogin()}
-        type='google-plus-official'
-      /> */}
     </View>
 );
 

@@ -54,16 +54,12 @@ export default function userReducer (state = initialState, action = {}) {
       }
     case LOGOUT:
       return {
-        ...initialState
+        ...state,
+        fetching: true
       }
     case LOGOUT_SUCCESS:
       return {
-        ...state,
-        user: {
-          ...state.user
-        },
-        fetching: false,
-        error: false
+        ...initialState
       }
     case USER_UPDATED:
       return {

@@ -14,8 +14,7 @@ export const fbLogin = () => {
       })
     })
     .catch(err => {
-      console.log(err);
-      return reject;
+      return reject(err);
     })
   })
 };

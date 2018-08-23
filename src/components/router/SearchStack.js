@@ -1,31 +1,35 @@
 import React from 'react';
-import { Animated, Easing } from 'react-native';
+import { Animated, Easing, Platform } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import Search from '../search/Search';
 import SearchSelect from '../search/SearchSelect';
+import Player from '../player/Player';
 
 const SearchStack = createStackNavigator({
   Search: {
-    screen: Search
+    screen: Search,
+    navigationOptions: {
+      header: null
+    },
   },
   Selected: {
-    screen: SearchSelect
+    screen: SearchSelect,
+    navigationOptions: ({ navigation }) => ({
+      title: navigation.state.params.title,
+      headerBackTitle: null,
+      headerStyle: {
+        fontFamily: Platform.OS === 'android' ? 'sans-serif-thin' : 'Courier New',
+        backgroundColor: 'rgba(31, 34, 46, 0.75)',
+        borderBottomWidth: 2,
+        borderBottomColor: '#fff'
+      },
+      headerTitleStyle: {
+        color: '#fff'
+      },
+    }),
   }
 }, {
-    headerMode: 'none',
     mode: 'modal',
-    navigationOptions: () => ({
-      // title: 'Profile',
-      // headerBackTitle: null,
-      // headerStyle: {
-      //   backgroundColor: '#1f222e',
-      //   borderBottomWidth: 2,
-      //   borderBottomColor: '#fff'
-      // },
-      // headerTitleStyle: {
-      //   color: '#fff'
-      // },
-    }),
     transitionConfig: () => ({
       transitionSpec: {
         duration: 300,

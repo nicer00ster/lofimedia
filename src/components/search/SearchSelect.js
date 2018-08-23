@@ -8,7 +8,6 @@ class SearchSelect extends React.PureComponent {
       <View style={styles.container}>
         <View>
           <Image style={styles.image} source={{ uri: this.props.navigation.state.params.trackphoto }} />
-          <Icon name="home" size={25} color="white" />
           <View style={[styles.imageText, styles.overlay]}>
             <Text style={styles.title}>{this.props.navigation.state.params.title}</Text>
             <Text style={styles.artist}>{this.props.navigation.state.params.artist}</Text>
