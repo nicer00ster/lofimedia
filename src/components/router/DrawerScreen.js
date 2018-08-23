@@ -26,11 +26,11 @@ const DrawerScreen = props => (
                 props.navigation.navigate(routeOptions.route.routes[routeOptions.route.index].routeName, {})
             }} />
          <Divider style={styles.divider} />
-         <View style={styles.social}>
-              <SocialIcon
-                type='github'
-              />
-         </View>
+          <View style={styles.social}>
+            <SocialIcon type='github-alt'/>
+            <SocialIcon type='stack-overflow' />
+            <SocialIcon type='youtube' />
+          </View>
          {props.screenProps.user.user.authenticated
            ? <Button
              onPress={() => props.screenProps.onfbLogout()}
@@ -38,6 +38,7 @@ const DrawerScreen = props => (
              backgroundColor='#1f222e'
              medium
              raised
+             containerViewStyle={{marginBottom: 15}}
              textStyle={styles.text}
              icon={{ name: 'logout', type: 'simple-line-icon' }}
              title='LOGOUT' />
@@ -47,6 +48,7 @@ const DrawerScreen = props => (
              backgroundColor='#3b5998'
              raised
              medium
+             containerViewStyle={{marginBottom: 15}}
              textStyle={styles.text}
              icon={{ name: 'social-facebook', type: 'simple-line-icon' }}
              title="LOGIN WITH FACEBOOK"
@@ -85,8 +87,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#1f222e'
   },
   social: {
-    marginTop: 12,
-    marginBottom: 24,
+    margin: 12,
     flexDirection: 'row',
     justifyContent: 'center'
   },

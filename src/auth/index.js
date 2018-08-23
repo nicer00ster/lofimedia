@@ -1,6 +1,7 @@
-import { fbPermissions } from '../constants';
 import firebase from '../config/firebase';
 import Auth from '../config/auth';
+import Database from '../config/db';
+import { fbPermissions } from '../constants';
 import { FBLoginManager } from 'react-native-facebook-login';
 
 export const fbLogin = () => {
@@ -10,7 +11,8 @@ export const fbLogin = () => {
       firebase.auth()
       .signInAndRetrieveDataWithCredential(firebase.auth.FacebookAuthProvider.credential(token))
       .then(data => {
-        return resolve(data.additionalUserInfo);
+        Database.storeUser(data.user._user);
+        return resolve(data.additionalUserInfo)
       })
     })
     .catch(err => {
@@ -28,7 +30,7 @@ export const fetchUser = updateUserInfo => {
     if(!user) {
       return null;
     } else {
-      updateUserInfo(user.providerData);
+      updateUserInfo(user);
     }
   })
 };

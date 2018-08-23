@@ -65,7 +65,6 @@ function* facebookLogout(action) {
 
 function* updateUser(action) {
   try {
-    console.log(action);
     yield put({ type: USER_UPDATED_SUCCESS })
   } catch (error) {
     console.log(error);

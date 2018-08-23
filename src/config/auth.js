@@ -24,5 +24,6 @@ const Facebook = {
     });
   }
 }
+
 const Auth = { Facebook };
 export default Auth;

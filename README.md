@@ -7,7 +7,7 @@ These instructions will get you a copy of the project up and running on your loc
 ### TODO
 - [ ] Create a logo
 - [x] User authentication with Facebook
-- [x] Setup Firebase
+- [x] Setup Firebase -- Auth, Database. Possibly add storage in future so users can upload music.
 - [x] Get music playing, even while changing screens or app is minimized.
 - [x] Have variety of music
 - [x] Setup API

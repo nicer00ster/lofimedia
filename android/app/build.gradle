@@ -150,6 +150,7 @@ dependencies {
     compile 'com.android.support:multidex:1.0.3'
     compile 'com.google.firebase:firebase-core:16.0.1'
     compile "com.google.firebase:firebase-auth:16.0.1"
+    implementation "com.google.firebase:firebase-database:16.0.1"
 }
 
 // Run this once to be able to run the application with BUCK

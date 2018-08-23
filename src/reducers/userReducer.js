@@ -16,6 +16,7 @@ const initialState = {
     displayName: '',
     email: '',
     photoURL: '',
+    uid: ''
   },
   fetching: false,
   error: false
@@ -66,9 +67,10 @@ export default function userReducer (state = initialState, action = {}) {
         ...state,
         user: {
           authenticated: true,
-          displayName: action.data[0].displayName,
-          email: action.data[0].email,
-          photoURL: `${action.data[0].photoURL}?width=400`,
+          displayName: action.data.providerData[0].displayName,
+          email: action.data.providerData[0].email,
+          photoURL: `${action.data.providerData[0].photoURL}?width=400`,
+          uid: action.data.uid,
           fetchingUserData: false,
         },
         fetching: true
@@ -83,16 +85,7 @@ export default function userReducer (state = initialState, action = {}) {
       }
     case USER_UPDATED_FAILURE:
       return {
-        ...state,
-        user: {
-          authenticated: false,
-          fetchingUserData: false,
-          displayName: '',
-          email: '',
-          photoURL: '',
-        },
-        fetching: true,
-        error: false
+        ...initialState
       }
     default:
       return state;

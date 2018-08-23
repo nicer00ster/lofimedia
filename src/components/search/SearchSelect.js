@@ -1,6 +1,7 @@
 import React from 'react';
 import { Dimensions, StyleSheet, View, Text, Image } from 'react-native';
 import { Icon } from 'react-native-elements';
+import Database from '../../config/db';
 
 class SearchSelect extends React.PureComponent {
   render() {
@@ -12,6 +13,7 @@ class SearchSelect extends React.PureComponent {
             <Text style={styles.title}>{this.props.navigation.state.params.title}</Text>
             <Text style={styles.artist}>{this.props.navigation.state.params.artist}</Text>
           </View>
+          <Icon onPress={() => Database.addToPlaylist(this.props.navigation.state.params, this.props.screenProps.user.user.uid)} name="home"/>
         </View>
       </View>
     );

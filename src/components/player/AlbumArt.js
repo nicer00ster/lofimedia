@@ -9,7 +9,7 @@ class AlbumArt extends React.PureComponent {
         <TouchableOpacity onPress={this.props.onPress}>
           <Image style={styles.image} source={{ uri: this.props.url }}/>
         </TouchableOpacity>
-        <View style={styles.imageText}>
+        <View style={styles.iconOverlay}>
           <Icon
             type="font-awesome"
             name="heart"
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     paddingLeft: 24,
     paddingRight: 24,
   },
-  imageText: {
+  iconOverlay: {
     position: 'absolute',
     justifyContent: 'flex-end',
     alignItems: 'flex-start',
