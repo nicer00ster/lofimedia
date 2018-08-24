@@ -11,17 +11,20 @@ These instructions will get you a copy of the project up and running on your loc
 - [x] Get music playing, even while changing screens or app is minimized.
 - [x] Have variety of music
 - [x] Setup API
-- [ ] Create playlist screen
+- [x] Create playlist screen
 - [x] Create search screen with functionality
 - [ ] Fix search method to case insensitive
-- [ ] Allow users to "add to playlist" within the search screen
+- [x] Allow users to "add to playlist" within the search screen
 - [x] Transfer search functionality to redux
 - [ ] Have app up and running on both iOS and Android with near identical UI & functionality
 - [ ] Fill up profile page with relative information
-- [ ] Add delay to the logout button and display loading indicator
+- [x] Add delay to the logout button and display loading indicator
 - [x] Add authentication methods to drawer screen (Login & Logout)
 - [x] Add social icons to drawer screen
 - [x] Fixed error routing from nested screen within tab back to root
+- [ ] Add the heart track feature
+- [ ] After user adds song to playlist from search page, close the modal
+- [ ] If user presses play button from search page or playlist page, change the track and bring them home
 - [ ]
 
 ### Installing

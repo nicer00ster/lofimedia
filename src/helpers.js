@@ -18,11 +18,8 @@ export const objToArray = obj => {
 
 export const filterObject = (obj, query) => {
   const arr = Array.from(Object.keys(obj), key => obj[key]);
-
   return new Promise((resolve, reject) => {
-    if (query.length === 0) {
-      return resolve();
-    };
+    if (query.length === 0) return resolve();
     let results = arr.filter(item => {
       return item.title.includes(query) || item.artist.includes(query)
     })
@@ -31,4 +28,13 @@ export const filterObject = (obj, query) => {
   .catch(error => {
     reject(error);
   })
+};
+
+export const removeByKey = (obj, delKey) => {
+  return Object.keys(obj)
+  .filter(key => key !== delKey)
+  .reduce((result, current) => {
+    result[current] = obj[current];
+    return result;
+  }, {});
 };

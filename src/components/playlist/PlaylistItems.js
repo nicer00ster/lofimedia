@@ -10,6 +10,7 @@ export default class PlaylistItems extends React.PureComponent {
         <Icon iconStyle={styles.icon} type='font-awesome' name='share-alt' color='#fff' />
         <Icon iconStyle={styles.icon} type='font-awesome' name='play-circle' color='#fff' />
         <Icon iconStyle={styles.icon} type="simple-line-icon" name="options" color="white" />
+
       </View>
     )
   }

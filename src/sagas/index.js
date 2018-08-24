@@ -27,7 +27,6 @@ import {
 import { put, takeEvery, takeLatest, call } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import { apiMusic, apiDaily, apiUser } from '../api';
-import Database from '../config/db';
 import { fbLogin, fbLogout } from '../auth/index';
 import { filterObject } from '../helpers';
 import rsf from '../config/rsf';
@@ -51,8 +50,13 @@ function* fetchDaily(action) {
 };
 
 function* playlistSaga(action) {
-  const data = yield call(rsf.database.read, `users/${action.uid}/playlist`);
-  yield put({ type: FETCH_PLAYLIST_SUCCESS, data })
+  try {
+    const data = yield call(rsf.database.read, `users/${action.uid}/playlist`);
+    yield put({ type: FETCH_PLAYLIST_SUCCESS, data });
+  } catch(error) {
+    console.log(error);
+    yield put({ type: FETCH_PLAYLIST_FAILURE });
+  };
 };
 
 function* playlistAdd(track) {

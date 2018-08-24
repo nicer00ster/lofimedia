@@ -1,4 +1,4 @@
-import { objToArray } from '../helpers';
+import { removeByKey } from '../helpers';
 import {
   LOGIN,
   LOGIN_SUCCESS,
@@ -126,7 +126,7 @@ export default function userReducer (state = initialState, action = {}) {
         ...state,
         user: {
           ...state.user,
-          playlist: mutated.filter((item, index) => index !== action.trackID)
+          playlist: removeByKey(state.user.playlist, action.trackID)
         }
       }
     default:
