@@ -5,6 +5,11 @@ import {
   FETCH_DAILY,
   FETCH_DAILY_SUCCESS,
   FETCH_DAILY_FAILURE,
+  FETCH_PLAYLIST,
+  FETCH_PLAYLIST_SUCCESS,
+  FETCH_PLAYLIST_FAILURE,
+  // PLAYLIST_ADD,
+  // PLAYLIST_REMOVE,
   LOGIN,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
@@ -16,14 +21,15 @@ import {
   USER_UPDATED_FAILURE,
   SEARCH,
   SEARCH_SUCCESS,
-  SEARCH_FAILURE
+  SEARCH_FAILURE,
 } from '../constants';
 
 import { put, takeEvery, takeLatest, call } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import { apiMusic, apiDaily, apiUser } from '../api';
+import Database from '../config/db';
 import { fbLogin, fbLogout } from '../auth/index';
-import { filterArrayOfObjects } from '../helpers';
+import { filterObject } from '../helpers';
 
 function* fetchMusic(action) {
   try {
@@ -40,6 +46,16 @@ function* fetchDaily(action) {
     yield put({ type: FETCH_DAILY_SUCCESS, data });
   } catch (error) {
     yield put({ type: FETCH_DAILY_FAILURE })
+  };
+};
+
+function* fetchPlaylist(action) {
+  try {
+    const data = yield call(Database.getPlaylist, action.uid);
+    yield put({ type: FETCH_PLAYLIST_SUCCESS, data });
+  } catch(error) {
+    console.log(error)
+    yield put({ type: FETCH_PLAYLIST_FAILURE })
   };
 };
 
@@ -74,7 +90,7 @@ function* updateUser(action) {
 
 function* searchQuery(action) {
   try {
-    const results = yield call(filterArrayOfObjects, action.tracks, action.query);
+    const results = yield call(filterObject, action.tracks, action.query);
     yield delay(1250);
     yield put({ type: SEARCH_SUCCESS, results })
   } catch(error) {
@@ -86,6 +102,7 @@ function* searchQuery(action) {
 function* rootSaga() {
   yield takeEvery(FETCH_MUSIC, fetchMusic)
   yield takeEvery(FETCH_DAILY, fetchDaily)
+  yield takeLatest(FETCH_PLAYLIST, fetchPlaylist)
   yield takeEvery(LOGIN, facebookLogin)
   yield takeEvery(LOGOUT, facebookLogout)
   yield takeEvery(USER_UPDATED, updateUser)

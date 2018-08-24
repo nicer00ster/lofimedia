@@ -13,7 +13,10 @@ import {
   SET_TIME,
   SET_DURATION,
   SEEK_TIME,
-  SEARCH
+  SEARCH,
+  FETCH_PLAYLIST,
+  PLAYLIST_ADD,
+  PLAYLIST_REMOVE
 } from '../constants'
 
 export function fetchMusic() {
@@ -90,6 +93,25 @@ export function searchMusic(query, tracks) {
     type: SEARCH,
     query,
     tracks
+  };
+};
+
+export function fetchPlaylist(uid) {
+  return {
+    type: FETCH_PLAYLIST,
+    uid
+  };
+};
+
+export function playlistAdd() {
+  return {
+    type: PLAYLIST_ADD
+  };
+};
+
+export function playlistRemove() {
+  return {
+    type: PLAYLIST_REMOVE
   };
 };
 

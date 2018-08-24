@@ -12,12 +12,18 @@ export const minutesAndSeconds = position => ([
   pad(position % 60, 2),
 ]);
 
-export const filterArrayOfObjects = (array, query) => {
+export const objToArray = obj => {
+  return Array.from(Object.keys(obj), key => obj[key]);
+};
+
+export const filterObject = (obj, query) => {
+  const arr = Array.from(Object.keys(obj), key => obj[key]);
+
   return new Promise((resolve, reject) => {
     if (query.length === 0) {
       return resolve();
     };
-    let results = array.filter(item => {
+    let results = arr.filter(item => {
       return item.title.includes(query) || item.artist.includes(query)
     })
     return resolve(results);

@@ -8,13 +8,16 @@ class SearchSelect extends React.PureComponent {
     return (
       <View style={styles.container}>
         <View>
-          <Image style={styles.image} source={{ uri: this.props.navigation.state.params.trackphoto }} />
+          <Image style={styles.image} source={{ uri: this.props.navigation.state.params.photoURL }} />
           <View style={[styles.imageText, styles.overlay]}>
             <Text style={styles.title}>{this.props.navigation.state.params.title}</Text>
             <Text style={styles.artist}>{this.props.navigation.state.params.artist}</Text>
           </View>
-          <Icon onPress={() => Database.addToPlaylist(this.props.navigation.state.params, this.props.screenProps.user.user.uid)} name="home"/>
+          <View style={styles.play}>
+            <Icon type="font-awesome" size={125} name="play-circle" color='#fff'/>
+          </View>
         </View>
+        <Icon onPress={() => Database.addToPlaylist(this.props.navigation.state.params, this.props.screenProps.user.user.uid, this.props.navigation.state.params.uid)} name="add"/>
       </View>
     );
   };
@@ -32,7 +35,14 @@ const styles = StyleSheet.create({
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor:'rgba(130, 35, 35, 0.25)'
+    backgroundColor:'rgba(0, 0, 0, 0.35)'
+  },
+  play: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
+    width: '100%',
+    position: 'absolute',
   },
   image: {
     borderWidth: .5,
@@ -51,15 +61,15 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
-    color: 'white',
-    margin: 12,
+    // fontWeight: 'bold',
+    color: '#fff',
+    padding: 12,
   },
   artist: {
     fontSize: 18,
-    fontWeight: 'bold',
-    color: 'white',
-    margin: 12
+    // fontWeight: 'bold',
+    color: '#fff',
+    padding: 12
   }
 })
 

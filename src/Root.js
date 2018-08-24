@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import {
   fetchMusic,
   fetchDaily,
+  fetchPlaylist,
   onfbLogin,
   onfbLogout,
   updateUserInfo,
@@ -12,13 +13,11 @@ import {
   repeatMusic,
   nextSong,
   prevSong,
-  setDuration,
-  setTime,
-  seek,
   searchMusic
 } from './actions';
 
 import { fetchUser } from './auth/index';
+import Database from './config/db';
 import Navigator from './components/router/Router';
 
 class Root extends React.Component {
@@ -37,12 +36,13 @@ const mapStateToProps = ({ tracks, daily, user, search }) => ({
   tracks: tracks,
   user: user,
   daily: daily.daily.dailyMessage,
-  search: search
+  search: search,
 });
 
 const mapDispatchToProps = {
   fetchMusic,
   fetchDaily,
+  fetchPlaylist,
   onfbLogin,
   onfbLogout,
   updateUserInfo,
@@ -52,7 +52,7 @@ const mapDispatchToProps = {
   repeatMusic,
   nextSong,
   prevSong,
-  searchMusic
+  searchMusic,
   // setDuration,
   // setTime,
   // seek

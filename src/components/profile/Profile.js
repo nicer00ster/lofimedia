@@ -1,11 +1,18 @@
 import React from 'react';
-import { StyleSheet, View, Image, Dimensions, Text, StatusBar } from 'react-native';
+import { StyleSheet, View, Image, Dimensions, Text, StatusBar, TextInput } from 'react-native';
 import { Button } from 'react-native-elements';
+import Database from '../../config/db';
 import Spinner from 'react-native-spinkit';
 import LoginMethods from './LoginMethods';
 import Header from '../Header';
 
 export default class Profile extends React.Component {
+  state = {
+    artist: '',
+    title: '',
+    mp3url: '',
+    photoURL: ''
+  }
   render() {
     const { screenProps } = this.props;
     if(screenProps.user.fetching) {
@@ -32,6 +39,13 @@ export default class Profile extends React.Component {
             </View>
           </View>
           <View style={styles.bottomContent}>
+            {/* <View style={{ alignSelf: 'center' }}>
+              <TextInput style={{ width: imageHeight }} placeholder='artist' onChangeText={(artist) => this.setState({ artist })} value={this.state.artist}/>
+              <TextInput style={{ width: imageHeight }} placeholder='title' onChangeText={(title) => this.setState({ title })} value={this.state.title}/>
+              <TextInput style={{ width: imageHeight }} placeholder='mp3url' onChangeText={(mp3url) => this.setState({ mp3url })} value={this.state.mp3url}/>
+              <TextInput style={{ width: imageHeight }} placeholder='photoURL' onChangeText={(photoURL) => this.setState({ photoURL })} value={this.state.photoURL}/>
+              <Button title='submit' onPress={() => Database.addTrack(this.state.artist, this.state.title, this.state.mp3url, this.state.photoURL)} icon={{ name: 'home' }} />
+            </View> */}
             <Button
               onPress={() => screenProps.onfbLogout()}
               medium
@@ -49,7 +63,7 @@ export default class Profile extends React.Component {
 };
 
 const { width, height } = Dimensions.get('window');
-const imageWidth = width - 12;
+const imageWidth = width - 8;
 const imageHeight = width - 76;
 
 const styles = StyleSheet.create({

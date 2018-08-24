@@ -7,16 +7,21 @@ import {
   USER_UPDATED,
   USER_UPDATED_SUCCESS,
   USER_UPDATED_FAILURE,
+  FETCH_PLAYLIST,
+  FETCH_PLAYLIST_SUCCESS,
+  FETCH_PLAYLIST_FAILURE,
+  PLAYLIST_ADD,
+  PLAYLIST_REMOVE
 } from '../constants'
 
 const initialState = {
   user: {
     authenticated: false,
-    fetchingUserData: false,
     displayName: '',
     email: '',
     photoURL: '',
-    uid: ''
+    uid: '',
+    playlist: []
   },
   fetching: false,
   error: false
@@ -29,7 +34,6 @@ export default function userReducer (state = initialState, action = {}) {
         ...state,
         user: {
           ...state.user,
-          fetchingUserData: true,
         },
         fetching: true,
         error: false
@@ -71,7 +75,6 @@ export default function userReducer (state = initialState, action = {}) {
           email: action.data.providerData[0].email,
           photoURL: `${action.data.providerData[0].photoURL}?width=400`,
           uid: action.data.uid,
-          fetchingUserData: false,
         },
         fetching: true
       }
@@ -86,6 +89,37 @@ export default function userReducer (state = initialState, action = {}) {
     case USER_UPDATED_FAILURE:
       return {
         ...initialState
+      }
+    case FETCH_PLAYLIST:
+    console.log('fetch', action)
+      return {
+        ...state,
+        fetching: true,
+
+      }
+    case FETCH_PLAYLIST_SUCCESS:
+    console.log('fetch success', action)
+      return {
+        ...state,
+        fetching: false,
+        user: {
+          ...state.user,
+          playlist: action.data
+        }
+      }
+    case FETCH_PLAYLIST_FAILURE:
+      return {
+        ...state,
+      }
+    case PLAYLIST_ADD:
+      return {
+        ...state,
+
+      }
+    case PLAYLIST_REMOVE:
+      return {
+        ...state,
+
       }
     default:
       return state;

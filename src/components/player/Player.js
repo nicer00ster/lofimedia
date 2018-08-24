@@ -34,17 +34,15 @@ class Player extends React.Component {
   };
 
   renderLoading() {
-    return <Spinner type="9CubeGrid" size={100} color="white" style={{ flex: 1, alignSelf: 'center' }}/>
+    return <Spinner type="9CubeGrid" size={100} color="#fff" style={{ flex: 1, alignSelf: 'center' }}/>
   };
 
   render() {
     const { navigation } = this.props;
     const { screenProps } = this.props;
-    // const config = {
-    //   velocityThreshold: 0.3,
-    //   directionalOffsetThreshold: 80
-    // };
-    let track = Object.assign({}, screenProps.tracks.tracks[screenProps.tracks.index]);
+
+    let keys = Object.keys(screenProps.tracks.tracks);
+    let track = Object.assign({}, screenProps.tracks.tracks[keys[screenProps.tracks.index]]);
     let uri = track.mp3url ? track.mp3url : "https://s3.us-east-2.amazonaws.com/lofi-media/Profound+Beats+-+Lo-Fi.mp3";
 
     return (
@@ -52,7 +50,7 @@ class Player extends React.Component {
         {this.props.screenProps.tracks.fetching
           ? this.renderLoading()
           : <React.Fragment>
-            <AlbumArt tracks={screenProps.tracks.tracks} url={track.trackphoto} />
+            <AlbumArt tracks={screenProps.tracks.tracks} url={track.photoURL} />
             <TrackDetails title={track.title} artist={track.artist} />
             <SeekBar
               onSeek={this.seek.bind(this)}
@@ -60,7 +58,7 @@ class Player extends React.Component {
               duration={this.state.duration}
               position={this.state.position} />
             <Controls
-              forwardDisabled={screenProps.tracks.index === screenProps.tracks.tracks.length - 1}
+              forwardDisabled={screenProps.tracks.index === Object.keys(screenProps.tracks.tracks).length - 1}
               onPressShuffle={screenProps.shuffleMusic}
               onPressRepeat={screenProps.repeatMusic}
               onPressPlay={screenProps.playMusic}

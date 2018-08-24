@@ -16,13 +16,13 @@ export default function searchReducer (state = initialState, action = {}) {
       return {
         ...state,
         searching: true,
+        query: action.query,
       }
     case SEARCH_SUCCESS:
     console.log('searchsuccess',action );
       return {
         ...state,
         searching: false,
-        query: action.query,
         results: action.results
       }
     case SEARCH_FAILURE:

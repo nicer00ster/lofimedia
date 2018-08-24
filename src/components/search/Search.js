@@ -29,7 +29,7 @@ export default class Search extends React.Component {
           <ListItem
             onPress={() => this.props.navigation.navigate('Selected', { ...item })}
             containerStyle={{ width: screenWidth }}
-            avatar={item.trackphoto}
+            avatar={item.photoURL}
             rightIcon={{ name: 'playlist-add' }}
             titleStyle={{ color: 'white' }}
             title={item.title}

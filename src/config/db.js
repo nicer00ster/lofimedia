@@ -3,31 +3,30 @@ import firebase from 'react-native-firebase';
 const db = firebase.database();
 
 const Database = {
-  getMarquee: () => {
-    const ref = db.ref('daily')
-    ref.once('value')
-    .then(data => {
-      let key = data.key;
-      console.log(data.child('dailyMessage').val());
-    })
-  },
   storeUser: user => {
     const ref = db.ref(`users/${user.uid}`);
-    ref.set({
-      displayName: user.displayName,
-      email: user.email,
-      phoneNumber: user.phoneNumber,
-      photoURL: user.photoURL
-    })
+    if(!ref) {
+      ref.set({
+        displayName: user.displayName,
+        email: user.email,
+        phoneNumber: user.phoneNumber,
+        photoURL: user.photoURL
+      })
+    } else {
+      return;
+    }
   },
-  addToPlaylist: (track, uid) => {
-    const ref = db.ref(`users/${uid}/playlist/`);
+  addToPlaylist: (track, uid, key) => {
+    const ref = db.ref(`users/${uid}/playlist/${key}`);
     ref.update(track)
   },
-  fetchPlaylist: user => {
-    const ref = db.ref(`users/${user.uid}/playlist`);
-
-    // ref.
+  getPlaylist: uid => {
+    const ref = db.ref(`users/${uid}/playlist`);
+    const data = ref.once('value')
+    .then(data => {
+      return data.val();
+    })
+    return data;
   },
   toggleHeart: (track, uid) => {
     track.transaction(item => {
@@ -46,7 +45,19 @@ const Database = {
       return item;
     })
   },
-
+  addTrack: (artist, title, mp3url, photoURL) => {
+    const key = db.ref().child('tracks').push().key;
+    let data = {
+      artist: artist,
+      title: title,
+      mp3url: mp3url,
+      photoURL: photoURL,
+      uid: key
+    }
+    const updates = {};
+    updates[`/tracks/${key}`] = data;
+    return db.ref().update(updates);
+  },
 };
 
 export default Database;

@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#1f222e',
   },
   background: {
-    flex: 1,
     height: '100%',
     width: '100%',
     position: 'absolute',
