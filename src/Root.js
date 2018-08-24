@@ -13,7 +13,9 @@ import {
   repeatMusic,
   nextSong,
   prevSong,
-  searchMusic
+  searchMusic,
+  playlistAdd,
+  playlistRemove
 } from './actions';
 
 import { fetchUser } from './auth/index';
@@ -25,7 +27,11 @@ class Root extends React.Component {
     fetchUser(this.props.updateUserInfo);
     this.props.fetchMusic();
     this.props.fetchDaily();
+    setTimeout(() => {
+      this.props.fetchPlaylist(this.props.user.user.uid);
+    }, 2000);
   };
+
 
   render() {
     return <Navigator {...this.props} screenProps={this.props} />
@@ -53,6 +59,8 @@ const mapDispatchToProps = {
   nextSong,
   prevSong,
   searchMusic,
+  playlistAdd,
+  playlistRemove
   // setDuration,
   // setTime,
   // seek

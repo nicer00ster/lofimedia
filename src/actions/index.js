@@ -18,6 +18,7 @@ import {
   PLAYLIST_ADD,
   PLAYLIST_REMOVE
 } from '../constants'
+import Database from '../config/db';
 
 export function fetchMusic() {
   return {
@@ -103,15 +104,20 @@ export function fetchPlaylist(uid) {
   };
 };
 
-export function playlistAdd() {
+export function playlistAdd(track, uid, key) {
   return {
-    type: PLAYLIST_ADD
+    type: PLAYLIST_ADD,
+    track,
+    uid,
+    key
   };
 };
 
-export function playlistRemove() {
+export function playlistRemove(uid, trackID) {
   return {
-    type: PLAYLIST_REMOVE
+    type: PLAYLIST_REMOVE,
+    uid,
+    trackID
   };
 };
 

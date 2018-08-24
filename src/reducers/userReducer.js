@@ -1,3 +1,4 @@
+import { objToArray } from '../helpers';
 import {
   LOGIN,
   LOGIN_SUCCESS,
@@ -95,10 +96,8 @@ export default function userReducer (state = initialState, action = {}) {
       return {
         ...state,
         fetching: true,
-
       }
     case FETCH_PLAYLIST_SUCCESS:
-    console.log('fetch success', action)
       return {
         ...state,
         fetching: false,
@@ -110,16 +109,25 @@ export default function userReducer (state = initialState, action = {}) {
     case FETCH_PLAYLIST_FAILURE:
       return {
         ...state,
+        error: true
       }
     case PLAYLIST_ADD:
+    let index = action.key;
+    let playlist = { [index]: action.track, ...state.user.playlist }
       return {
         ...state,
-
+        user: {
+          ...state.user,
+          playlist: playlist
+        }
       }
     case PLAYLIST_REMOVE:
       return {
         ...state,
-
+        user: {
+          ...state.user,
+          playlist: mutated.filter((item, index) => index !== action.trackID)
+        }
       }
     default:
       return state;

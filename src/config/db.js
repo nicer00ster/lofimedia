@@ -16,15 +16,22 @@ const Database = {
       return;
     }
   },
-  addToPlaylist: (track, uid, key) => {
-    const ref = db.ref(`users/${uid}/playlist/${key}`);
-    ref.update(track)
-  },
+  // addToPlaylist: (track, uid, key) => {
+  //   return new Promise((resolve, reject) => {
+  //     const ref = db.ref(`users/${uid}/playlist/${key}`);
+  //     const update = resolve(ref.update(track))
+  //     return update;
+  //   })
+  // },
   getPlaylist: uid => {
     const ref = db.ref(`users/${uid}/playlist`);
     const data = ref.once('value')
     .then(data => {
-      return data.val();
+      if(data.exists()) {
+        return data.val()
+      } else {
+        return false;
+      }
     })
     return data;
   },

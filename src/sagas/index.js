@@ -8,8 +8,8 @@ import {
   FETCH_PLAYLIST,
   FETCH_PLAYLIST_SUCCESS,
   FETCH_PLAYLIST_FAILURE,
-  // PLAYLIST_ADD,
-  // PLAYLIST_REMOVE,
+  PLAYLIST_ADD,
+  PLAYLIST_REMOVE,
   LOGIN,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
@@ -30,6 +30,7 @@ import { apiMusic, apiDaily, apiUser } from '../api';
 import Database from '../config/db';
 import { fbLogin, fbLogout } from '../auth/index';
 import { filterObject } from '../helpers';
+import rsf from '../config/rsf';
 
 function* fetchMusic(action) {
   try {
@@ -49,14 +50,20 @@ function* fetchDaily(action) {
   };
 };
 
-function* fetchPlaylist(action) {
-  try {
-    const data = yield call(Database.getPlaylist, action.uid);
-    yield put({ type: FETCH_PLAYLIST_SUCCESS, data });
-  } catch(error) {
-    console.log(error)
-    yield put({ type: FETCH_PLAYLIST_FAILURE })
-  };
+function* playlistSaga(action) {
+  const data = yield call(rsf.database.read, `users/${action.uid}/playlist`);
+  yield put({ type: FETCH_PLAYLIST_SUCCESS, data })
+};
+
+function* playlistAdd(track) {
+  yield call(rsf.database.update, `users/${track.uid}/playlist/${track.key}`, {
+    ...track.track
+  });
+};
+
+function* playlistRemove(data) {
+  console.log(data);
+  yield call(rsf.database.delete, `users/${data.uid}/playlist/${data.trackID}`);
 };
 
 function* facebookLogin(action) {
@@ -102,7 +109,9 @@ function* searchQuery(action) {
 function* rootSaga() {
   yield takeEvery(FETCH_MUSIC, fetchMusic)
   yield takeEvery(FETCH_DAILY, fetchDaily)
-  yield takeLatest(FETCH_PLAYLIST, fetchPlaylist)
+  yield takeEvery(FETCH_PLAYLIST, playlistSaga)
+  yield takeEvery(PLAYLIST_ADD, playlistAdd)
+  yield takeEvery(PLAYLIST_REMOVE, playlistRemove)
   yield takeEvery(LOGIN, facebookLogin)
   yield takeEvery(LOGOUT, facebookLogout)
   yield takeEvery(USER_UPDATED, updateUser)

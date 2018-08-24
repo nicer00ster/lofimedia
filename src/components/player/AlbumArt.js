@@ -10,13 +10,13 @@ class AlbumArt extends React.PureComponent {
           <Image style={styles.image} source={{ uri: this.props.url }}/>
         </TouchableOpacity>
         <View style={styles.iconOverlay}>
-          <Icon
-            type="font-awesome"
-            name="heart"
-            color="#1f222e"
-            raised
-            onPress={() => console.log('You liked this song')}
-          />
+        <Icon
+          type="font-awesome"
+          name="heart"
+          color="#1f222e"
+          raised
+          onPress={() => console.log('You liked this song')}
+        />
         </View>
       </View>
     );

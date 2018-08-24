@@ -17,7 +17,7 @@ class SearchSelect extends React.PureComponent {
             <Icon type="font-awesome" size={125} name="play-circle" color='#fff'/>
           </View>
         </View>
-        <Icon onPress={() => Database.addToPlaylist(this.props.navigation.state.params, this.props.screenProps.user.user.uid, this.props.navigation.state.params.uid)} name="add"/>
+        <Icon onPress={() => this.props.screenProps.playlistAdd(this.props.navigation.state.params, this.props.screenProps.user.user.uid, this.props.navigation.state.params.uid)} name="add"/>
       </View>
     );
   };

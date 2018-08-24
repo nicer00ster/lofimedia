@@ -7,7 +7,7 @@ import UserStack from './UserStack';
 import SearchStack from './SearchStack';
 import Player from '../player/Player';
 import Profile from '../profile/Profile';
-import Playlist from '../Playlist';
+import Playlist from '../playlist/Playlist';
 import Search from '../search/Search';
 import DrawerScreen from './DrawerScreen';
 
