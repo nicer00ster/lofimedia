@@ -13,6 +13,9 @@ export const FETCH_PLAYLIST_FAILURE = 'FETCH_PLAYLIST_FAILURE';
 export const PLAYLIST_ADD = 'PLAYLIST_ADD';
 export const PLAYLIST_REMOVE = 'PLAYLIST_REMOVE';
 
+export const ADD_HEART = 'ADD_HEART';
+export const REMOVE_HEART = 'REMOVE_HEART';
+
 export const PLAY_MUSIC = 'PLAY_MUSIC';
 export const PAUSE_MUSIC = 'PAUSE_MUSIC';
 export const NEXT_SONG = 'NEXT_SONG';

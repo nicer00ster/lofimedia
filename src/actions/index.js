@@ -104,18 +104,19 @@ export function fetchPlaylist(uid) {
   };
 };
 
-export function playlistAdd(track, uid, key) {
+export function playlistAdd(track, uid, trackID) {
   return {
     type: PLAYLIST_ADD,
     track,
     uid,
-    key
+    trackID
   };
 };
 
-export function playlistRemove(uid, trackID) {
+export function playlistRemove(track, uid, trackID) {
   return {
     type: PLAYLIST_REMOVE,
+    track,
     uid,
     trackID
   };

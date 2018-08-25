@@ -6,11 +6,10 @@ export default class PlaylistItems extends React.PureComponent {
   render() {
     return (
       <View style={styles.container}>
-        <Icon iconStyle={styles.icon} onPress={() => this.props.remove(this.props.uid, this.props.trackID)} type='font-awesome' name='heart' color='rgb(255, 135, 135)' />
+        <Icon iconStyle={styles.icon} onPress={() => this.props.remove(this.props.track, this.props.uid, this.props.trackID)} type='font-awesome' name='heart' color='rgb(255, 135, 135)' />
         <Icon iconStyle={styles.icon} type='font-awesome' name='share-alt' color='#fff' />
         <Icon iconStyle={styles.icon} type='font-awesome' name='play-circle' color='#fff' />
         <Icon iconStyle={styles.icon} type="simple-line-icon" name="options" color="white" />
-
       </View>
     )
   }

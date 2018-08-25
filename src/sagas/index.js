@@ -60,13 +60,22 @@ function* playlistSaga(action) {
 };
 
 function* playlistAdd(track) {
-  yield call(rsf.database.update, `users/${track.uid}/playlist/${track.key}`, {
-    ...track.track
+  const hearts = track.track.hearts = track.track.hearts + 1
+  yield call(rsf.database.update, `tracks/${track.trackID}`, {
+    ...track.track,
+    hearts,
+  })
+  yield call(rsf.database.update, `users/${track.uid}/playlist/${track.trackID}`, {
+    ...track.track,
   });
 };
 
 function* playlistRemove(data) {
-  console.log(data);
+  const hearts = data.track.hearts - 1
+  yield call(rsf.database.update, `tracks/${data.trackID}`, {
+    hearts,
+    ...data.track,
+  })
   yield call(rsf.database.delete, `users/${data.uid}/playlist/${data.trackID}`);
 };
 

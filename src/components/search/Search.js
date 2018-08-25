@@ -1,8 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, Dimensions, FlatList, ScrollView, Platform } from 'react-native';
-import { Icon, SearchBar, ListItem } from 'react-native-elements';
+import { Icon, SearchBar, ListItem, Header } from 'react-native-elements';
 import Spinner from 'react-native-spinkit';
-import Header from '../Header';
 import Container from '../Container';
 
 export default class Search extends React.Component {
@@ -44,6 +43,7 @@ export default class Search extends React.Component {
     const { screenProps } = this.props;
     return (
       <Container navigation={this.props.navigation} avatar={screenProps.user.user.photoURL} daily={screenProps.daily}>
+        <Header outerContainerStyles={{ borderBottomWidth: 0 }} leftComponent={<Text style={{ fontSize: 36, color: '#fff', fontFamily: 'sans-serif-thin' }}>Search</Text>} backgroundColor='transparent' />
         <SearchBar
           ref={ref => this.search = ref}
           value={this.state.query}

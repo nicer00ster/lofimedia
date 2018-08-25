@@ -10,7 +10,6 @@ import Profile from '../profile/Profile';
 import Playlist from '../playlist/Playlist';
 import Search from '../search/Search';
 import DrawerScreen from './DrawerScreen';
-import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 
 const RootStack = createBottomTabNavigator({
   Media: {

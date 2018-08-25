@@ -17,10 +17,9 @@ const SearchStack = createStackNavigator({
     screen: SearchSelect,
     navigationOptions: ({ navigation }) => ({
       title: navigation.state.params.title,
-      headerLeft: <Icon name="chevron-left" onPress={() => navigation.goBack(navigation.state.params.routeKey)} size={35} color="white"/>,
+      headerLeft: <Icon name="chevron-left" onPress={() => navigation.goBack()} size={35} color="white" />,
       headerBackTitle: null,
       headerStyle: {
-        fontFamily: Platform.OS === 'android' ? 'sans-serif-thin' : 'Courier New',
         backgroundColor: 'rgba(31, 34, 46, 0.75)',
         borderBottomWidth: 2,
         borderBottomColor: '#fff'

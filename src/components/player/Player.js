@@ -2,7 +2,6 @@ import React from 'react';
 import Video from 'react-native-video';
 import Spinner from 'react-native-spinkit';
 import Carousel from 'react-native-snap-carousel';
-import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
 import Navigator from '../router/Router';
 
 import AlbumArt from './AlbumArt';
@@ -35,13 +34,14 @@ class Player extends React.Component {
   };
 
   renderLoading() {
-    return <Spinner type="9CubeGrid" size={100} color="#fff" style={{ flex: 1, alignSelf: 'center' }}/>
+    return <Spinner type="9CubeGrid" size={100} color="#fff" style={{ flex: 1, alignSelf: 'center' }} />
   };
 
   render() {
     const { navigation } = this.props;
     const { screenProps } = this.props;
 
+    let playlist = screenProps.user.user.playlist ? screenProps.user.user.playlist : null;
     let keys = Object.keys(screenProps.tracks.tracks);
     let track = Object.assign({}, screenProps.tracks.tracks[keys[screenProps.tracks.index]]);
     let uri = track.mp3url ? track.mp3url : "https://s3.us-east-2.amazonaws.com/lofi-media/Profound+Beats+-+Lo-Fi.mp3";
@@ -51,7 +51,15 @@ class Player extends React.Component {
         {this.props.screenProps.tracks.fetching
           ? this.renderLoading()
           : <React.Fragment>
-            <AlbumArt tracks={screenProps.tracks.tracks} url={track.photoURL} />
+            <AlbumArt
+              playlist={playlist}
+              playing={track}
+              trackID={track.uid}
+              remove={screenProps.playlistRemove}
+              add={screenProps.playlistAdd}
+              tracks={screenProps.tracks.tracks}
+              uid={screenProps.user.user.uid}
+              url={track.photoURL} />
             <TrackDetails title={track.title} artist={track.artist} />
             <SeekBar
               onSeek={this.seek.bind(this)}

@@ -29,7 +29,7 @@ class Root extends React.Component {
     this.props.fetchDaily();
     setTimeout(() => {
       this.props.fetchPlaylist(this.props.user.user.uid);
-    }, 2000);
+    }, 1000);
   };
 
 

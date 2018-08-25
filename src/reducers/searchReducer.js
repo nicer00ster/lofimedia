@@ -12,14 +12,12 @@ const initialState = {
 export default function searchReducer (state = initialState, action = {}) {
   switch (action.type) {
     case SEARCH:
-    console.log('search', action);
       return {
         ...state,
         searching: true,
         query: action.query,
       }
     case SEARCH_SUCCESS:
-    console.log('searchsuccess',action );
       return {
         ...state,
         searching: false,

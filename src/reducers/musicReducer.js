@@ -8,12 +8,12 @@ import {
   PREV_SONG,
   TOGGLE_SHUFFLE,
   TOGGLE_REPEAT,
+  ADD_HEART,
+  REMOVE_HEART,
   SET_TIME,
   SET_DURATION,
   SEEK_TIME
 } from '../constants'
-
-import dotProp from 'dot-prop-immutable';
 
 const initialState = {
   tracks: [],
@@ -84,24 +84,34 @@ export default function musicReducer (state = initialState, action = {}) {
         shuffle: false,
         repeat: !state.repeat
       }
-    case SEEK_TIME:
-    console.log('seektime2', action);
+    case ADD_HEART:
       return {
         ...state,
-        position: action.time,
+
       }
-    case SET_DURATION:
-    console.log('duration', action);
+    case REMOVE_HEART:
       return {
         ...state,
-        duration: Math.floor(action.data.duration),
+
       }
-    case SET_TIME:
-    console.log('set_time', action.data.currentTime);
-      return {
-        ...state,
-        position: Math.floor(action.data.currentTime)
-      }
+    // case SEEK_TIME:
+    // console.log('seektime2', action);
+    //   return {
+    //     ...state,
+    //     position: action.time,
+    //   }
+    // case SET_DURATION:
+    // console.log('duration', action);
+    //   return {
+    //     ...state,
+    //     duration: Math.floor(action.data.duration),
+    //   }
+    // case SET_TIME:
+    // console.log('set_time', action.data.currentTime);
+    //   return {
+    //     ...state,
+    //     position: Math.floor(action.data.currentTime)
+    //   }
     default:
       return state;
   };

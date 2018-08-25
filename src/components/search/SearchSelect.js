@@ -6,6 +6,9 @@ import Database from '../../config/db';
 class SearchSelect extends React.PureComponent {
   render() {
     const { navigation } = this.props;
+    const { playlist, uid } = this.props.screenProps.user.user;
+    let toggleHeart = playlist === null ? '#fff' : playlist[navigation.state.params.uid] ? 'rgb(255,135,136)' : '#fff';
+
     return (
       <View style={styles.container}>
         <View>
@@ -17,8 +20,20 @@ class SearchSelect extends React.PureComponent {
           <View style={styles.play}>
             <Icon type="font-awesome" size={125} name="play-circle" color='#fff'/>
           </View>
+          <View style={styles.add}>
+            <Icon
+              type="font-awesome"
+              name="heart"
+              color="#1f222e"
+              containerStyle={{ backgroundColor: toggleHeart }}
+              raised
+              onPress={() =>
+                playlist[navigation.state.params.uid]
+                ? this.props.screenProps.playlistRemove(navigation.state.params, uid, navigation.state.params.uid)
+                : this.props.screenProps.playlistAdd(navigation.state.params, uid, navigation.state.params.uid)} />
+              {/* insert how many hearts */}
+          </View>
         </View>
-        <Icon onPress={() => this.props.screenProps.playlistAdd(navigation.state.params, this.props.screenProps.user.user.uid, navigation.state.params.uid)} name="add"/>
       </View>
     );
   };
@@ -45,6 +60,13 @@ const styles = StyleSheet.create({
     width: '100%',
     position: 'absolute',
   },
+  add: {
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    height: '100%',
+    width: '100%',
+    position: 'absolute',
+  },
   image: {
     borderWidth: .5,
     borderRadius: 1,
@@ -61,13 +83,13 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   title: {
-    fontSize: 24,
-    // fontWeight: 'bold',
+    fontSize: 36,
+    fontWeight: '800',
     color: '#fff',
     padding: 12,
   },
   artist: {
-    fontSize: 18,
+    fontSize: 20,
     // fontWeight: 'bold',
     color: '#fff',
     padding: 12

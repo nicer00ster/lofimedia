@@ -4,20 +4,25 @@ import { Icon } from 'react-native-elements';
 
 class AlbumArt extends React.PureComponent {
   render() {
+    const { playlist, add, remove, url, tracks, trackID, playing, uid } = this.props;
+    let toggleHeart = playlist === null ? '#fff' : playlist[trackID] ? 'rgb(255,135,136)' : '#fff';
     return (
       <View style={styles.container}>
         <TouchableOpacity onPress={this.props.onPress}>
-          <Image style={styles.image} source={{ uri: this.props.url }}/>
+          <Image style={styles.image} source={{ uri: url }}/>
+          <View style={styles.iconOverlay}>
+            <Icon
+              type="font-awesome"
+              name="heart"
+              color="#1f222e"
+              containerStyle={{ backgroundColor: toggleHeart }}
+              raised
+              onPress={() =>
+                playlist !== null && playlist[trackID]
+                ? remove(playing, uid, trackID)
+                : add(playing, uid, trackID)} />
+          </View>
         </TouchableOpacity>
-        <View style={styles.iconOverlay}>
-        <Icon
-          type="font-awesome"
-          name="heart"
-          color="#1f222e"
-          raised
-          onPress={() => console.log('You liked this song')}
-        />
-        </View>
       </View>
     );
   };
@@ -37,9 +42,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     justifyContent: 'flex-end',
     alignItems: 'flex-start',
-    paddingLeft: 24,
-    paddingRight: 24,
-    margin: 15,
+    // paddingLeft: 24,
+    // paddingRight: 24,
+    margin: 10,
     top: 0,
     left: 0,
     right: 0,

@@ -92,7 +92,6 @@ export default function userReducer (state = initialState, action = {}) {
         ...initialState
       }
     case FETCH_PLAYLIST:
-    console.log('fetch', action)
       return {
         ...state,
         fetching: true,
@@ -112,7 +111,7 @@ export default function userReducer (state = initialState, action = {}) {
         error: true
       }
     case PLAYLIST_ADD:
-    let index = action.key;
+    let index = action.trackID;
     let playlist = { [index]: action.track, ...state.user.playlist }
       return {
         ...state,
