@@ -5,19 +5,20 @@ import Database from '../../config/db';
 
 class SearchSelect extends React.PureComponent {
   render() {
+    const { navigation } = this.props;
     return (
       <View style={styles.container}>
         <View>
-          <Image style={styles.image} source={{ uri: this.props.navigation.state.params.photoURL }} />
+          <Image style={styles.image} source={{ uri: navigation.state.params.photoURL }} />
           <View style={[styles.imageText, styles.overlay]}>
-            <Text style={styles.title}>{this.props.navigation.state.params.title}</Text>
-            <Text style={styles.artist}>{this.props.navigation.state.params.artist}</Text>
+            <Text style={styles.title}>{navigation.state.params.title}</Text>
+            <Text style={styles.artist}>{navigation.state.params.artist}</Text>
           </View>
           <View style={styles.play}>
             <Icon type="font-awesome" size={125} name="play-circle" color='#fff'/>
           </View>
         </View>
-        <Icon onPress={() => this.props.screenProps.playlistAdd(this.props.navigation.state.params, this.props.screenProps.user.user.uid, this.props.navigation.state.params.uid)} name="add"/>
+        <Icon onPress={() => this.props.screenProps.playlistAdd(navigation.state.params, this.props.screenProps.user.user.uid, navigation.state.params.uid)} name="add"/>
       </View>
     );
   };

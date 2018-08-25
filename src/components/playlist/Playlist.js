@@ -1,11 +1,12 @@
 import React from 'react';
 import Spinner from 'react-native-spinkit';
-import { StyleSheet, View, Text, FlatList, ScrollView, Platform, Picker } from 'react-native';
+import { StyleSheet, View, Text, FlatList, ScrollView, Platform } from 'react-native';
 import { ListItem, Icon } from 'react-native-elements';
 import { objToArray } from '../../helpers';
 import Container from '../Container';
 import PlaylistItems from './PlaylistItems';
 import Database from '../../config/db';
+
 
 export default class Playlist extends React.PureComponent {
   render() {
@@ -23,20 +24,12 @@ export default class Playlist extends React.PureComponent {
               containerStyle={{ width: '100%' }}
               avatar={item.photoURL}
               key={item.uid}
+              onPress={() => this.props.navigation.navigate('Selected', { ...item, routeKey: this.props.navigation.state.key })}
               rightIcon={<PlaylistItems uid={user.uid} trackID={item.uid} remove={this.props.screenProps.playlistRemove} />}
               titleStyle={{ color: 'white' }}
               title={item.title}
               subtitle={item.artist} />}
             />
-            <Picker
-              selectedValue={user.photoURL}
-              // style={{ height: 50, width: 100 }}
-              mode={'dropdown'}
-              itemStyle={{ width: 75 }}
-              onValueChange={(itemValue, itemIndex) => this.setState({language: itemValue})}>
-              <Picker.Item label="Java" value="java" />
-              <Picker.Item label="JavaScript" value="js" />
-            </Picker>
           </ScrollView>}
       </Container>
     )

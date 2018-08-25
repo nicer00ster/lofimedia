@@ -1,6 +1,7 @@
 import React from 'react';
 import { Animated, Easing, Platform } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
+import { Icon } from 'react-native-elements';
 import Search from '../search/Search';
 import SearchSelect from '../search/SearchSelect';
 import Player from '../player/Player';
@@ -16,6 +17,7 @@ const SearchStack = createStackNavigator({
     screen: SearchSelect,
     navigationOptions: ({ navigation }) => ({
       title: navigation.state.params.title,
+      headerLeft: <Icon name="chevron-left" onPress={() => navigation.goBack(navigation.state.params.routeKey)} size={35} color="white"/>,
       headerBackTitle: null,
       headerStyle: {
         fontFamily: Platform.OS === 'android' ? 'sans-serif-thin' : 'Courier New',

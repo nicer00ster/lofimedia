@@ -1,6 +1,7 @@
 import React from 'react';
 import Video from 'react-native-video';
 import Spinner from 'react-native-spinkit';
+import Carousel from 'react-native-snap-carousel';
 import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
 import Navigator from '../router/Router';
 
