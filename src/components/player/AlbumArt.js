@@ -4,8 +4,9 @@ import { Icon } from 'react-native-elements';
 
 class AlbumArt extends React.PureComponent {
   render() {
-    const { playlist, add, remove, url, tracks, trackID, playing, uid } = this.props;
+    const { playlist, add, remove, url, tracks, trackID, uid, current } = this.props;
     let toggleHeart = playlist === null ? '#fff' : playlist[trackID] ? 'rgb(255,135,136)' : '#fff';
+    console.log(current);
     return (
       <View style={styles.container}>
         <TouchableOpacity onPress={this.props.onPress}>
@@ -19,8 +20,8 @@ class AlbumArt extends React.PureComponent {
               raised
               onPress={() =>
                 playlist !== null && playlist[trackID]
-                ? remove(playing, uid, trackID)
-                : add(playing, uid, trackID)} />
+                ? remove(current, uid, trackID)
+                : add(current, uid, trackID)} />
           </View>
         </TouchableOpacity>
       </View>

@@ -112,7 +112,7 @@ export default function userReducer (state = initialState, action = {}) {
       }
     case PLAYLIST_ADD:
     let index = action.trackID;
-    let playlist = { [index]: action.track, ...state.user.playlist }
+    let playlist = { ...state.user.playlist, [index]: action.track }
       return {
         ...state,
         user: {

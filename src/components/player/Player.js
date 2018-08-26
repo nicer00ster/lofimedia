@@ -53,7 +53,7 @@ class Player extends React.Component {
           : <React.Fragment>
             <AlbumArt
               playlist={playlist}
-              playing={track}
+              current={track}
               trackID={track.uid}
               remove={screenProps.playlistRemove}
               add={screenProps.playlistAdd}

@@ -26,7 +26,7 @@ export default class Search extends React.Component {
             data={this.props.screenProps.search.results}
             renderItem={({ item }) =>
           <ListItem
-            onPress={() => this.props.navigation.navigate('Selected', { ...item })}
+            onPress={() => this.props.navigation.navigate('Single', { ...item })}
             containerStyle={{ width: screenWidth }}
             avatar={item.photoURL}
             rightIcon={{ name: 'playlist-add' }}
@@ -93,4 +93,4 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0,
     backgroundColor: 'rgba(31, 34, 46, 0.25)'
   }
-})
+});

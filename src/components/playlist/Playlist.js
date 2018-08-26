@@ -30,7 +30,7 @@ export default class Playlist extends React.PureComponent {
               containerStyle={{ width: '100%' }}
               avatar={item.photoURL}
               key={item.uid}
-              onPress={() => this.props.navigation.navigate('Selected', { ...item })}
+              onPress={() => this.props.navigation.navigate('Single', { ...item })}
               rightIcon={<PlaylistItems key={item.uid} uid={user.uid} track={item} trackID={item.uid} remove={this.props.screenProps.playlistRemove} />}
               titleStyle={{ color: 'white' }}
               title={item.title}

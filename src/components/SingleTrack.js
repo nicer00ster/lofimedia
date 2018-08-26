@@ -1,9 +1,9 @@
 import React from 'react';
 import { Dimensions, StyleSheet, View, Text, Image } from 'react-native';
 import { Icon } from 'react-native-elements';
-import Database from '../../config/db';
+import Database from '../config/db';
 
-class SearchSelect extends React.PureComponent {
+class SingleTrack extends React.PureComponent {
   render() {
     const { navigation } = this.props;
     const { playlist, uid } = this.props.screenProps.user.user;
@@ -96,4 +96,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default SearchSelect;
+export default SingleTrack;

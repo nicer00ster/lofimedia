@@ -5,6 +5,7 @@ import { Icon } from 'react-native-elements';
 
 import UserStack from './UserStack';
 import SearchStack from './SearchStack';
+import PlaylistStack from './PlaylistStack';
 import Player from '../player/Player';
 import Profile from '../profile/Profile';
 import Playlist from '../playlist/Playlist';
@@ -20,7 +21,7 @@ const RootStack = createBottomTabNavigator({
     }
   },
   Playlist: {
-    screen: Playlist,
+    screen: PlaylistStack,
     navigationOptions: {
       mode: 'modal',
       tabBarLabel: 'PLAYLIST',

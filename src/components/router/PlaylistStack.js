@@ -2,12 +2,12 @@ import React from 'react';
 import { Animated, Easing, Platform } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import { Icon } from 'react-native-elements';
-import Search from '../search/Search';
 import SingleTrack from '../SingleTrack';
+import Playlist from '../playlist/Playlist';
 
-const SearchStack = createStackNavigator({
-  Search: {
-    screen: Search,
+const PlaylistStack = createStackNavigator({
+  Playlist: {
+    screen: Playlist,
     navigationOptions: {
       header: null
     },
@@ -56,4 +56,4 @@ const SearchStack = createStackNavigator({
     }),
   });
 
-export default SearchStack;
+export default PlaylistStack;

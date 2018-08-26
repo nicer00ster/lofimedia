@@ -60,23 +60,27 @@ function* playlistSaga(action) {
 };
 
 function* playlistAdd(track) {
-  const hearts = track.track.hearts = track.track.hearts + 1
+  const hearts = track.track.hearts = track.track.hearts + 1;
+  let data = { [track.trackID]: track.track}
   yield call(rsf.database.update, `tracks/${track.trackID}`, {
-    ...track.track,
     hearts,
+    ...track.track,
   })
   yield call(rsf.database.update, `users/${track.uid}/playlist/${track.trackID}`, {
     ...track.track,
   });
+  yield put({ type: FETCH_PLAYLIST_SUCCESS, data })
 };
 
 function* playlistRemove(data) {
-  const hearts = data.track.hearts - 1
+  const hearts = data.track.hearts = data.track.hearts - 1;
+  let track = { [data.trackID]: data.track}
   yield call(rsf.database.update, `tracks/${data.trackID}`, {
     hearts,
     ...data.track,
   })
   yield call(rsf.database.delete, `users/${data.uid}/playlist/${data.trackID}`);
+  yield put({ type: FETCH_PLAYLIST_SUCCESS, track })
 };
 
 function* facebookLogin(action) {
