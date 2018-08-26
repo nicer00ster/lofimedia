@@ -31,7 +31,7 @@ export default class Playlist extends React.PureComponent {
               avatar={item.photoURL}
               key={item.uid}
               onPress={() => this.props.navigation.navigate('Single', { ...item })}
-              rightIcon={<PlaylistItems key={item.uid} uid={user.uid} track={item} trackID={item.uid} remove={this.props.screenProps.playlistRemove} />}
+              rightIcon={<PlaylistItems key={item.uid} uid={user.uid} hearts={this.props.screenProps.tracks.tracks[item.uid].hearts} track={item} trackID={item.uid} remove={this.props.screenProps.playlistRemove} />}
               titleStyle={{ color: 'white' }}
               title={item.title}
               subtitle={item.artist} />}

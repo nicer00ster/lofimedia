@@ -59,11 +59,13 @@ export default function userReducer (state = initialState, action = {}) {
         fetching: false
       }
     case LOGOUT:
+    case FETCH_PLAYLIST:
       return {
         ...state,
         fetching: true
       }
     case LOGOUT_SUCCESS:
+    case USER_UPDATED_FAILURE:
       return {
         ...initialState
       }
@@ -87,15 +89,6 @@ export default function userReducer (state = initialState, action = {}) {
         },
         fetching: false
       }
-    case USER_UPDATED_FAILURE:
-      return {
-        ...initialState
-      }
-    case FETCH_PLAYLIST:
-      return {
-        ...state,
-        fetching: true,
-      }
     case FETCH_PLAYLIST_SUCCESS:
       return {
         ...state,
@@ -112,7 +105,7 @@ export default function userReducer (state = initialState, action = {}) {
       }
     case PLAYLIST_ADD:
     let index = action.trackID;
-    let playlist = { ...state.user.playlist, [index]: action.track }
+    let playlist = { ...state.user.playlist, [index]: { ...action.track } }
       return {
         ...state,
         user: {

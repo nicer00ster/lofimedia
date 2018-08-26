@@ -10,6 +10,8 @@ import {
   FETCH_PLAYLIST_FAILURE,
   PLAYLIST_ADD,
   PLAYLIST_REMOVE,
+  ADD_HEART,
+  REMOVE_HEART,
   LOGIN,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
@@ -60,27 +62,26 @@ function* playlistSaga(action) {
 };
 
 function* playlistAdd(track) {
-  const hearts = track.track.hearts = track.track.hearts + 1;
-  let data = { [track.trackID]: track.track}
+  const hearts = yield call(rsf.database.read, `tracks/${track.trackID}/hearts`);
   yield call(rsf.database.update, `tracks/${track.trackID}`, {
-    hearts,
     ...track.track,
-  })
+    hearts: hearts + 1
+  });
   yield call(rsf.database.update, `users/${track.uid}/playlist/${track.trackID}`, {
     ...track.track,
+    hearts: hearts + 1
   });
-  yield put({ type: FETCH_PLAYLIST_SUCCESS, data })
+  yield put ({ type: ADD_HEART, track, hearts })
 };
 
 function* playlistRemove(data) {
-  const hearts = data.track.hearts = data.track.hearts - 1;
-  let track = { [data.trackID]: data.track}
+  const hearts = yield call(rsf.database.read, `tracks/${data.trackID}/hearts`);
   yield call(rsf.database.update, `tracks/${data.trackID}`, {
-    hearts,
     ...data.track,
-  })
+    hearts: hearts - 1
+  });
   yield call(rsf.database.delete, `users/${data.uid}/playlist/${data.trackID}`);
-  yield put({ type: FETCH_PLAYLIST_SUCCESS, track })
+  yield put({ type: REMOVE_HEART, data, hearts })
 };
 
 function* facebookLogin(action) {

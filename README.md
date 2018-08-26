@@ -22,7 +22,8 @@ These instructions will get you a copy of the project up and running on your loc
 - [x] Add authentication methods to drawer screen (Login & Logout)
 - [x] Add social icons to drawer screen
 - [x] Fixed error routing from nested screen within tab back to root
-- [ ] Add the heart track feature
+- [x] Add the heart track feature
+- [x] Display heart count on each track via single view
 - [ ] After user adds song to playlist from search page, close the modal
 - [ ] If user presses play button from search page or playlist page, change the track and bring them home
 - [ ]

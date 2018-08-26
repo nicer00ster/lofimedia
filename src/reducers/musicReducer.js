@@ -85,14 +85,17 @@ export default function musicReducer (state = initialState, action = {}) {
         repeat: !state.repeat
       }
     case ADD_HEART:
+    const addHeart = { ...state.tracks, [action.track.trackID]: { ...action.track.track, hearts: action.hearts + 1 } }
       return {
         ...state,
+        tracks: addHeart
 
       }
     case REMOVE_HEART:
+    const removeHeart = { ...state.tracks, [action.data.trackID]: { ...action.data.track, hearts: action.hearts - 1 } }
       return {
         ...state,
-
+        tracks: removeHeart
       }
     // case SEEK_TIME:
     // console.log('seektime2', action);

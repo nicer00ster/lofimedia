@@ -1,14 +1,13 @@
 import React from 'react';
 import { Dimensions, StyleSheet, View, Text, Image } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { Icon, Badge } from 'react-native-elements';
 import Database from '../config/db';
 
 class SingleTrack extends React.PureComponent {
   render() {
     const { navigation } = this.props;
     const { playlist, uid } = this.props.screenProps.user.user;
-    let toggleHeart = playlist === null ? '#fff' : playlist[navigation.state.params.uid] ? 'rgb(255,135,136)' : '#fff';
-
+    let toggleHeart = playlist === null ? '#1f222e' : playlist[navigation.state.params.uid] ? 'rgb(255,135,136)' : '#1f222e';
     return (
       <View style={styles.container}>
         <View>
@@ -24,14 +23,21 @@ class SingleTrack extends React.PureComponent {
             <Icon
               type="font-awesome"
               name="heart"
-              color="#1f222e"
-              containerStyle={{ backgroundColor: toggleHeart }}
-              raised
+              size={50}
+              color={toggleHeart}
+              // containerStyle={{ backgroundColor: toggleHeart }}
+              // raised
               onPress={() =>
                 playlist[navigation.state.params.uid]
                 ? this.props.screenProps.playlistRemove(navigation.state.params, uid, navigation.state.params.uid)
                 : this.props.screenProps.playlistAdd(navigation.state.params, uid, navigation.state.params.uid)} />
               {/* insert how many hearts */}
+              <Badge
+                containerStyle={{ backgroundColor: 'rgba(31, 34, 46, 0.25)', height: 25, width: 25, padding: 5, marginLeft: 15 }}
+                wrapperStyle={styles.heartContainer}
+                textStyle={styles.heartText}
+                onPress={() => this.props.remove(this.props.track, this.props.uid, this.props.trackID)}
+                value={this.props.screenProps.tracks.tracks[navigation.state.params.uid].hearts} />
           </View>
         </View>
       </View>
@@ -63,9 +69,11 @@ const styles = StyleSheet.create({
   add: {
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
+    flexDirection: 'row',
     height: '100%',
     width: '100%',
     position: 'absolute',
+    padding: 10
   },
   image: {
     borderWidth: .5,
@@ -87,12 +95,22 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     color: '#fff',
     padding: 12,
+    margin: 6
   },
   artist: {
     fontSize: 20,
-    // fontWeight: 'bold',
     color: '#fff',
-    padding: 12
+    padding: 12,
+    margin: 6
+  },
+  heartContainer: {
+    position: 'absolute',
+    paddingBottom: 5,
+  },
+  heartText: {
+    color: '#fff',
+    fontSize: 12,
+    fontWeight: 'bold'
   }
 })
 

@@ -57,6 +57,7 @@ class Player extends React.Component {
               trackID={track.uid}
               remove={screenProps.playlistRemove}
               add={screenProps.playlistAdd}
+              hearts={track.hearts}
               tracks={screenProps.tracks.tracks}
               uid={screenProps.user.user.uid}
               url={track.photoURL} />
