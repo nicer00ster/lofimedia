@@ -16,55 +16,6 @@ const Database = {
       return;
     }
   },
-  // addToPlaylist: (track, uid, key) => {
-  //   return new Promise((resolve, reject) => {
-  //     const ref = db.ref(`users/${uid}/playlist/${key}`);
-  //     const update = resolve(ref.update(track))
-  //     return update;
-  //   })
-  // },
-  getPlaylist: uid => {
-    const ref = db.ref(`users/${uid}/playlist`);
-    const data = ref.once('value')
-    .then(data => {
-      if(data.exists()) {
-        return data.val()
-      } else {
-        return false;
-      }
-    })
-    return data;
-  },
-  toggleHeart: (track, uid) => {
-    track.transaction(item => {
-      if(item) {
-        if(item.hearts && item.hearts[uid]) {
-          item.heartCount--;
-          item.hearts[uid] = null;
-        } else {
-          item.heartCount++;
-          if(!item.hearts) {
-            item.hearts = {};
-          }
-          item.hearts[uid] = true;
-        }
-      }
-      return item;
-    })
-  },
-  addTrack: (artist, title, mp3url, photoURL) => {
-    const key = db.ref().child('tracks').push().key;
-    let data = {
-      artist: artist,
-      title: title,
-      mp3url: mp3url,
-      photoURL: photoURL,
-      uid: key
-    }
-    const updates = {};
-    updates[`/tracks/${key}`] = data;
-    return db.ref().update(updates);
-  },
 };
 
 export default Database;

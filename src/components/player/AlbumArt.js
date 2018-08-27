@@ -16,8 +16,6 @@ class AlbumArt extends React.PureComponent {
               name="heart"
               color={toggleHeart}
               size={50}
-              // containerStyle={{ backgroundColor: toggleHeart }}
-              // raised
               onPress={() =>
                 playlist !== null && playlist[trackID]
                 ? remove(current, uid, trackID)
@@ -49,8 +47,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     justifyContent: 'flex-end',
     alignItems: 'flex-start',
-    // paddingLeft: 24,
-    // paddingRight: 24,
     margin: 10,
     top: 0,
     left: 0,

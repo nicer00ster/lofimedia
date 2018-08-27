@@ -39,13 +39,6 @@ export default class Profile extends React.Component {
             </View>
           </View>
           <View style={styles.bottomContent}>
-            {/* <View style={{ alignSelf: 'center' }}>
-              <TextInput style={{ width: imageHeight }} placeholder='artist' onChangeText={(artist) => this.setState({ artist })} value={this.state.artist}/>
-              <TextInput style={{ width: imageHeight }} placeholder='title' onChangeText={(title) => this.setState({ title })} value={this.state.title}/>
-              <TextInput style={{ width: imageHeight }} placeholder='mp3url' onChangeText={(mp3url) => this.setState({ mp3url })} value={this.state.mp3url}/>
-              <TextInput style={{ width: imageHeight }} placeholder='photoURL' onChangeText={(photoURL) => this.setState({ photoURL })} value={this.state.photoURL}/>
-              <Button title='submit' onPress={() => Database.addTrack(this.state.artist, this.state.title, this.state.mp3url, this.state.photoURL)} icon={{ name: 'home' }} />
-            </View> */}
             <Button
               onPress={() => screenProps.onfbLogout()}
               medium

@@ -27,11 +27,10 @@ class Root extends React.Component {
     fetchUser(this.props.updateUserInfo);
     this.props.fetchMusic();
     this.props.fetchDaily();
-    setTimeout(() => {
+    this.timeout = setTimeout(() => {
       this.props.fetchPlaylist(this.props.user.user.uid);
     }, 1000);
   };
-
 
   render() {
     return <Navigator {...this.props} screenProps={this.props} />

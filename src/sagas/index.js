@@ -26,7 +26,7 @@ import {
   SEARCH_FAILURE,
 } from '../constants';
 
-import { put, takeEvery, takeLatest, call } from 'redux-saga/effects';
+import { put, takeEvery, takeLatest, call, all } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import { apiMusic, apiDaily, apiUser } from '../api';
 import { fbLogin, fbLogout } from '../auth/index';
