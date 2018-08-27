@@ -7,8 +7,8 @@ class AlbumArt extends React.PureComponent {
     const { playlist, add, remove, url, tracks, trackID, uid, current } = this.props;
     let toggleHeart = playlist === null ? '#1f222e' : playlist[trackID] ? 'rgb(255,135,136)' : '#1f222e';
     return (
-      <View style={styles.container}>
-        <TouchableOpacity onPress={this.props.onPress}>
+      <View style={styles.container, { padding: 2, marginBottom: 6 }}>
+        <TouchableOpacity style={{ elevation: 12, backgroundColor: '#000', borderRadius: 4 }} onPress={this.props.onPress}>
           <Image style={styles.image} source={{ uri: url }}/>
           <View style={styles.iconOverlay}>
             <Icon
@@ -24,7 +24,6 @@ class AlbumArt extends React.PureComponent {
               containerStyle={{ backgroundColor: 'rgba(31, 34, 46, 0.25)', height: 25, width: 25, padding: 5, marginLeft: 25 }}
               wrapperStyle={styles.heartContainer}
               textStyle={styles.heartText}
-              onPress={() => this.props.remove(this.props.track, this.props.uid, this.props.trackID)}
               value={this.props.hearts} />
           </View>
         </TouchableOpacity>
@@ -54,9 +53,10 @@ const styles = StyleSheet.create({
     bottom: 0
   },
   image: {
-    borderWidth: .5,
-    borderRadius: 1,
-    width: imageWidth,
+    borderWidth: 1,
+    borderRadius: 4,
+    borderColor: 'transparent',
+    width: 'auto',
     height: imageHeight,
   },
   heartContainer: {
