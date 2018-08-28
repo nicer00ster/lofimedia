@@ -24,7 +24,6 @@ class Player extends React.Component {
     uid: PropTypes.string,
     navigation: PropTypes.object,
   }
-
   constructor(props) {
     super(props);
     this.state = {
@@ -32,31 +31,25 @@ class Player extends React.Component {
       position: 0,
     };
   }
-
   seek(time) {
     time = Math.round(time);
     this.refs.audio && this.refs.audio.seek(time);
     this.setState({ position: time });
   }
-
   setDuration(data) {
     this.setState({ duration: Math.floor(data.duration) });
   }
-
   setTime(data) {
     this.setState({ position: Math.floor(data.currentTime) });
   }
-
   handleForward = () => {
     this.props.screenProps.nextSong();
     this.gallery.snapToNext();
   }
-
   handleBack = () => {
     this.props.screenProps.prevSong();
     this.gallery.snapToPrev();
   }
-
   onSwipe = () => {
     if (this.gallery.currentIndex > this.props.screenProps.tracks.index) {
       this.props.screenProps.nextSong();
@@ -65,11 +58,9 @@ class Player extends React.Component {
       this.props.screenProps.prevSong();
     }
   };
-
   renderLoading() {
     return <Spinner type="9CubeGrid" size={100} color="#fff" style={{ flex: 1, alignSelf: 'center' }} />
   }
-
   renderItem = ({ item }) => {
     const playlist = this.props.screenProps.user.user.playlist ? this.props.screenProps.user.user.playlist : null;
     return (
@@ -85,7 +76,6 @@ class Player extends React.Component {
         url={item.photoURL} />
     );
   };
-
   render() {
     const { navigation } = this.props;
     const { screenProps } = this.props;

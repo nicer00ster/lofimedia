@@ -3,6 +3,7 @@ package com.lofimedia;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.entria.views.RNViewOverflowPackage;
 import com.tanguyantoine.react.MusicControl;
 import com.react.rnspinkit.RNSpinkitPackage;
 import com.brentvatne.react.ReactVideoPackage;
@@ -31,6 +32,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNViewOverflowPackage(),
             new MusicControl(),
             new RNSpinkitPackage(),
             new ReactVideoPackage(),

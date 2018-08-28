@@ -26,9 +26,11 @@ const styles = StyleSheet.create({
   },
   image: {
     borderWidth: 1,
-    borderRadius: 1,
+    borderRadius: 2,
     width: imageWidth,
     height: imageHeight,
+    elevation: 8,
+    backgroundColor: '#000',
   },
   textContainer: {
     position: 'absolute',
@@ -38,7 +40,9 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
+    padding: 2,
     margin: 12,
+    elevation: 12,
   },
   name: {
     fontSize: 18,
@@ -97,7 +101,7 @@ export default class Profile extends React.Component {
           daily={screenProps.daily} />
           {screenProps.user.fetching ? <Spinner type="9CubeGrid" size={100} color="#fff" style={{ flex: 1, alignSelf: 'center' }}/>
             : <React.Fragment>
-              <View>
+              <View style={{ padding: 2 }}>
                 {screenProps.user.user.photoURL !== '' && <Image style={styles.image} source={{ uri: screenProps.user.user.photoURL }} />}
                 <View style={styles.textContainer}>
                   {screenProps.user.user.superuser === true && <Icon raised name='diamond' type='simple-line-icon' onPress={() => this.props.navigation.navigate('SuperUser')} />}

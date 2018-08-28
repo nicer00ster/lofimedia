@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { StatusBar, Platform } from 'react-native';
 import { createDrawerNavigator, createBottomTabNavigator } from 'react-navigation';
 import { Icon } from 'react-native-elements';
@@ -9,6 +8,8 @@ import SearchStack from './SearchStack';
 import PlaylistStack from './PlaylistStack';
 import Player from '../player/Player';
 import DrawerScreen from './DrawerScreen';
+import TabBar from './TabBar';
+import AddButton from './AddButton';
 
 const RootStack = createBottomTabNavigator({
   Media: {
@@ -24,6 +25,7 @@ const RootStack = createBottomTabNavigator({
       mode: 'modal',
       tabBarLabel: 'PLAYLIST',
       tabBarIcon: ({ tintColor }) => <Icon name="playlist" type="simple-line-icon" size={25} color={tintColor} />,
+      // tabBarIcon: <AddButton />,
     },
   },
   Search: {
@@ -34,6 +36,7 @@ const RootStack = createBottomTabNavigator({
     },
   },
 }, {
+  // tabBarComponent: TabBar,
   tabBarOptions: {
     activeTintColor: '#fff',
     inactiveTintColor: 'rgba(255, 255, 255, 0.25)',
@@ -70,7 +73,7 @@ const Navigator = createDrawerNavigator({
   Root: {
     screen: RootStack,
     navigationOptions: {
-      drawerLabel: 'ROOT',
+      drawerLabel: 'HOME',
       drawerIcon: ({ tintColor }) => <Icon type="font-awesome" name="home" color={tintColor} />,
     },
   },

@@ -6,7 +6,7 @@ const transitionConfig = () => ({
     easing: Easing.out(Easing.poly(4)),
     timing: Animated.timing,
   },
-  screenInterpolator: (sceneProps) => {
+  screenInterpolator: sceneProps => {
     const { layout, position, scene } = sceneProps;
     const { index } = scene;
 

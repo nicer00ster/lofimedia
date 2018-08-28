@@ -10,6 +10,7 @@ import {
   View,
   Text,
   Dimensions,
+  TouchableOpacity,
 } from 'react-native';
 import {
   Divider,
@@ -54,8 +55,8 @@ const styles = StyleSheet.create({
   cancel: {
     position: 'absolute',
     justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    padding: 15,
+    alignItems: 'flex-end',
+    margin: 12,
     top: 0,
     left: 0,
     right: 0,
@@ -73,16 +74,19 @@ const DrawerScreen = props => (
          resizeMode='cover'
        />
        <SafeAreaView style={{ flex: 1, backgroundColor: 'transparent' }} forceInset={{ top: 'always', horizontal: 'never' }}>
-         <Icon
-           type="font-awesome"
-           name="times-circle"
-           color="#1f222e"
-           containerStyle={styles.cancel}
-           size={32}
-           onPress={() => props.navigation.closeDrawer()}/>
          <Text style={styles.header}>Lofi Media</Text>
+         <TouchableOpacity
+           onPress={() => props.navigation.closeDrawer()}
+           style={styles.cancel}>
+           <Icon
+             type="font-awesome"
+             name="times-circle"
+             color="#1f222e"
+             size={36}
+           />
+         </TouchableOpacity>
          <Divider style={styles.divider} />
-         <DrawerItems {...props} onItemPress={(routeOptions) => {
+         <DrawerItems {...props} onItemPress={routeOptions => {
            props.navigation.navigate(routeOptions.route.routes[routeOptions.route.index].routeName, {})
          }}/>
          <Divider style={styles.divider} />

@@ -26,7 +26,7 @@ These instructions will get you a copy of the project up and running on your loc
 - [x] Display heart count on each track via single view
 - [ ] After user adds song to playlist from search page, close the modal
 - [ ] If user presses play button from search page or playlist page, change the track and bring them home
-- [ ] Build a superuser page (add music, delete music)
+- [x] Build a superuser page (add music, delete music)
 
 ### Installing
 

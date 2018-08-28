@@ -1,6 +1,7 @@
 package com.lofimedia;
 
 import com.facebook.react.ReactActivity;
+import com.entria.views.RNViewOverflowPackage;
 
 public class MainActivity extends ReactActivity {
 

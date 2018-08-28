@@ -22,6 +22,7 @@
     "react-native-spinkit": "^1.1.1",
     "react-native-vector-icons": "^5.0.0",
     "react-native-video": "^3.2.0",
+    "react-native-view-overflow": "^0.0.3",
     "react-navigation": "^2.11.2",
     "react-navigation-fluid-transitions": "^0.2.2",
     "react-redux": "^5.0.7",

@@ -11,10 +11,14 @@ import { Icon, Badge } from 'react-native-elements';
 
 const { width } = Dimensions.get('window');
 const imageHeight = width - 76;
+const imageWidth = width - 24;
 
 const styles = StyleSheet.create({
   container: {
     alignSelf: 'center',
+    borderRadius: 3,
+    width: imageWidth,
+    paddingBottom: 12,
     paddingLeft: 24,
     paddingRight: 24,
   },
@@ -30,7 +34,7 @@ const styles = StyleSheet.create({
   },
   image: {
     borderWidth: 1,
-    borderRadius: 4,
+    borderRadius: 3,
     borderColor: 'transparent',
     width: 'auto',
     height: imageHeight,
@@ -44,6 +48,13 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: 'bold',
   },
+  badge: {
+    backgroundColor: 'rgba(31, 34, 46, 0.25)',
+    height: 25,
+    width: 25,
+    padding: 5,
+    marginLeft: 25,
+  },
 });
 
 class Gallery extends React.PureComponent {
@@ -55,8 +66,8 @@ class Gallery extends React.PureComponent {
     uid: PropTypes.string,
     current: PropTypes.object,
     hearts: PropTypes.number,
+    onPress: PropTypes.func,
   }
-
   render() {
     const {
       playlist,
@@ -69,8 +80,8 @@ class Gallery extends React.PureComponent {
     } = this.props;
     const toggleHeart = playlist === null ? '#1f222e' : playlist[trackID] ? 'rgb(255,135,136)' : '#1f222e';
     return (
-      <View style={styles.container, { padding: 2, marginBottom: 6 }}>
-        <TouchableOpacity style={{ elevation: 12, backgroundColor: '#000', borderRadius: 4 }} onPress={this.props.onPress}>
+      <View style={styles.container}>
+        <TouchableOpacity style={{ elevation: 12, backgroundColor: '#000', borderRadius: 3 }} onPress={this.props.onPress}>
           <Image style={styles.image} source={{ uri: url }}/>
           <View style={styles.iconOverlay}>
             <Icon
@@ -83,7 +94,7 @@ class Gallery extends React.PureComponent {
                 ? remove(current, uid, trackID)
                 : add(current, uid, trackID)} />
             <Badge
-              containerStyle={{ backgroundColor: 'rgba(31, 34, 46, 0.25)', height: 25, width: 25, padding: 5, marginLeft: 25 }}
+              containerStyle={styles.badge}
               wrapperStyle={styles.heartContainer}
               textStyle={styles.heartText}
               value={this.props.hearts} />
