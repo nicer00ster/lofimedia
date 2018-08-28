@@ -1,7 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { StyleSheet, View } from 'react-native';
 import { Button } from 'react-native-elements';
-import { onfbLogin } from '../../actions/index';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+});
 
 const LoginMethods = props => (
   <View style={styles.container}>
@@ -16,17 +29,9 @@ const LoginMethods = props => (
     </View>
 );
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  text: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: 'white',
-  }
-})
+LoginMethods.propTypes = {
+  onfbLogin: PropTypes.func,
+};
+
 
 export default LoginMethods;

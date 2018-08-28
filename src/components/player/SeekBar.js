@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Slider from 'react-native-slider';
 import {
   View,
@@ -60,6 +61,13 @@ const SeekBar = ({ duration, position, onSeek, onSlidingStart }) => {
         trackStyle={styles.track}/>
     </View>
   );
+};
+
+SeekBar.propTypes = {
+  duration: PropTypes.number,
+  position: PropTypes.number,
+  onSeek: PropTypes.func,
+  onSlidingStart: PropTypes.func,
 };
 
 export default SeekBar;

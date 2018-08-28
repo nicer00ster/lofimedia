@@ -26,6 +26,9 @@ import {
   SEARCH,
   SEARCH_SUCCESS,
   SEARCH_FAILURE,
+  ADD_TRACK,
+  ADD_TRACK_SUCCESS,
+  ADD_TRACK_FAILURE,
 } from '../constants';
 
 import { apiMusic, apiDaily } from '../api';
@@ -102,9 +105,10 @@ function* facebookLogout() {
   }
 }
 
-function* updateUser() {
+function* updateUser(data) {
+  const user = yield call(rsf.database.read, `users/${data.data._user.uid}`);
   try {
-    yield put({ type: USER_UPDATED_SUCCESS });
+    yield put({ type: USER_UPDATED_SUCCESS, user });
   } catch (error) {
     yield put({ type: USER_UPDATED_FAILURE });
   }
@@ -120,6 +124,26 @@ function* searchQuery(action) {
   }
 }
 
+function* addTrack(action) {
+  const { track } = action;
+  try {
+    const key = yield call(rsf.database.create, 'tracks', {
+      ...track,
+      hearts: 0,
+    });
+    yield call(rsf.database.update, `tracks/${key}`, {
+      ...track,
+      hearts: 0,
+      uid: key,
+    });
+    yield delay(1250);
+    yield put({ type: ADD_TRACK_SUCCESS, track, key });
+  } catch (error) {
+    console.log(error);
+    yield put({ type: ADD_TRACK_FAILURE });
+  }
+}
+
 function* rootSaga() {
   yield takeEvery(FETCH_MUSIC, fetchMusic);
   yield takeEvery(FETCH_DAILY, fetchDaily);
@@ -130,6 +154,7 @@ function* rootSaga() {
   yield takeEvery(LOGOUT, facebookLogout);
   yield takeEvery(USER_UPDATED, updateUser);
   yield takeEvery(SEARCH, searchQuery);
+  yield takeEvery(ADD_TRACK, addTrack);
 }
 
 export default rootSaga;

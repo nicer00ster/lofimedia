@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Dimensions } from 'react-native';
 import Video from 'react-native-video';
 import Spinner from 'react-native-spinkit';
@@ -13,6 +14,17 @@ const { width } = Dimensions.get('window');
 const imageWidth = width - 76;
 
 class Player extends React.Component {
+  static propTypes = {
+    screenProps: PropTypes.object,
+    tracks: PropTypes.object,
+    user: PropTypes.object,
+    playlist: PropTypes.object,
+    playlistRemove: PropTypes.func,
+    playlistAdd: PropTypes.func,
+    uid: PropTypes.string,
+    navigation: PropTypes.object,
+  }
+
   constructor(props) {
     super(props);
     this.state = {

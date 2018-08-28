@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Spinner from 'react-native-spinkit';
 import {
   StyleSheet,
@@ -36,11 +37,23 @@ const styles = StyleSheet.create({
 });
 
 export default class Playlist extends React.PureComponent {
+  static propTypes = {
+    screenProps: PropTypes.object,
+    user: PropTypes.object,
+    navigation: PropTypes.object,
+    daily: PropTypes.string,
+    tracks: PropTypes.object,
+    playlistRemove: PropTypes.func,
+  }
+
   render() {
     const { user } = this.props.screenProps.user;
     const playlist = !user.playlist ? [] : objToArray(user.playlist);
     return (
-      <Container navigation={this.props.navigation} avatar={user.photoURL} daily={this.props.screenProps.daily}>
+      <Container
+        navigation={this.props.navigation}
+        avatar={user.photoURL}
+        daily={this.props.screenProps.daily}>
         <Header leftComponent={<Text style={styles.headerText}>Playlist</Text>} backgroundColor='transparent' />
         {playlist.length === 0
           ? <View style={{ width: screenWidth, height: screenHeight }}>

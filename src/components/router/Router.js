@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { StatusBar, Platform } from 'react-native';
 import { createDrawerNavigator, createBottomTabNavigator } from 'react-navigation';
 import { Icon } from 'react-native-elements';

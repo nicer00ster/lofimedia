@@ -1,16 +1,16 @@
 import React from 'react';
-import { Platform } from 'react-native';
+import PropTypes from 'prop-types';
 import { createStackNavigator } from 'react-navigation';
 import { Icon } from 'react-native-elements';
 import Search from '../search/Search';
 import SingleTrack from '../SingleTrack';
-import { transitionConfig } from './config';
+import transitionConfig from './config';
 
 const SearchStack = createStackNavigator({
   Search: {
     screen: Search,
     navigationOptions: {
-      header: null
+      header: null,
     },
   },
   Single: {
@@ -22,16 +22,23 @@ const SearchStack = createStackNavigator({
       headerStyle: {
         backgroundColor: 'rgba(31, 34, 46, 0.75)',
         borderBottomWidth: 2,
-        borderBottomColor: '#fff'
+        borderBottomColor: '#fff',
       },
       headerTitleStyle: {
-        color: '#fff'
+        color: '#fff',
       },
     }),
-  }
+  },
 }, {
-    mode: 'modal',
-    transitionConfig
-  });
+  mode: 'modal',
+  transitionConfig,
+});
+
+SearchStack.propTypes = {
+  navigation: PropTypes.shape({
+    goBack: PropTypes.func,
+    state: PropTypes.object,
+  }),
+};
 
 export default SearchStack;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   View,
   TouchableOpacity,
@@ -9,7 +10,6 @@ import {
 import { Icon, Badge } from 'react-native-elements';
 
 const { width } = Dimensions.get('window');
-const imageWidth = width - 24;
 const imageHeight = width - 76;
 
 const styles = StyleSheet.create({
@@ -47,8 +47,26 @@ const styles = StyleSheet.create({
 });
 
 class Gallery extends React.PureComponent {
+  static propTypes = {
+    add: PropTypes.func,
+    remove: PropTypes.func,
+    url: PropTypes.string,
+    trackID: PropTypes.string,
+    uid: PropTypes.string,
+    current: PropTypes.object,
+    hearts: PropTypes.number,
+  }
+
   render() {
-    const { playlist, add, remove, url, trackID, uid, current } = this.props;
+    const {
+      playlist,
+      add,
+      remove,
+      url,
+      trackID,
+      uid,
+      current,
+    } = this.props;
     const toggleHeart = playlist === null ? '#1f222e' : playlist[trackID] ? 'rgb(255,135,136)' : '#1f222e';
     return (
       <View style={styles.container, { padding: 2, marginBottom: 6 }}>

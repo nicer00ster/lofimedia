@@ -16,7 +16,9 @@
     "airbnb-base"
   ],
   "rules" : {
-    "arrow-body-style" : "warn",
-    "linebreak-style": ["error", "windows"]
+    "arrow-body-style": "warn",
+    "linebreak-style": ["error", "windows"],
+    "arrow-parens": ["error", "as-needed"],
+    "lines-between-class-members": ["error", "never"],
   }
 }

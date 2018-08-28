@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { Icon, Avatar } from 'react-native-elements';
 import MarqueeText from 'react-native-marquee';
@@ -31,6 +32,15 @@ const styles = StyleSheet.create({
 });
 
 class Header extends React.PureComponent {
+  static propTypes = {
+    navigation: PropTypes.shape({
+      openDrawer: PropTypes.func,
+      navigate: PropTypes.func,
+    }),
+    daily: PropTypes.string,
+    avatar: PropTypes.string,
+  }
+
   render() {
     const { daily } = this.props;
     return (

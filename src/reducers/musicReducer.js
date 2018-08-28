@@ -10,6 +10,9 @@ import {
   TOGGLE_REPEAT,
   ADD_HEART,
   REMOVE_HEART,
+  ADD_TRACK,
+  ADD_TRACK_SUCCESS,
+  ADD_TRACK_FAILURE,
   // SET_TIME,
   // SET_DURATION,
   // SEEK_TIME,
@@ -105,6 +108,32 @@ export default function musicReducer(state = initialState, action = {}) {
             hearts: action.hearts - 1,
           },
         },
+      };
+    case ADD_TRACK:
+      return {
+        ...state,
+        tracks: {
+          ...state.tracks,
+        },
+        fetching: true,
+      };
+    case ADD_TRACK_SUCCESS:
+      return {
+        ...state,
+        tracks: {
+          ...state.tracks,
+          [action.key]: {
+            ...action.track,
+            uid: action.key,
+            hearts: 0,
+          },
+        },
+        fetching: false,
+      };
+    case ADD_TRACK_FAILURE:
+      return {
+        error: true,
+        fetching: false,
       };
     // case SEEK_TIME:
     // console.log('seektime2', action);

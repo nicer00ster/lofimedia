@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   StyleSheet,
   View,
@@ -20,6 +21,12 @@ const styles = StyleSheet.create({
 });
 
 export default class Container extends React.PureComponent {
+  static propTypes = {
+    navigation: PropTypes.object,
+    avatar: PropTypes.string,
+    daily: PropTypes.string,
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -27,7 +34,7 @@ export default class Container extends React.PureComponent {
           source={require('../assets/img/cover.jpg')}
           style={styles.background}
           resizeMode="cover"
-          opacity={.25}
+          opacity={0.25}
         />
         <Header
           navigation={this.props.navigation}

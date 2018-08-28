@@ -1,7 +1,67 @@
 import React from 'react';
-import { StyleSheet, Platform, StatusBar, ScrollView, Image, View, Text, Dimensions } from 'react-native';
+import PropTypes from 'prop-types';
 import { DrawerItems, SafeAreaView } from 'react-navigation';
-import { Divider, SocialIcon, Icon, Button } from 'react-native-elements';
+import {
+  StyleSheet,
+  Platform,
+  StatusBar,
+  ScrollView,
+  Image,
+  View,
+  Text,
+  Dimensions,
+} from 'react-native';
+import {
+  Divider,
+  SocialIcon,
+  Icon,
+  Button,
+} from 'react-native-elements';
+
+const styles = StyleSheet.create({
+  header: {
+    marginTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+    fontFamily: Platform.OS === 'android' ? 'sans-serif-thin' : 'Courier New',
+    fontSize: 36,
+    fontWeight: '200',
+    textAlign: 'center',
+    color: '#1f222e',
+    margin: 5,
+    padding: 5,
+    height: 100,
+  },
+  drawerImage: {
+    flex: 1,
+    position: 'absolute',
+    top: 0,
+    height: Dimensions.get('window').height,
+    width: Dimensions.get('window').width,
+  },
+  text: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  divider: {
+    height: 1,
+    backgroundColor: '#1f222e',
+  },
+  social: {
+    margin: 12,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  cancel: {
+    position: 'absolute',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    padding: 15,
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
+});
 
 const DrawerScreen = props => (
    <ScrollView>
@@ -22,9 +82,9 @@ const DrawerScreen = props => (
            onPress={() => props.navigation.closeDrawer()}/>
          <Text style={styles.header}>Lofi Media</Text>
          <Divider style={styles.divider} />
-         <DrawerItems {...props} onItemPress={routeOptions => {
-                props.navigation.navigate(routeOptions.route.routes[routeOptions.route.index].routeName, {})
-            }} />
+         <DrawerItems {...props} onItemPress={(routeOptions) => {
+           props.navigation.navigate(routeOptions.route.routes[routeOptions.route.index].routeName, {})
+         }}/>
          <Divider style={styles.divider} />
           <View style={styles.social}>
             <SocialIcon type='github-alt'/>
@@ -38,7 +98,7 @@ const DrawerScreen = props => (
                backgroundColor='#1f222e'
                medium
                raised
-               containerViewStyle={{marginBottom: 15}}
+               containerViewStyle={{ marginBottom: 15 }}
                textStyle={styles.text}
                icon={{ name: 'logout', type: 'simple-line-icon' }}
                title='LOGOUT' />
@@ -48,7 +108,7 @@ const DrawerScreen = props => (
                backgroundColor='#3b5998'
                raised
                medium
-               containerViewStyle={{marginBottom: 15}}
+               containerViewStyle={{ marginBottom: 15 }}
                textStyle={styles.text}
                icon={{ name: 'social-facebook', type: 'simple-line-icon' }}
                title="LOGIN WITH FACEBOOK"
@@ -58,49 +118,14 @@ const DrawerScreen = props => (
    </ScrollView>
 );
 
-const styles = StyleSheet.create({
-  header: {
-    marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-    fontFamily: Platform.OS === "android" ? 'sans-serif-thin' : 'Courier New',
-    fontSize: 36,
-    fontWeight: '200',
-    textAlign: 'center',
-    color: "#1f222e",
-    margin: 5,
-    padding: 5,
-    height: 100
-  },
-  drawerImage: {
-    flex: 1,
-    position: 'absolute',
-    top: 0,
-    height: Dimensions.get('window').height,
-    width: Dimensions.get('window').width
-  },
-  text: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: 'white',
-  },
-  divider: {
-    height: 1,
-    backgroundColor: '#1f222e'
-  },
-  social: {
-    margin: 12,
-    flexDirection: 'row',
-    justifyContent: 'center'
-  },
-  cancel: {
-    position: 'absolute',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    padding: 15,
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0
-  }
-});
+DrawerScreen.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func,
+    closeDrawer: PropTypes.func,
+  }),
+  screenProps: PropTypes.object,
+  onfbLogout: PropTypes.func,
+  onfbLogin: PropTypes.func,
+};
 
 export default DrawerScreen;

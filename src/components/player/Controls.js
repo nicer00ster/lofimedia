@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
@@ -72,5 +73,18 @@ const Controls = ({
     </TouchableOpacity>
   </View>
 );
+
+Controls.propTypes = {
+  paused: PropTypes.bool,
+  shuffle: PropTypes.bool,
+  repeat: PropTypes.bool,
+  onPressPlay: PropTypes.func,
+  onPressPause: PropTypes.func,
+  onBack: PropTypes.func,
+  onForward: PropTypes.func,
+  onPressShuffle: PropTypes.func,
+  onPressRepeat: PropTypes.func,
+  forwardDisabled: PropTypes.bool,
+}
 
 export default Controls;

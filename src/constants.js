@@ -26,6 +26,10 @@ export const SET_TIME = 'SET_TIME';
 export const SET_DURATION = 'SET_DURATION';
 export const SEEK_TIME = 'SEEK_TIME';
 
+export const ADD_TRACK = 'ADD_TRACK';
+export const ADD_TRACK_SUCCESS = 'ADD_TRACK_SUCCESS';
+export const ADD_TRACK_FAILURE = 'ADD_TRACK_FAILURE';
+
 export const SEARCH = 'SEARCH';
 export const SEARCH_SUCCESS = 'SEARCH_SUCCESS';
 export const SEARCH_FAILURE = 'SEARCH_FAILURE';

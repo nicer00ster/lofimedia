@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   fetchMusic,
@@ -16,12 +17,21 @@ import {
   searchMusic,
   playlistAdd,
   playlistRemove,
+  addTrack,
 } from './actions';
 
 import { fetchUser } from './auth/index';
 import Navigator from './components/router/Router';
 
 class Root extends React.Component {
+  static propTypes = {
+    updateUserInfo: PropTypes.func,
+    fetchMusic: PropTypes.func,
+    fetchDaily: PropTypes.func,
+    fetchPlaylist: PropTypes.func,
+    user: PropTypes.object,
+  }
+
   componentDidMount() {
     fetchUser(this.props.updateUserInfo);
     this.props.fetchMusic();
@@ -59,6 +69,7 @@ const mapDispatchToProps = {
   searchMusic,
   playlistAdd,
   playlistRemove,
+  addTrack,
   // setDuration,
   // setTime,
   // seek

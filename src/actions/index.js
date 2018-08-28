@@ -10,117 +10,126 @@ import {
   PREV_SONG,
   TOGGLE_SHUFFLE,
   TOGGLE_REPEAT,
-  SET_TIME,
-  SET_DURATION,
-  SEEK_TIME,
   SEARCH,
   FETCH_PLAYLIST,
   PLAYLIST_ADD,
-  PLAYLIST_REMOVE
-} from '../constants'
-import Database from '../config/db';
+  PLAYLIST_REMOVE,
+  ADD_TRACK,
+  // SET_TIME,
+  // SET_DURATION,
+  // SEEK_TIME,
+} from '../constants';
 
+// API METHODS
 export function fetchMusic() {
   return {
-    type: FETCH_MUSIC
+    type: FETCH_MUSIC,
   };
-};
+}
 
 export function fetchDaily() {
   return {
-    type: FETCH_DAILY
+    type: FETCH_DAILY,
   };
-};
+}
 
-export function updateUserInfo(data) {
+export function updateUserInfo(data, user) {
   return {
     type: USER_UPDATED,
-    data
+    data,
+    user,
   };
-};
+}
 
 export function onfbLogin() {
   return {
-    type: LOGIN
+    type: LOGIN,
   };
-};
+}
 
 export function onfbLogout() {
   return {
-    type: LOGOUT
+    type: LOGOUT,
   };
-};
+}
 
 //  MUSIC METHODS
 export function playMusic() {
   return {
-    type: PLAY_MUSIC
+    type: PLAY_MUSIC,
   };
-};
+}
 
 export function pauseMusic() {
   return {
-    type: PAUSE_MUSIC
+    type: PAUSE_MUSIC,
   };
-};
+}
 
 export function nextSong() {
   return {
-    type: NEXT_SONG
+    type: NEXT_SONG,
   };
-};
+}
 
 export function prevSong() {
   return {
-    type: PREV_SONG
+    type: PREV_SONG,
   };
-};
+}
 
 export function shuffleMusic() {
   return {
-    type: TOGGLE_SHUFFLE
+    type: TOGGLE_SHUFFLE,
   };
-};
+}
 
 
 export function repeatMusic() {
   return {
-    type: TOGGLE_REPEAT
+    type: TOGGLE_REPEAT,
   };
-};
+}
 
 export function searchMusic(query, tracks) {
   return {
     type: SEARCH,
     query,
-    tracks
+    tracks,
   };
-};
+}
 
 export function fetchPlaylist(uid) {
   return {
     type: FETCH_PLAYLIST,
-    uid
+    uid,
   };
-};
+}
 
 export function playlistAdd(track, uid, trackID) {
   return {
     type: PLAYLIST_ADD,
     track,
     uid,
-    trackID
+    trackID,
   };
-};
+}
 
 export function playlistRemove(track, uid, trackID) {
   return {
     type: PLAYLIST_REMOVE,
     track,
     uid,
-    trackID
+    trackID,
   };
-};
+}
+
+export function addTrack(track) {
+  return {
+    type: ADD_TRACK,
+    track,
+  };
+}
 
 // export function setDuration(data) {
 //   return {

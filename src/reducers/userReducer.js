@@ -23,6 +23,7 @@ const initialState = {
     photoURL: '',
     uid: '',
     playlist: [],
+    superuser: false,
   },
   fetching: false,
   error: false,
@@ -73,6 +74,7 @@ export default function userReducer(state = initialState, action = {}) {
       return {
         ...state,
         user: {
+          ...state.user,
           authenticated: true,
           displayName: action.data.providerData[0].displayName,
           email: action.data.providerData[0].email,
@@ -86,6 +88,7 @@ export default function userReducer(state = initialState, action = {}) {
         ...state,
         user: {
           ...state.user,
+          superuser: action.user.superuser,
         },
         fetching: false,
       };

@@ -1,8 +1,42 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import PropTypes from 'prop-types';
+import { View, StyleSheet } from 'react-native';
 import { Icon, Badge } from 'react-native-elements';
 
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    margin: 5,
+  },
+  icon: {
+    marginLeft: 10,
+    marginRight: 10,
+  },
+  heart: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+  heartContainer: {
+    position: 'absolute',
+    paddingBottom: 5,
+  },
+  heartText: {
+    color: '#fff',
+    fontSize: 10,
+    fontWeight: 'bold',
+  },
+});
+
 export default class PlaylistItems extends React.PureComponent {
+  static propTypes = {
+    remove: PropTypes.func,
+    track: PropTypes.object,
+    uid: PropTypes.string,
+    trackID: PropTypes.string,
+    hearts: PropTypes.number,
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -20,30 +54,5 @@ export default class PlaylistItems extends React.PureComponent {
         <Icon iconStyle={styles.icon} type="simple-line-icon" name="options" color="white" />
       </View>
     );
-  };
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    margin: 5,
-  },
-  icon: {
-    marginLeft: 10,
-    marginRight: 10
-  },
-  heart: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'flex-end'
-  },
-  heartContainer: {
-    position: 'absolute',
-    paddingBottom: 5,
-  },
-  heartText: {
-    color: '#fff',
-    fontSize: 10,
-    fontWeight: 'bold'
   }
-});
+}
