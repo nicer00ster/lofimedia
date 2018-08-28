@@ -31,7 +31,6 @@ class SingleTrack extends React.PureComponent {
                 playlist[navigation.state.params.uid]
                 ? this.props.screenProps.playlistRemove(navigation.state.params, uid, navigation.state.params.uid)
                 : this.props.screenProps.playlistAdd(navigation.state.params, uid, navigation.state.params.uid)} />
-              {/* insert how many hearts */}
               <Badge
                 containerStyle={{ backgroundColor: 'rgba(31, 34, 46, 0.25)', height: 25, width: 25, padding: 5, marginLeft: 15 }}
                 wrapperStyle={styles.heartContainer}

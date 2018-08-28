@@ -1,42 +1,11 @@
 import React from 'react';
-import { pad, minutesAndSeconds } from '../../helpers';
 import Slider from 'react-native-slider';
 import {
   View,
   Text,
   StyleSheet,
-  Image,
-  TouchableOpacity,
 } from 'react-native';
-
-const SeekBar = ({ duration, position, onSeek, onSlidingStart }) => {
-  const elapsed = minutesAndSeconds(position);
-  const remaining = minutesAndSeconds(duration - position);
-
-  return (
-    <View style={styles.container}>
-      <View style={{ flexDirection: 'row' }}>
-        <Text style={styles.text}>
-          {elapsed[0] + ":" + elapsed[1]}
-        </Text>
-        <View style={{ flex: 1 }} />
-        <Text style={[ styles.text, {width: 40} ]}>
-          {duration > 1 && "-" + remaining[0] + ":" + remaining[1]}
-        </Text>
-      </View>
-      <Slider
-        maximumValue={Math.max(duration, 1, position + 1)}
-        onSlidingStart={onSlidingStart}
-        onSlidingComplete={onSeek}
-        value={position}
-        style={styles.slider}
-        minimumTrackTintColor='#fff'
-        maximumTrackTintColor='rgba(255, 255, 255, 0.14)'
-        thumbStyle={styles.thumb}
-        trackStyle={styles.track}/>
-    </View>
-  );
-};
+import { minutesAndSeconds } from '../../helpers';
 
 const styles = StyleSheet.create({
   slider: {
@@ -60,8 +29,37 @@ const styles = StyleSheet.create({
   text: {
     color: 'rgba(255, 255, 255, 0.72)',
     fontSize: 12,
-    textAlign:'center',
-  }
+    textAlign: 'center',
+  },
 });
+
+const SeekBar = ({ duration, position, onSeek, onSlidingStart }) => {
+  const elapsed = minutesAndSeconds(position);
+  const remaining = minutesAndSeconds(duration - position);
+
+  return (
+    <View style={styles.container}>
+      <View style={{ flexDirection: 'row' }}>
+        <Text style={styles.text}>
+          {`${elapsed[0]}:${elapsed[1]}`}
+        </Text>
+        <View style={{ flex: 1 }} />
+        <Text style={[styles.text, { width: 40 }]}>
+          {duration > 1 && `-${remaining[0]}:${remaining[1]}`}
+        </Text>
+      </View>
+      <Slider
+        maximumValue={Math.max(duration, 1, position + 1)}
+        onSlidingStart={onSlidingStart}
+        onSlidingComplete={onSeek}
+        value={position}
+        style={styles.slider}
+        minimumTrackTintColor='#fff'
+        maximumTrackTintColor='rgba(255, 255, 255, 0.14)'
+        thumbStyle={styles.thumb}
+        trackStyle={styles.track}/>
+    </View>
+  );
+};
 
 export default SeekBar;

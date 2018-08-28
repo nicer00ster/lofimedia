@@ -12,8 +12,8 @@ import {
   FETCH_PLAYLIST_SUCCESS,
   FETCH_PLAYLIST_FAILURE,
   PLAYLIST_ADD,
-  PLAYLIST_REMOVE
-} from '../constants'
+  PLAYLIST_REMOVE,
+} from '../constants';
 
 const initialState = {
   user: {
@@ -22,13 +22,13 @@ const initialState = {
     email: '',
     photoURL: '',
     uid: '',
-    playlist: []
+    playlist: [],
   },
   fetching: false,
-  error: false
+  error: false,
 };
 
-export default function userReducer (state = initialState, action = {}) {
+export default function userReducer(state = initialState, action = {}) {
   switch (action.type) {
     case LOGIN:
       return {
@@ -37,38 +37,38 @@ export default function userReducer (state = initialState, action = {}) {
           ...state.user,
         },
         fetching: true,
-        error: false
-      }
+        error: false,
+      };
     case LOGIN_SUCCESS:
       return {
         ...state,
         user: {
           authenticated: true,
-          ...state.user
+          ...state.user,
         },
         fetching: false,
-        error: false
-      }
+        error: false,
+      };
     case LOGIN_FAILURE:
       return {
         ...state,
         user: {
-          authenticated: false
+          authenticated: false,
         },
         error: true,
-        fetching: false
-      }
+        fetching: false,
+      };
     case LOGOUT:
     case FETCH_PLAYLIST:
       return {
         ...state,
-        fetching: true
-      }
+        fetching: true,
+      };
     case LOGOUT_SUCCESS:
     case USER_UPDATED_FAILURE:
       return {
-        ...initialState
-      }
+        ...initialState,
+      };
     case USER_UPDATED:
       return {
         ...state,
@@ -79,49 +79,52 @@ export default function userReducer (state = initialState, action = {}) {
           photoURL: `${action.data.providerData[0].photoURL}?width=400`,
           uid: action.data.uid,
         },
-        fetching: true
-      }
+        fetching: true,
+      };
     case USER_UPDATED_SUCCESS:
       return {
         ...state,
         user: {
-          ...state.user
+          ...state.user,
         },
-        fetching: false
-      }
+        fetching: false,
+      };
     case FETCH_PLAYLIST_SUCCESS:
       return {
         ...state,
         fetching: false,
         user: {
           ...state.user,
-          playlist: action.data
-        }
-      }
+          playlist: action.data,
+        },
+      };
     case FETCH_PLAYLIST_FAILURE:
       return {
         ...state,
-        error: true
-      }
+        error: true,
+      };
     case PLAYLIST_ADD:
-    let index = action.trackID;
-    let playlist = { ...state.user.playlist, [index]: { ...action.track } }
       return {
         ...state,
         user: {
           ...state.user,
-          playlist: playlist
-        }
-      }
+          playlist: {
+            ...state.user.playlist,
+            [action.trackID]: {
+              ...action.track,
+            },
+          },
+        },
+      };
     case PLAYLIST_REMOVE:
       return {
         ...state,
         user: {
           ...state.user,
-          playlist: removeByKey(state.user.playlist, action.trackID)
-        }
-      }
+          playlist: removeByKey(state.user.playlist, action.trackID),
+        },
+      };
     default:
       return state;
-  };
-};
+  }
+}

@@ -1,12 +1,12 @@
 import { Animated, Easing } from 'react-native';
 
-export const transitionConfig = () => ({
+const transitionConfig = () => ({
   transitionSpec: {
     duration: 300,
     easing: Easing.out(Easing.poly(4)),
     timing: Animated.timing,
   },
-  screenInterpolator: sceneProps => {
+  screenInterpolator: (sceneProps) => {
     const { layout, position, scene } = sceneProps;
     const { index } = scene;
 
@@ -23,3 +23,5 @@ export const transitionConfig = () => ({
     return { opacity, transform: [{ translateY }] };
   },
 });
+
+export default transitionConfig;

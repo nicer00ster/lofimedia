@@ -10,10 +10,10 @@ import {
   TOGGLE_REPEAT,
   ADD_HEART,
   REMOVE_HEART,
-  SET_TIME,
-  SET_DURATION,
-  SEEK_TIME
-} from '../constants'
+  // SET_TIME,
+  // SET_DURATION,
+  // SEEK_TIME,
+} from '../constants';
 
 const initialState = {
   tracks: [],
@@ -24,79 +24,88 @@ const initialState = {
   duration: 1,
   position: 0,
   stream: {
-    live: false
+    live: false,
   },
   fetching: false,
   error: false,
 };
 
-export default function musicReducer (state = initialState, action = {}) {
+export default function musicReducer(state = initialState, action = {}) {
   switch (action.type) {
     case FETCH_MUSIC:
       return {
         ...state,
         tracks: [],
-        fetching: true
-      }
+        fetching: true,
+      };
     case FETCH_MUSIC_SUCCESS:
       return {
         ...state,
         tracks: action.data,
-        fetching: false
-      }
+        fetching: false,
+      };
     case FETCH_MUSIC_FAILURE:
       return {
         ...state,
         error: true,
-        fetching: false
-      }
+        fetching: false,
+      };
     case PLAY_MUSIC:
       return {
         ...state,
         paused: false,
-      }
+      };
     case PAUSE_MUSIC:
       return {
         ...state,
         paused: true,
-      }
+      };
     case NEXT_SONG:
       return {
         ...state,
         index: state.index + 1,
         paused: false,
-      }
+      };
     case PREV_SONG:
       return {
         ...state,
         index: state.index !== 0 ? state.index - 1 : 0,
         paused: false,
-      }
+      };
     case TOGGLE_SHUFFLE:
       return {
         ...state,
         shuffle: !state.shuffle,
-        repeat: false
-      }
+        repeat: false,
+      };
     case TOGGLE_REPEAT:
       return {
         ...state,
         shuffle: false,
-        repeat: !state.repeat
-      }
+        repeat: !state.repeat,
+      };
     case ADD_HEART:
-    const addHeart = { ...state.tracks, [action.track.trackID]: { ...action.track.track, hearts: action.hearts + 1 } }
       return {
         ...state,
-        tracks: addHeart
-
-      }
+        tracks: {
+          ...state.tracks,
+          [action.track.trackID]: {
+            ...action.track.track,
+            hearts: action.hearts + 1,
+          },
+        },
+      };
     case REMOVE_HEART:
-    const removeHeart = { ...state.tracks, [action.data.trackID]: { ...action.data.track, hearts: action.hearts - 1 } }
       return {
         ...state,
-        tracks: removeHeart
-      }
+        tracks: {
+          ...state.tracks,
+          [action.data.trackID]: {
+            ...action.data.track,
+            hearts: action.hearts - 1,
+          },
+        },
+      };
     // case SEEK_TIME:
     // console.log('seektime2', action);
     //   return {
@@ -117,5 +126,5 @@ export default function musicReducer (state = initialState, action = {}) {
     //   }
     default:
       return state;
-  };
-};
+  }
+}

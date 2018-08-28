@@ -8,7 +8,7 @@ const rootReducer = combineReducers({
   tracks: musicReducer,
   daily: dailyReducer,
   user: userReducer,
-  search: searchReducer
+  search: searchReducer,
 });
 
 export default rootReducer;

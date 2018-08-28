@@ -1,6 +1,23 @@
 import React from 'react';
-import { StyleSheet, View, Text, StatusBar, Image } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  StatusBar,
+  Image,
+} from 'react-native';
 import Header from './Header';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#1f222e',
+  },
+  background: {
+    height: '100%',
+    width: '100%',
+    position: 'absolute',
+  },
+});
 
 export default class Container extends React.PureComponent {
   render() {
@@ -12,22 +29,13 @@ export default class Container extends React.PureComponent {
           resizeMode="cover"
           opacity={.25}
         />
-        <Header navigation={this.props.navigation} avatar={this.props.avatar} daily={this.props.daily} />
+        <Header
+          navigation={this.props.navigation}
+          avatar={this.props.avatar}
+          daily={this.props.daily} />
         <StatusBar hidden={true} />
         {this.props.children}
       </View>
     );
-  };
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#1f222e',
-  },
-  background: {
-    height: '100%',
-    width: '100%',
-    position: 'absolute',
   }
-})
+}

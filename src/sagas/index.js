@@ -1,3 +1,5 @@
+import { put, takeEvery, call } from 'redux-saga/effects';
+import { delay } from 'redux-saga';
 import {
   FETCH_MUSIC,
   FETCH_MUSIC_SUCCESS,
@@ -26,114 +28,108 @@ import {
   SEARCH_FAILURE,
 } from '../constants';
 
-import { put, takeEvery, takeLatest, call, all } from 'redux-saga/effects';
-import { delay } from 'redux-saga';
-import { apiMusic, apiDaily, apiUser } from '../api';
+import { apiMusic, apiDaily } from '../api';
 import { fbLogin, fbLogout } from '../auth/index';
 import { filterObject } from '../helpers';
 import rsf from '../config/rsf';
 
-function* fetchMusic(action) {
+function* fetchMusic() {
   try {
     const data = yield call(apiMusic);
-    yield put({ type: FETCH_MUSIC_SUCCESS, data })
+    yield put({ type: FETCH_MUSIC_SUCCESS, data });
   } catch (error) {
-    yield put({ type: FETCH_MUSIC_FAILURE })
-  };
-};
+    yield put({ type: FETCH_MUSIC_FAILURE });
+  }
+}
 
-function* fetchDaily(action) {
+function* fetchDaily() {
   try {
     const data = yield call(apiDaily);
     yield put({ type: FETCH_DAILY_SUCCESS, data });
   } catch (error) {
-    yield put({ type: FETCH_DAILY_FAILURE })
-  };
-};
+    yield put({ type: FETCH_DAILY_FAILURE });
+  }
+}
 
 function* playlistSaga(action) {
   try {
     const data = yield call(rsf.database.read, `users/${action.uid}/playlist`);
     yield put({ type: FETCH_PLAYLIST_SUCCESS, data });
-  } catch(error) {
-    console.log(error);
+  } catch (error) {
     yield put({ type: FETCH_PLAYLIST_FAILURE });
-  };
-};
+  }
+}
 
 function* playlistAdd(track) {
   const hearts = yield call(rsf.database.read, `tracks/${track.trackID}/hearts`);
   yield call(rsf.database.update, `tracks/${track.trackID}`, {
     ...track.track,
-    hearts: hearts + 1
+    hearts: hearts + 1,
   });
   yield call(rsf.database.update, `users/${track.uid}/playlist/${track.trackID}`, {
     ...track.track,
-    hearts: hearts + 1
+    hearts: hearts + 1,
   });
-  yield put ({ type: ADD_HEART, track, hearts })
-};
+  yield put({ type: ADD_HEART, track, hearts });
+}
 
 function* playlistRemove(data) {
   const hearts = yield call(rsf.database.read, `tracks/${data.trackID}/hearts`);
   yield call(rsf.database.update, `tracks/${data.trackID}`, {
     ...data.track,
-    hearts: hearts - 1
+    hearts: hearts - 1,
   });
   yield call(rsf.database.delete, `users/${data.uid}/playlist/${data.trackID}`);
-  yield put({ type: REMOVE_HEART, data, hearts })
-};
+  yield put({ type: REMOVE_HEART, data, hearts });
+}
 
-function* facebookLogin(action) {
+function* facebookLogin() {
   try {
     const loginResult = yield call(fbLogin);
-    yield put({ type: LOGIN_SUCCESS, loginResult })
+    yield put({ type: LOGIN_SUCCESS, loginResult });
   } catch (error) {
-    yield put({ type: LOGIN_FAILURE })
-  };
-};
+    yield put({ type: LOGIN_FAILURE });
+  }
+}
 
-function* facebookLogout(action) {
+function* facebookLogout() {
   try {
     yield delay(2000);
     yield call(fbLogout);
-    yield put({ type: LOGOUT_SUCCESS })
+    yield put({ type: LOGOUT_SUCCESS });
   } catch (error) {
-    console.log(error);
-    yield put({ type: LOGOUT_FAILURE })
-  };
-};
+    yield put({ type: LOGOUT_FAILURE });
+  }
+}
 
-function* updateUser(action) {
+function* updateUser() {
   try {
-    yield put({ type: USER_UPDATED_SUCCESS })
+    yield put({ type: USER_UPDATED_SUCCESS });
   } catch (error) {
-    console.log(error);
-    yield put({ type: USER_UPDATED_FAILURE })
-  };
-};
+    yield put({ type: USER_UPDATED_FAILURE });
+  }
+}
 
 function* searchQuery(action) {
   try {
     const results = yield call(filterObject, action.tracks, action.query);
     yield delay(1250);
-    yield put({ type: SEARCH_SUCCESS, results })
-  } catch(error) {
-    console.log(error);
-    yield put({ type: SEARCH_FAILURE })
-  };
-};
+    yield put({ type: SEARCH_SUCCESS, results });
+  } catch (error) {
+    yield put({ type: SEARCH_FAILURE });
+  }
+}
 
 function* rootSaga() {
-  yield takeEvery(FETCH_MUSIC, fetchMusic)
-  yield takeEvery(FETCH_DAILY, fetchDaily)
-  yield takeEvery(FETCH_PLAYLIST, playlistSaga)
-  yield takeEvery(PLAYLIST_ADD, playlistAdd)
-  yield takeEvery(PLAYLIST_REMOVE, playlistRemove)
-  yield takeEvery(LOGIN, facebookLogin)
-  yield takeEvery(LOGOUT, facebookLogout)
-  yield takeEvery(USER_UPDATED, updateUser)
-  yield takeEvery(SEARCH, searchQuery)
-};
+  yield takeEvery(FETCH_MUSIC, fetchMusic);
+  yield takeEvery(FETCH_DAILY, fetchDaily);
+  yield takeEvery(FETCH_PLAYLIST, playlistSaga);
+  yield takeEvery(PLAYLIST_ADD, playlistAdd);
+  yield takeEvery(PLAYLIST_REMOVE, playlistRemove);
+  yield takeEvery(LOGIN, facebookLogin);
+  yield takeEvery(LOGOUT, facebookLogout);
+  yield takeEvery(USER_UPDATED, updateUser);
+  yield takeEvery(SEARCH, searchQuery);
+}
 
 export default rootSaga;

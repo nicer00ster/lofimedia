@@ -15,11 +15,10 @@ import {
   prevSong,
   searchMusic,
   playlistAdd,
-  playlistRemove
+  playlistRemove,
 } from './actions';
 
 import { fetchUser } from './auth/index';
-import Database from './config/db';
 import Navigator from './components/router/Router';
 
 class Root extends React.Component {
@@ -30,18 +29,18 @@ class Root extends React.Component {
     this.timeout = setTimeout(() => {
       this.props.fetchPlaylist(this.props.user.user.uid);
     }, 1000);
-  };
+  }
 
   render() {
-    return <Navigator {...this.props} screenProps={this.props} />
-  };
-};
+    return <Navigator {...this.props} screenProps={this.props} />;
+  }
+}
 
 const mapStateToProps = ({ tracks, daily, user, search }) => ({
-  tracks: tracks,
-  user: user,
+  tracks,
+  user,
+  search,
   daily: daily.daily.dailyMessage,
-  search: search,
 });
 
 const mapDispatchToProps = {
@@ -59,7 +58,7 @@ const mapDispatchToProps = {
   prevSong,
   searchMusic,
   playlistAdd,
-  playlistRemove
+  playlistRemove,
   // setDuration,
   // setTime,
   // seek
