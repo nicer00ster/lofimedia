@@ -21,18 +21,28 @@ const screenHeight = width - 76;
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: 52,
-    fontFamily: Platform.OS === 'android' ? 'sans-serif-thin' : 'Courier New',
-    alignSelf: 'center',
+    fontSize: 42,
+    fontFamily: Platform.OS === 'android' ? 'sans-serif-thin' : 'HelveticaNeue-Thin',
     textAlign: 'center',
-    textAlignVertical: 'bottom',
-    height: '75%',
     color: 'rgba(255, 255, 255, 0.50)',
+  },
+  textContainer: {
+    width: screenWidth,
+    height: screenHeight,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   headerText: {
     fontSize: 36,
     color: '#fff',
-    fontFamily: Platform.OS === 'android' ? 'sans-serif-thin' : 'Courier New',
+    fontFamily: Platform.OS === 'android' ? 'sans-serif-thin' : 'HelveticaNeue-Thin',
+  },
+  listTitle: {
+    fontFamily: Platform.OS === 'android' ? 'sans-serif' : 'HelveticaNeue',
+    color: '#fff',
+  },
+  listSubtitle: {
+    fontFamily: Platform.OS === 'android' ? 'sans-serif' : 'HelveticaNeue',
   },
 });
 
@@ -45,7 +55,6 @@ export default class Playlist extends React.PureComponent {
     tracks: PropTypes.object,
     playlistRemove: PropTypes.func,
   }
-
   render() {
     const { user } = this.props.screenProps.user;
     const playlist = !user.playlist ? [] : objToArray(user.playlist);
@@ -56,7 +65,7 @@ export default class Playlist extends React.PureComponent {
         daily={this.props.screenProps.daily}>
         <Header leftComponent={<Text style={styles.headerText}>Playlist</Text>} backgroundColor='transparent' />
         {playlist.length === 0
-          ? <View style={{ width: screenWidth, height: screenHeight }}>
+          ? <View style={styles.textContainer}>
               <Text style={styles.text}>Your playlist is empty.</Text>
             </View>
           : null}
@@ -79,9 +88,10 @@ export default class Playlist extends React.PureComponent {
                 track={item}
                 trackID={item.uid}
                 remove={this.props.screenProps.playlistRemove} />}
-              titleStyle={{ color: 'white' }}
               title={item.title}
-              subtitle={item.artist} />
+              titleStyle={styles.listTitle}
+              subtitle={item.artist}
+              subtitleStyle={styles.listSubtitle} />
               )}
             />
           </ScrollView>}

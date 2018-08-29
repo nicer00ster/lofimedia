@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   StyleSheet,
   View,
@@ -28,8 +29,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text: {
-    fontSize: 52,
-    fontFamily: Platform.OS === 'android' ? 'sans-serif-thin' : 'Courier New',
+    fontSize: 42,
+    fontFamily: Platform.OS === 'android' ? 'sans-serif-thin' : 'HelveticaNeue-Thin',
     textAlign: 'center',
     textAlignVertical: 'bottom',
     color: 'rgba(255, 255, 255, 0.50)',
@@ -45,17 +46,31 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0,
     backgroundColor: 'rgba(31, 34, 46, 0.25)',
   },
+  header: {
+    fontSize: 36,
+    color: '#fff',
+    fontFamily: Platform.OS === 'android' ? 'sans-serif-thin' : 'HelveticaNeue-Thin',
+  },
 });
 
 export default class Search extends React.Component {
-  state = { query: '' };
+  static propTypes = {
+    screenProps: PropTypes.shape({
+      search: PropTypes.string,
+      user: PropTypes.object,
+      searchMusic: PropTypes.func,
+    }),
+    navigation: PropTypes.shape({
+      navigate: PropTypes.func,
 
-  renderLoading() {
-    return <Spinner type="9CubeGrid" size={100} color="white" style={{ flex: 1, alignSelf: 'center' }}/>
+    }),
   }
-
+  state = { query: '' };
+  renderLoading() {
+    return <Spinner type="9CubeGrid" size={100} color="white" style={{ alignSelf: 'center' }}/>
+  }
   renderItems() {
-    if(!this.props.screenProps.search.results || this.props.screenProps.search.results.length === 0) {
+    if (!this.props.screenProps.search.results || this.props.screenProps.search.results.length === 0) {
       return (
         <View style={{ width: screenWidth, height: screenHeight }}>
           <Text style={styles.text}>Search for a song.</Text>
@@ -81,7 +96,6 @@ export default class Search extends React.Component {
       </ScrollView>
     );
   }
-
   render() {
     const { screenProps } = this.props;
     return (
@@ -89,7 +103,10 @@ export default class Search extends React.Component {
         navigation={this.props.navigation}
         avatar={screenProps.user.user.photoURL}
         daily={screenProps.daily}>
-        <Header outerContainerStyles={{ borderBottomWidth: 0 }} leftComponent={<Text style={{ fontSize: 36, color: '#fff', fontFamily: 'sans-serif-thin' }}>Search</Text>} backgroundColor='transparent' />
+        <Header
+          outerContainerStyles={{ borderBottomWidth: 0 }}
+          leftComponent={<Text style={styles.header}>Search</Text>}
+          backgroundColor='transparent' />
         <SearchBar
           ref={ref => this.search = ref}
           value={this.state.query}

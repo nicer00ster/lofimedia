@@ -13,6 +13,7 @@ import {
   ADD_TRACK,
   ADD_TRACK_SUCCESS,
   ADD_TRACK_FAILURE,
+  GLOBAL_PLAY,
   // SET_TIME,
   // SET_DURATION,
   // SEEK_TIME,
@@ -74,6 +75,12 @@ export default function musicReducer(state = initialState, action = {}) {
         ...state,
         index: state.index !== 0 ? state.index - 1 : 0,
         paused: false,
+      };
+    case GLOBAL_PLAY:
+    console.log('global', action);
+      return {
+        ...state,
+        index: action.index,
       };
     case TOGGLE_SHUFFLE:
       return {

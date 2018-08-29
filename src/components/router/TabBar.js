@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     fontWeight: 'bold',
     fontSize: 12,
-    fontFamily: Platform.OS === 'android' ? 'sans-serif' : 'Courier New',
+    fontFamily: Platform.OS === 'android' ? 'sans-serif' : 'HelveticaNeue-Thin',
   },
 });
 

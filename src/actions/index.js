@@ -15,6 +15,7 @@ import {
   PLAYLIST_ADD,
   PLAYLIST_REMOVE,
   ADD_TRACK,
+  GLOBAL_PLAY,
   // SET_TIME,
   // SET_DURATION,
   // SEEK_TIME,
@@ -54,6 +55,18 @@ export function onfbLogout() {
 }
 
 //  MUSIC METHODS
+export function globalPlay(tracks, uid) {
+  const findIndex = Object.keys(tracks).map((item, index) => {
+    if (item === uid) {
+      return index;
+    }
+  });
+  return {
+    type: GLOBAL_PLAY,
+    index: findIndex[0],
+  };
+}
+
 export function playMusic() {
   return {
     type: PLAY_MUSIC,

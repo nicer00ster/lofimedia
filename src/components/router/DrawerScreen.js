@@ -22,7 +22,7 @@ import {
 const styles = StyleSheet.create({
   header: {
     marginTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
-    fontFamily: Platform.OS === 'android' ? 'sans-serif-thin' : 'Courier New',
+    fontFamily: Platform.OS === 'android' ? 'sans-serif-thin' : 'HelveticaNeue-Thin',
     fontSize: 36,
     fontWeight: '200',
     textAlign: 'center',

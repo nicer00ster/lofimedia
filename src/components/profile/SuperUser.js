@@ -1,13 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, Text } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Platform,
+} from 'react-native';
 import {
   FormLabel,
   FormInput,
-  // FormValidationMessage,
   Header,
   Button,
 } from 'react-native-elements';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#1f222e',
+    justifyContent: 'center',
+  },
+  header: {
+    fontSize: 36,
+    color: '#fff',
+    fontFamily: Platform.OS === 'android' ? 'sans-serif-thin' : 'HelveticaNeue-Thin',
+  },
+});
 
 class SuperUser extends React.Component {
   static propTypes = {
@@ -29,10 +46,10 @@ class SuperUser extends React.Component {
   }
   render() {
     return (
-      <View style={{ flex: 1, backgroundColor: '#1f222e', justifyContent: 'center' }}>
+      <View style={styles.container}>
         <Header
           outerContainerStyles={{ borderBottomWidth: 0 }}
-          leftComponent={<Text style={{ fontSize: 36, color: '#fff', fontFamily: 'sans-serif-thin' }}>Add a track</Text>}
+          leftComponent={<Text style={styles.header}>Add a track</Text>}
           backgroundColor='transparent' />
         <FormLabel>Artist</FormLabel>
         <FormInput onChangeText={artist => this.setState({ artist })} />

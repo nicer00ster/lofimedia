@@ -6,6 +6,7 @@ import {
   View,
   Text,
   Image,
+  TouchableOpacity,
 } from 'react-native';
 import { Icon, Badge } from 'react-native-elements';
 
@@ -76,9 +77,16 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: 'bold',
   },
+  badge: {
+    backgroundColor: 'rgba(31, 34, 46, 0.25)',
+    height: 25,
+    width: 25,
+    padding: 5,
+    marginLeft: 15,
+  },
 });
 
-class SingleTrack extends React.PureComponent {
+class SingleTrack extends React.Component {
   static propTypes = {
     navigation: PropTypes.object,
     playlist: PropTypes.object,
@@ -90,10 +98,23 @@ class SingleTrack extends React.PureComponent {
     track: PropTypes.object,
     trackID: PropTypes.string,
   }
-
-  render() {
+  handleHeart() {
     const { navigation } = this.props;
     const { playlist, uid } = this.props.screenProps.user.user;
+    if (playlist[navigation.state.params.uid]) {
+      this.props.screenProps.playlistRemove(navigation.state.params, uid, navigation.state.params.uid);
+      navigation.goBack();
+    } else {
+      this.props.screenProps.playlistAdd(navigation.state.params, uid, navigation.state.params.uid);
+    }
+  }
+  handlePlay() {
+    this.props.navigation.goBack();
+    this.props.navigation.navigate('Media');
+  }
+  render() {
+    const { navigation } = this.props;
+    const { playlist } = this.props.screenProps.user.user;
     const toggleHeart = playlist === null ? '#1f222e' : playlist[navigation.state.params.uid] ? 'rgb(255,135,136)' : '#1f222e';
     return (
       <View style={styles.container}>
@@ -104,7 +125,9 @@ class SingleTrack extends React.PureComponent {
             <Text style={styles.artist}>{navigation.state.params.artist}</Text>
           </View>
           <View style={styles.play}>
-            <Icon type="font-awesome" size={125} name="play-circle" color='#fff'/>
+            <TouchableOpacity onPress={() => this.props.screenProps.globalPlay(this.props.screenProps.tracks.tracks, navigation.state.params.uid)}>
+              <Icon type="font-awesome" size={125} name="play-circle" color='#fff'/>
+            </TouchableOpacity>
           </View>
           <View style={styles.add}>
             <Icon
@@ -112,17 +135,12 @@ class SingleTrack extends React.PureComponent {
               name="heart"
               size={50}
               color={toggleHeart}
-              // containerStyle={{ backgroundColor: toggleHeart }}
-              // raised
-              onPress={() =>
-                playlist[navigation.state.params.uid]
-                ? this.props.screenProps.playlistRemove(navigation.state.params, uid, navigation.state.params.uid)
-                : this.props.screenProps.playlistAdd(navigation.state.params, uid, navigation.state.params.uid)} />
+              onPress={() => this.handleHeart()}
+              />
               <Badge
-                containerStyle={{ backgroundColor: 'rgba(31, 34, 46, 0.25)', height: 25, width: 25, padding: 5, marginLeft: 15 }}
+                containerStyle={styles.badge}
                 wrapperStyle={styles.heartContainer}
                 textStyle={styles.heartText}
-                onPress={() => this.props.remove(this.props.track, this.props.uid, this.props.trackID)}
                 value={this.props.screenProps.tracks.tracks[navigation.state.params.uid].hearts} />
           </View>
         </View>

@@ -18,6 +18,7 @@ import {
   playlistAdd,
   playlistRemove,
   addTrack,
+  globalPlay,
 } from './actions';
 
 import { fetchUser } from './auth/index';
@@ -31,7 +32,6 @@ class Root extends React.Component {
     fetchPlaylist: PropTypes.func,
     user: PropTypes.object,
   }
-
   componentDidMount() {
     fetchUser(this.props.updateUserInfo);
     this.props.fetchMusic();
@@ -40,7 +40,6 @@ class Root extends React.Component {
       this.props.fetchPlaylist(this.props.user.user.uid);
     }, 1000);
   }
-
   render() {
     return <Navigator {...this.props} screenProps={this.props} />;
   }
@@ -70,6 +69,7 @@ const mapDispatchToProps = {
   playlistAdd,
   playlistRemove,
   addTrack,
+  globalPlay,
   // setDuration,
   // setTime,
   // seek
