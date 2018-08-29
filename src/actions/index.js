@@ -8,6 +8,7 @@ import {
   PAUSE_MUSIC,
   NEXT_SONG,
   PREV_SONG,
+  SHUFFLE_SONG,
   TOGGLE_SHUFFLE,
   TOGGLE_REPEAT,
   SEARCH,
@@ -56,14 +57,15 @@ export function onfbLogout() {
 
 //  MUSIC METHODS
 export function globalPlay(tracks, uid) {
-  const findIndex = Object.keys(tracks).map((item, index) => {
+  let index;
+  Object.keys(tracks).map((item, key) => {
     if (item === uid) {
-      return index;
+      index = key;
     }
   });
   return {
     type: GLOBAL_PLAY,
-    index: findIndex[0],
+    index,
   };
 }
 
@@ -88,6 +90,12 @@ export function nextSong() {
 export function prevSong() {
   return {
     type: PREV_SONG,
+  };
+}
+
+export function shuffleSong() {
+  return {
+    type: SHUFFLE_SONG,
   };
 }
 

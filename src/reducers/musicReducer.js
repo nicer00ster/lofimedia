@@ -6,6 +6,7 @@ import {
   PAUSE_MUSIC,
   NEXT_SONG,
   PREV_SONG,
+  SHUFFLE_SONG,
   TOGGLE_SHUFFLE,
   TOGGLE_REPEAT,
   ADD_HEART,
@@ -76,8 +77,13 @@ export default function musicReducer(state = initialState, action = {}) {
         index: state.index !== 0 ? state.index - 1 : 0,
         paused: false,
       };
+    case SHUFFLE_SONG:
+      return {
+        ...state,
+        index: Math.floor(Math.random() * Math.floor(Object.keys(state.tracks).length)),
+        paused: false,
+      };
     case GLOBAL_PLAY:
-    console.log('global', action);
       return {
         ...state,
         index: action.index,

@@ -7,6 +7,7 @@ import {
   Text,
   Image,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 import { Icon, Badge } from 'react-native-elements';
 
@@ -57,16 +58,17 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 36,
+    fontFamily: Platform.OS === 'android' ? 'sans-serif-thin' : 'HelveticaNeue',
     fontWeight: '800',
     color: '#fff',
-    padding: 12,
-    margin: 6,
+    margin: 10,
   },
   artist: {
+    fontFamily: Platform.OS === 'android' ? 'sans-serif-thin' : 'HelveticaNeue',
+    fontWeight: '600',
     fontSize: 20,
     color: '#fff',
-    padding: 12,
-    margin: 6,
+    margin: 12,
   },
   heartContainer: {
     position: 'absolute',
@@ -111,6 +113,8 @@ class SingleTrack extends React.Component {
   handlePlay() {
     this.props.navigation.goBack();
     this.props.navigation.navigate('Media');
+    this.props.screenProps.globalPlay(this.props.screenProps.tracks.tracks, this.props.navigation.state.params.uid);
+    this.props.screenProps.playMusic();
   }
   render() {
     const { navigation } = this.props;
@@ -125,7 +129,7 @@ class SingleTrack extends React.Component {
             <Text style={styles.artist}>{navigation.state.params.artist}</Text>
           </View>
           <View style={styles.play}>
-            <TouchableOpacity onPress={() => this.props.screenProps.globalPlay(this.props.screenProps.tracks.tracks, navigation.state.params.uid)}>
+            <TouchableOpacity onPress={() => this.handlePlay()}>
               <Icon type="font-awesome" size={125} name="play-circle" color='#fff'/>
             </TouchableOpacity>
           </View>

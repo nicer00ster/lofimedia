@@ -31,6 +31,11 @@ class Player extends React.Component {
       position: 0,
     };
   }
+  componentDidUpdate(prevProps) {
+    if (prevProps.screenProps.tracks.index !== this.props.screenProps.tracks.index) {
+      this.gallery.snapToItem(this.props.screenProps.tracks.index);
+    }
+  }
   seek(time) {
     time = Math.round(time);
     this.refs.audio && this.refs.audio.seek(time);
@@ -41,14 +46,6 @@ class Player extends React.Component {
   }
   setTime(data) {
     this.setState({ position: Math.floor(data.currentTime) });
-  }
-  handleForward = () => {
-    this.props.screenProps.nextSong();
-    this.gallery.snapToNext();
-  }
-  handleBack = () => {
-    this.props.screenProps.prevSong();
-    this.gallery.snapToPrev();
   }
   onSwipe = () => {
     if (this.gallery.currentIndex > this.props.screenProps.tracks.index) {
@@ -92,7 +89,7 @@ class Player extends React.Component {
           ? this.renderLoading()
           : <React.Fragment>
             <Carousel
-              ref={(c) => { this.gallery = c; }}
+              ref={c => { this.gallery = c; }}
               data={keys.map(i => screenProps.tracks.tracks[i])}
               renderItem={this.renderItem}
               itemWidth={imageWidth}
@@ -106,19 +103,19 @@ class Player extends React.Component {
               duration={this.state.duration}
               position={this.state.position} />
             <Controls
-              forwardDisabled={screenProps.tracks.index === Object.keys(screenProps.tracks.tracks).length - 1}
+              forwardDisabled={screenProps.tracks.shuffle ? false : screenProps.tracks.index === Object.keys(screenProps.tracks.tracks).length - 1}
               onPressShuffle={screenProps.shuffleMusic}
               onPressRepeat={screenProps.repeatMusic}
               onPressPlay={screenProps.playMusic}
               onPressPause={screenProps.pauseMusic}
-              onBack={this.handleBack}
-              onForward={this.handleForward}
+              onBack={screenProps.prevSong}
+              onForward={screenProps.tracks.shuffle ? screenProps.shuffleSong : screenProps.nextSong}
               shuffle={screenProps.tracks.shuffle}
               repeat={screenProps.tracks.repeat}
               paused={screenProps.tracks.paused} />
             <Video
               source={{ uri }}
-              ref={(a) => { this.audio = a; }}
+              ref='audio'
               playInBackground={true}
               paused={screenProps.tracks.paused}
               repeat={screenProps.tracks.repeat}
@@ -126,7 +123,7 @@ class Player extends React.Component {
               onLoad={this.setDuration.bind(this)}
               onProgress={this.setTime.bind(this)}
               progressUpdateInterval={1000}
-              onEnd={screenProps.nextSong}
+              onEnd={screenProps.shuffleSong}
               onError={this.videoError}
             />
           </React.Fragment>}

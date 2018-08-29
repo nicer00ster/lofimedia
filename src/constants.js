@@ -21,6 +21,7 @@ export const PLAY_MUSIC = 'PLAY_MUSIC';
 export const PAUSE_MUSIC = 'PAUSE_MUSIC';
 export const NEXT_SONG = 'NEXT_SONG';
 export const PREV_SONG = 'PREV_SONG';
+export const SHUFFLE_SONG = 'SHUFFLE_SONG';
 export const TOGGLE_SHUFFLE = 'TOGGLE_SHUFFLE';
 export const TOGGLE_REPEAT = 'TOGGLE_REPEAT';
 export const SET_TIME = 'SET_TIME';
