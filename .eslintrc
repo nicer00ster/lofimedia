@@ -20,6 +20,7 @@
     "linebreak-style": ["error", "windows"],
     "arrow-parens": ["error", "as-needed"],
     "lines-between-class-members": ["error", "never"],
+    "no-underscore-dangle": ["error", { "allow": [ "_user" ] }],
     "react/display-name": [0, { ignoreTranspilerName: false }],
   }
 }

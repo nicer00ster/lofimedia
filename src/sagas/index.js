@@ -139,7 +139,6 @@ function* addTrack(action) {
     yield delay(1250);
     yield put({ type: ADD_TRACK_SUCCESS, track, key });
   } catch (error) {
-    console.log(error);
     yield put({ type: ADD_TRACK_FAILURE });
   }
 }

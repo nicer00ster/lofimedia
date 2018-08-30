@@ -87,6 +87,8 @@ export default class Playlist extends React.PureComponent {
                 hearts={this.props.screenProps.tracks.tracks[item.uid].hearts}
                 track={item}
                 trackID={item.uid}
+                screenProps={this.props.screenProps}
+                navigation={this.props.navigation}
                 remove={this.props.screenProps.playlistRemove} />}
               title={item.title}
               titleStyle={styles.listTitle}

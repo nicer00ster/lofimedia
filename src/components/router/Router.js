@@ -8,8 +8,6 @@ import SearchStack from './SearchStack';
 import PlaylistStack from './PlaylistStack';
 import Player from '../player/Player';
 import DrawerScreen from './DrawerScreen';
-import TabBar from './TabBar';
-import AddButton from './AddButton';
 
 const RootStack = createBottomTabNavigator({
   Media: {

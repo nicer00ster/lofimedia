@@ -47,6 +47,15 @@ class Player extends React.Component {
   setTime(data) {
     this.setState({ position: Math.floor(data.currentTime) });
   }
+  handleShuffleAndRepeat = () => {
+    if (this.props.screenProps.tracks.shuffle) {
+      this.props.screenProps.shuffleSong();
+    }
+    if (this.props.screenProps.tracks.repeat) {
+      this.setState({ position: 0 });
+    }
+    this.props.screenProps.nextSong();
+  }
   onSwipe = () => {
     if (this.gallery.currentIndex > this.props.screenProps.tracks.index) {
       this.props.screenProps.nextSong();
@@ -55,9 +64,6 @@ class Player extends React.Component {
       this.props.screenProps.prevSong();
     }
   };
-  renderLoading() {
-    return <Spinner type="9CubeGrid" size={100} color="#fff" style={{ flex: 1, alignSelf: 'center' }} />
-  }
   renderItem = ({ item }) => {
     const playlist = this.props.screenProps.user.user.playlist ? this.props.screenProps.user.user.playlist : null;
     return (
@@ -86,7 +92,7 @@ class Player extends React.Component {
         avatar={screenProps.user.user.photoURL}
         daily={screenProps.daily}>
         {screenProps.tracks.fetching
-          ? this.renderLoading()
+          ? <Spinner type="9CubeGrid" size={100} color="#fff" style={{ flex: 1, alignSelf: 'center' }} />
           : <React.Fragment>
             <Carousel
               ref={c => { this.gallery = c; }}
@@ -109,7 +115,7 @@ class Player extends React.Component {
               onPressPlay={screenProps.playMusic}
               onPressPause={screenProps.pauseMusic}
               onBack={screenProps.prevSong}
-              onForward={screenProps.tracks.shuffle ? screenProps.shuffleSong : screenProps.nextSong}
+              onForward={this.handleShuffleAndRepeat}
               shuffle={screenProps.tracks.shuffle}
               repeat={screenProps.tracks.repeat}
               paused={screenProps.tracks.paused} />

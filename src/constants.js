@@ -23,6 +23,7 @@ export const NEXT_SONG = 'NEXT_SONG';
 export const PREV_SONG = 'PREV_SONG';
 export const SHUFFLE_SONG = 'SHUFFLE_SONG';
 export const TOGGLE_SHUFFLE = 'TOGGLE_SHUFFLE';
+export const REPEAT_SONG = 'REPEAT_SONG';
 export const TOGGLE_REPEAT = 'TOGGLE_REPEAT';
 export const SET_TIME = 'SET_TIME';
 export const SET_DURATION = 'SET_DURATION';

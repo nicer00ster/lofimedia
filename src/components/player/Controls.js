@@ -85,6 +85,6 @@ Controls.propTypes = {
   onPressShuffle: PropTypes.func,
   onPressRepeat: PropTypes.func,
   forwardDisabled: PropTypes.bool,
-}
+};
 
 export default Controls;

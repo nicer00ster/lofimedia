@@ -5,11 +5,15 @@ import {
   View,
   Image,
   Dimensions,
-  Text,
   StatusBar,
   Platform,
 } from 'react-native';
-import { Button, Icon } from 'react-native-elements';
+import {
+  Button,
+  Icon,
+  CheckBox,
+  Text,
+} from 'react-native-elements';
 import Spinner from 'react-native-spinkit';
 import LoginMethods from './LoginMethods';
 import Header from '../Header';
@@ -73,16 +77,32 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: 'white',
+    marginLeft: 10,
+    marginRight: 10,
   },
   text: {
-    fontSize: 14,
+    fontFamily: 'sans-serif',
     fontWeight: 'bold',
-    color: 'white',
+    marginLeft: 10,
+    marginRight: 10,
+    marginBottom: 10,
+    color: '#fff',
   },
   bottomContent: {
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
+  },
+  info: {
+    margin: 5,
+    marginLeft: 10,
+    marginRight: 10,
+    backgroundColor: 'rgba(31, 34, 46, 0.75)',
+    borderColor: '#ededed',
+    borderWidth: 0,
+    padding: 10,
+    borderRadius: 3,
+    elevation: 6,
   },
 });
 
@@ -101,6 +121,7 @@ export default class Profile extends React.Component {
     title: '',
     mp3url: '',
     photoURL: '',
+    notifications: false,
   }
   render() {
     const { screenProps } = this.props;
@@ -142,6 +163,45 @@ export default class Profile extends React.Component {
                   <Text style={styles.text}>{screenProps.user.user.email}</Text>
                 </View>
               </View>
+              <View style={{ width, backgroundColor: 'transparent', padding: 8 }}>
+                  <View style={styles.info}>
+                    <Text style={styles.text}>
+                      Followers: 0
+                    </Text>
+                    <Text style={styles.text}>
+                      Following: 0
+                    </Text>
+                    <View style={{ flexDirection: 'row', marginBottom: 10 }}>
+                      <CheckBox
+                        title='Notifications allowed'
+                        checked={this.state.notifications}
+                        checkedIcon='check'
+                        containerStyle={{ backgroundColor: '#1f222e', borderWidth: 0 }}
+                        textStyle={{ color: '#fff' }}
+                        checkedColor='#fff'
+                        onPress={() => this.setState({ notifications: !this.state.notifications })}
+                      />
+                      <CheckBox
+                        title='Superuser'
+                        checked={screenProps.user.user.superuser}
+                        checkedIcon='check'
+                        disabled
+                        containerStyle={{ backgroundColor: '#1f222e', borderWidth: 0 }}
+                        textStyle={{ color: screenProps.user.user.superuser ? '#fff' : '#8a8989' }}
+                        checkedColor='#fff'
+                      />
+                    </View>
+                    <Button
+                      onPress={() => alert('You\'re request has been sent')}
+                      loading={this.props.screenProps.user.fetching}
+                      backgroundColor='#1f222e'
+                      small
+                      raised
+                      textStyle={{ fontWeight: 'bold' }}
+                      icon={{ name: 'diamond', type: 'simple-line-icon', color: 'rgb(255, 226, 77)' }}
+                      title='Request to upload' />
+                  </View>
+              </View>
               <View style={styles.bottomContent}>
                 <Button
                   onPress={() => screenProps.onfbLogout()}
@@ -149,7 +209,7 @@ export default class Profile extends React.Component {
                   raised
                   backgroundColor='#1f222e'
                   containerViewStyle={{ width }}
-                  textStyle={styles.text}
+                  textStyle={{ fontWeight: 'bold' }}
                   icon={{ name: 'logout', type: 'simple-line-icon' }}
                   title='LOGOUT' />
               </View>

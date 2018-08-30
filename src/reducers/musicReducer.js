@@ -8,6 +8,7 @@ import {
   PREV_SONG,
   SHUFFLE_SONG,
   TOGGLE_SHUFFLE,
+  // REPEAT_SONG,
   TOGGLE_REPEAT,
   ADD_HEART,
   REMOVE_HEART,
@@ -80,9 +81,15 @@ export default function musicReducer(state = initialState, action = {}) {
     case SHUFFLE_SONG:
       return {
         ...state,
-        index: Math.floor(Math.random() * Math.floor(Object.keys(state.tracks).length)),
+        index: Math.floor(Math.random() * Math.floor(Object.keys(state.tracks).length) - 1),
         paused: false,
       };
+    // case REPEAT_SONG:
+    //   return {
+    //     ...state,
+    //     index: state.index,
+    //     paused: false,
+    //   };
     case GLOBAL_PLAY:
       return {
         ...state,

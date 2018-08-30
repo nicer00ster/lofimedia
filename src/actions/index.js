@@ -9,6 +9,7 @@ import {
   NEXT_SONG,
   PREV_SONG,
   SHUFFLE_SONG,
+  // REPEAT_SONG,
   TOGGLE_SHUFFLE,
   TOGGLE_REPEAT,
   SEARCH,
@@ -98,6 +99,12 @@ export function shuffleSong() {
     type: SHUFFLE_SONG,
   };
 }
+
+// export function repeatSong() {
+//   return {
+//     type: REPEAT_SONG,
+//   };
+// }
 
 export function shuffleMusic() {
   return {

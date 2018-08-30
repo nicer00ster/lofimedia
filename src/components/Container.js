@@ -26,7 +26,6 @@ export default class Container extends React.PureComponent {
     avatar: PropTypes.string,
     daily: PropTypes.string,
   }
-
   render() {
     return (
       <View style={styles.container}>
