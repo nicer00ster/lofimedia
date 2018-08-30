@@ -13,7 +13,6 @@ import {
 import { ListItem, Header } from 'react-native-elements';
 import { objToArray } from '../../helpers';
 import Container from '../containers/Container';
-import PlaylistItems from './PlaylistItems';
 
 const { width } = Dimensions.get('window');
 const screenWidth = width - 36;
@@ -63,12 +62,7 @@ export default class Playlist extends React.PureComponent {
         navigation={this.props.navigation}
         avatar={user.photoURL}
         daily={this.props.screenProps.daily}>
-        <Header leftComponent={<Text style={styles.headerText}>Playlist</Text>} backgroundColor='transparent' />
-        {playlist.length === 0
-          ? <View style={styles.textContainer}>
-              <Text style={styles.text}>Your playlist is empty.</Text>
-            </View>
-          : null}
+        <Header leftComponent={<Text style={styles.headerText}>Connect</Text>} backgroundColor='transparent' />
         {!playlist
           ? <Spinner type="9CubeGrid" size={100} color="#fff" style={{ flex: 1, alignSelf: 'center' }}/>
           : <ScrollView>
@@ -80,16 +74,16 @@ export default class Playlist extends React.PureComponent {
               avatar={item.photoURL}
               key={item.uid}
               onPress={() => this.props.navigation.navigate('Single', { ...item })}
-              rightIcon={
-                <PlaylistItems
-                key={item.uid}
-                uid={user.uid}
-                hearts={this.props.screenProps.tracks.tracks[item.uid].hearts}
-                track={item}
-                trackID={item.uid}
-                screenProps={this.props.screenProps}
-                navigation={this.props.navigation}
-                remove={this.props.screenProps.playlistRemove} />}
+              // rightIcon={
+              //   <PlaylistItems
+              //   key={item.uid}
+              //   uid={user.uid}
+              //   hearts={this.props.screenProps.tracks.tracks[item.uid].hearts}
+              //   track={item}
+              //   trackID={item.uid}
+              //   screenProps={this.props.screenProps}
+              //   navigation={this.props.navigation}
+              //   remove={this.props.screenProps.playlistRemove} />}
               title={item.title}
               titleStyle={styles.listTitle}
               subtitle={item.artist}

@@ -30,7 +30,7 @@ export default class Container extends React.PureComponent {
     return (
       <View style={styles.container}>
         <Image
-          source={require('../assets/img/cover.jpg')}
+          source={require('../../assets/img/cover.jpg')}
           style={styles.background}
           resizeMode="cover"
           opacity={0.25}

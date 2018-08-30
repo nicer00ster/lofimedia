@@ -16,7 +16,7 @@ import {
 } from 'react-native-elements';
 import Spinner from 'react-native-spinkit';
 import LoginMethods from './LoginMethods';
-import Header from '../Header';
+import Header from '../containers/Header';
 
 const { width } = Dimensions.get('window');
 const imageWidth = width - 8;
@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: 'sans-serif',
     fontWeight: 'bold',
+    marginTop: 5,
     marginLeft: 10,
     marginRight: 10,
     marginBottom: 10,
@@ -94,11 +95,10 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   info: {
-    margin: 5,
+    width: imageWidth,
     marginLeft: 10,
     marginRight: 10,
-    backgroundColor: 'rgba(31, 34, 46, 0.75)',
-    borderColor: '#ededed',
+    backgroundColor: 'rgba(31, 34, 46, 0.25)',
     borderWidth: 0,
     padding: 10,
     borderRadius: 3,
@@ -163,7 +163,6 @@ export default class Profile extends React.Component {
                   <Text style={styles.text}>{screenProps.user.user.email}</Text>
                 </View>
               </View>
-              <View style={{ width, backgroundColor: 'transparent', padding: 8 }}>
                   <View style={styles.info}>
                     <Text style={styles.text}>
                       Followers: 0
@@ -171,9 +170,9 @@ export default class Profile extends React.Component {
                     <Text style={styles.text}>
                       Following: 0
                     </Text>
-                    <View style={{ flexDirection: 'row', marginBottom: 10 }}>
+                    <View style={{ flexDirection: 'row', marginBottom: 10, alignSelf: 'center' }}>
                       <CheckBox
-                        title='Notifications allowed'
+                        title='Notifications'
                         checked={screenProps.user.user.notifications}
                         checkedIcon='check'
                         containerStyle={{ backgroundColor: '#1f222e', borderWidth: 0 }}
@@ -201,7 +200,6 @@ export default class Profile extends React.Component {
                       icon={{ name: 'diamond', type: 'simple-line-icon', color: 'rgb(255, 226, 77)' }}
                       title='Request to upload' />
                   </View>
-              </View>
               <View style={styles.bottomContent}>
                 <Button
                   onPress={() => screenProps.onfbLogout()}

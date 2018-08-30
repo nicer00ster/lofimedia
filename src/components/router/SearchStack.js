@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { createStackNavigator } from 'react-navigation';
 import { Icon } from 'react-native-elements';
 import Search from '../search/Search';
-import SingleTrack from '../SingleTrack';
+import SingleTrack from '../playlist/SingleTrack';
 import transitionConfig from './config';
 
 const SearchStack = createStackNavigator({

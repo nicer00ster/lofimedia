@@ -16,7 +16,7 @@ import {
   Header,
 } from 'react-native-elements';
 import Spinner from 'react-native-spinkit';
-import Container from '../Container';
+import Container from '../containers/Container';
 
 const { width } = Dimensions.get('window');
 const screenWidth = width - 36;

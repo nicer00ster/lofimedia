@@ -44,14 +44,8 @@ class Header extends React.PureComponent {
     const { daily } = this.props;
     return (
       <View style={styles.container}>
-        <TouchableOpacity onPress={this.props.navigation.openDrawer}>
-          <Avatar
-            rounded
-            source={{ uri: this.props.avatar }}
-            onPress={() => this.props.navigation.navigate('Profile')}
-            activeOpacity={0.75}
-            containerStyle={{ marginBottom: 25 }}
-          />
+        <TouchableOpacity onPress={this.props.navigation.openDrawer} style={{ paddingLeft: 6 }}>
+          <Icon style={styles.button} size={32} type="simple-line-icon" name="menu" color="white"/>
         </TouchableOpacity>
         <View style={styles.marquee}>
           <MarqueeText
@@ -65,9 +59,14 @@ class Header extends React.PureComponent {
             {daily}
           </MarqueeText>
         </View>
-        <TouchableOpacity onPress={this.props.navigation.openDrawer}>
-          <Icon style={styles.button} type="simple-line-icon" name="menu" color="white"/>
-        </TouchableOpacity>
+        <Avatar
+          rounded
+          source={{ uri: this.props.avatar }}
+          onPress={() => this.props.navigation.navigate('Profile')}
+          width={42}
+          height={42}
+          activeOpacity={0.75}
+          containerStyle={{ marginBottom: 25 }}/>
       </View>
     );
   }

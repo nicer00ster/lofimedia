@@ -31,6 +31,7 @@ These instructions will get you a copy of the project up and running on your loc
 - [x] Build a superuser page (add music, delete music)
 - [ ] Have playlist buttons working.
 - [x] Enable push notifications.
+- [ ] Build a connect page, where users can connect with each other.
 
 ### Installing
 

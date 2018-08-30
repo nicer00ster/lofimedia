@@ -25,10 +25,12 @@ const list = [
   {
     title: 'Found a bug? Report it.',
     icon: 'bug',
+    onPress: 'pressed bug',
   },
   {
     title: 'Buy me a coffee.',
     icon: 'coffee',
+    onPress: 'pressed buy coffee',
   },
 ];
 
@@ -54,6 +56,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 14,
     fontWeight: 'bold',
+    fontFamily: Platform.OS === 'android' ? 'sans-serif' : 'HelveticaNeue',
     color: 'white',
   },
   divider: {
@@ -117,7 +120,6 @@ const DrawerScreen = props => (
            onItemPress={routeOptions => {
              props.navigation.navigate(routeOptions.route.routes[routeOptions.route.index].routeName, {});
            }}/>
-         {/* <Divider style={styles.divider} /> */}
          <List containerStyle={styles.list}>
            {
              list.map(item => (
@@ -125,16 +127,23 @@ const DrawerScreen = props => (
                  containerStyle={styles.listitem}
                  key={item.title}
                  title={item.title}
-                 leftIcon={{ name: item.icon, type: 'font-awesome' }}
+                 onPress={() => alert(item.onPress)}
+                 hideChevron
+                 titleStyle={[styles.text, { color: '#1f222e' }]}
+                 leftIcon={{ name: item.icon, type: 'font-awesome', color: '#1f222e' }}
                />
              ))
            }
          </List>
-         <Text style={styles.copyright}>©2018 darknet.fm</Text>
          <Divider style={styles.divider} />
           <View style={styles.social}>
             <SocialIcon type='github-alt'/>
-
+            <Icon
+              type='material-community'
+              name='web'
+              reverse
+              raised />
+            <Text style={styles.copyright}>©2018 darknet.fm</Text>
           </View>
            {props.screenProps.user.user.authenticated
              ? <Button

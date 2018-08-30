@@ -6,6 +6,7 @@ import { Icon } from 'react-native-elements';
 import UserStack from './UserStack';
 import SearchStack from './SearchStack';
 import PlaylistStack from './PlaylistStack';
+import ConnectStack from './ConnectStack';
 import Player from '../player/Player';
 import DrawerScreen from './DrawerScreen';
 
@@ -80,6 +81,13 @@ const Navigator = createDrawerNavigator({
     navigationOptions: {
       drawerLabel: 'PROFILE',
       drawerIcon: ({ tintColor }) => <Icon type="font-awesome" name="user-circle" color={tintColor} />,
+    },
+  },
+  Connect: {
+    screen: ConnectStack,
+    navigationOptions: {
+      drawerLabel: 'CONNECT',
+      drawerIcon: ({ tintColor }) => <Icon type="font-awesome" name="plug" color={tintColor} />,
     },
   },
 }, drawerConfig);

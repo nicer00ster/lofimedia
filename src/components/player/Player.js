@@ -8,7 +8,7 @@ import Gallery from './Gallery';
 import TrackDetails from './TrackDetails';
 import SeekBar from './SeekBar';
 import Controls from './Controls';
-import Container from '../Container';
+import Container from '../containers/Container';
 
 const { width } = Dimensions.get('window');
 const imageWidth = width - 76;

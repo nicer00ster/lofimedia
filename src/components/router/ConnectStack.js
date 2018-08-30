@@ -2,19 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { createStackNavigator } from 'react-navigation';
 import { Icon } from 'react-native-elements';
-import Playlist from '../playlist/Playlist';
-import SingleTrack from '../playlist/SingleTrack';
 import transitionConfig from './config';
+import Connect from '../connect/Connect';
+import SingleUser from '../connect/SingleUser';
 
-const PlaylistStack = createStackNavigator({
-  Playlist: {
-    screen: Playlist,
+const ConnectStack = createStackNavigator({
+  Connect: {
+    screen: Connect,
     navigationOptions: {
       header: null,
     },
   },
-  Single: {
-    screen: SingleTrack,
+  SingleUser: {
+    screen: SingleUser,
     navigationOptions: ({ navigation }) => ({
       title: navigation.state.params.title,
       headerLeft: <Icon name="chevron-left" onPress={() => navigation.goBack()} size={35} color="white" />,
@@ -34,11 +34,11 @@ const PlaylistStack = createStackNavigator({
   transitionConfig,
 });
 
-PlaylistStack.propTypes = {
+ConnectStack.propTypes = {
   navigation: PropTypes.shape({
     goBack: PropTypes.func,
     state: PropTypes.object,
   }),
 };
 
-export default PlaylistStack;
+export default ConnectStack;
