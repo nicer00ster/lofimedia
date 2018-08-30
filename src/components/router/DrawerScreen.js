@@ -17,7 +17,20 @@ import {
   SocialIcon,
   Icon,
   Button,
+  List,
+  ListItem
 } from 'react-native-elements';
+
+const list = [
+  {
+    title: 'Found a bug? Report it.',
+    icon: 'bug',
+  },
+  {
+    title: 'Buy me a coffee.',
+    icon: 'coffee',
+  },
+];
 
 const styles = StyleSheet.create({
   header: {
@@ -62,6 +75,20 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
   },
+  copyright: {
+    fontWeight: 'bold',
+    fontFamily: Platform.OS === 'android' ? 'sans-serif' : 'HelveticaNeue',
+    alignSelf: 'flex-end',
+    margin: 10,
+  },
+  list: {
+    backgroundColor: 'transparent',
+  },
+  listitem: {
+    backgroundColor: 'transparent',
+    borderBottomWidth: 0,
+    borderTopWidth: 0,
+  },
 });
 
 const DrawerScreen = props => (
@@ -86,14 +113,28 @@ const DrawerScreen = props => (
            />
          </TouchableOpacity>
          <Divider style={styles.divider} />
-         <DrawerItems {...props} onItemPress={routeOptions => {
-           props.navigation.navigate(routeOptions.route.routes[routeOptions.route.index].routeName, {})
-         }}/>
+         <DrawerItems {...props} activeTintColor={props.activeTintColor}
+           onItemPress={routeOptions => {
+             props.navigation.navigate(routeOptions.route.routes[routeOptions.route.index].routeName, {});
+           }}/>
+         {/* <Divider style={styles.divider} /> */}
+         <List containerStyle={styles.list}>
+           {
+             list.map(item => (
+               <ListItem
+                 containerStyle={styles.listitem}
+                 key={item.title}
+                 title={item.title}
+                 leftIcon={{ name: item.icon, type: 'font-awesome' }}
+               />
+             ))
+           }
+         </List>
+         <Text style={styles.copyright}>©2018 darknet.fm</Text>
          <Divider style={styles.divider} />
           <View style={styles.social}>
             <SocialIcon type='github-alt'/>
-            <SocialIcon type='stack-overflow' />
-            <SocialIcon type='youtube' />
+
           </View>
            {props.screenProps.user.user.authenticated
              ? <Button

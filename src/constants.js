@@ -16,6 +16,8 @@ export const PLAYLIST_REMOVE = 'PLAYLIST_REMOVE';
 export const ADD_HEART = 'ADD_HEART';
 export const REMOVE_HEART = 'REMOVE_HEART';
 
+export const TOGGLE_NOTIFICATIONS = 'TOGGLE_NOTIFICATIONS';
+
 export const GLOBAL_PLAY = 'GLOBAL_PLAY';
 export const PLAY_MUSIC = 'PLAY_MUSIC';
 export const PAUSE_MUSIC = 'PAUSE_MUSIC';

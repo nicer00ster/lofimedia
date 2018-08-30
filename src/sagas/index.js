@@ -29,6 +29,7 @@ import {
   ADD_TRACK,
   ADD_TRACK_SUCCESS,
   ADD_TRACK_FAILURE,
+  TOGGLE_NOTIFICATIONS,
 } from '../constants';
 
 import { apiMusic, apiDaily } from '../api';
@@ -114,6 +115,10 @@ function* updateUser(data) {
   }
 }
 
+function* toggleNotifications(data) {
+  yield call(rsf.database.update, `users/${data.uid}/notifications`, !data.bool);
+}
+
 function* searchQuery(action) {
   try {
     const results = yield call(filterObject, action.tracks, action.query);
@@ -154,6 +159,7 @@ function* rootSaga() {
   yield takeEvery(USER_UPDATED, updateUser);
   yield takeEvery(SEARCH, searchQuery);
   yield takeEvery(ADD_TRACK, addTrack);
+  yield takeEvery(TOGGLE_NOTIFICATIONS, toggleNotifications);
 }
 
 export default rootSaga;

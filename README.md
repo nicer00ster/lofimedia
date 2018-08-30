@@ -30,6 +30,7 @@ These instructions will get you a copy of the project up and running on your loc
 - [x] If user presses play button from search page or playlist page, change the track and bring them home
 - [x] Build a superuser page (add music, delete music)
 - [ ] Have playlist buttons working.
+- [x] Enable push notifications.
 
 ### Installing
 

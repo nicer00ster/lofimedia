@@ -13,6 +13,7 @@ import {
   FETCH_PLAYLIST_FAILURE,
   PLAYLIST_ADD,
   PLAYLIST_REMOVE,
+  TOGGLE_NOTIFICATIONS,
 } from '../constants';
 
 const initialState = {
@@ -24,6 +25,7 @@ const initialState = {
     uid: '',
     playlist: [],
     superuser: false,
+    notifications: true,
   },
   fetching: false,
   error: false,
@@ -89,6 +91,8 @@ export default function userReducer(state = initialState, action = {}) {
         user: {
           ...state.user,
           superuser: action.user.superuser,
+          playlist: action.user.playlist,
+          notifications: action.user.notifications,
         },
         fetching: false,
       };
@@ -125,6 +129,15 @@ export default function userReducer(state = initialState, action = {}) {
         user: {
           ...state.user,
           playlist: removeByKey(state.user.playlist, action.trackID),
+        },
+      };
+    case TOGGLE_NOTIFICATIONS:
+    console.log('reducer notifc', action);
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          notifications: !action.bool,
         },
       };
     default:

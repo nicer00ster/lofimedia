@@ -40,7 +40,6 @@ class Header extends React.PureComponent {
     daily: PropTypes.string,
     avatar: PropTypes.string,
   }
-
   render() {
     const { daily } = this.props;
     return (

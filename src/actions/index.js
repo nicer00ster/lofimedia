@@ -10,6 +10,7 @@ import {
   PREV_SONG,
   SHUFFLE_SONG,
   // REPEAT_SONG,
+  TOGGLE_NOTIFICATIONS,
   TOGGLE_SHUFFLE,
   TOGGLE_REPEAT,
   SEARCH,
@@ -53,6 +54,14 @@ export function onfbLogin() {
 export function onfbLogout() {
   return {
     type: LOGOUT,
+  };
+}
+
+export function toggleNotifications(uid, bool) {
+  return {
+    type: TOGGLE_NOTIFICATIONS,
+    uid,
+    bool,
   };
 }
 

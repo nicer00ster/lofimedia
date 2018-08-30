@@ -174,12 +174,12 @@ export default class Profile extends React.Component {
                     <View style={{ flexDirection: 'row', marginBottom: 10 }}>
                       <CheckBox
                         title='Notifications allowed'
-                        checked={this.state.notifications}
+                        checked={screenProps.user.user.notifications}
                         checkedIcon='check'
                         containerStyle={{ backgroundColor: '#1f222e', borderWidth: 0 }}
                         textStyle={{ color: '#fff' }}
                         checkedColor='#fff'
-                        onPress={() => this.setState({ notifications: !this.state.notifications })}
+                        onPress={() => screenProps.toggleNotifications(screenProps.user.user.uid, screenProps.user.user.notifications)}
                       />
                       <CheckBox
                         title='Superuser'

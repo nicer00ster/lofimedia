@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">Lofi Media</string>
+    <string name="app_name">darknet.fm</string>
     <string name="fb_app_id">1882633538698364</string>
     <string name="fb_login_protocol_scheme">1882633538698364</string>
+    <string name="root1337" translatable="false">root1337</string>
+    <string name="default_notification_channel_name" translatable="true">darknet.fm</string>
 </resources>
