@@ -8,6 +8,8 @@ import {
   USER_UPDATED,
   USER_UPDATED_SUCCESS,
   USER_UPDATED_FAILURE,
+  FOLLOW_USER,
+  UNFOLLOW_USER,
   FETCH_PLAYLIST,
   FETCH_PLAYLIST_SUCCESS,
   FETCH_PLAYLIST_FAILURE,
@@ -86,7 +88,6 @@ export default function userReducer(state = initialState, action = {}) {
         userlist: action.data,
       };
     case USER_UPDATED:
-    console.log('hererere', action);
       return {
         ...state,
         user: {
@@ -100,7 +101,6 @@ export default function userReducer(state = initialState, action = {}) {
         fetching: true,
       };
     case USER_UPDATED_SUCCESS:
-    console.log('here', action);
       return {
         ...state,
         user: {
@@ -112,6 +112,39 @@ export default function userReducer(state = initialState, action = {}) {
           following: action.user === null ? state.user.following : action.user.following,
         },
         fetching: false,
+      };
+    case FOLLOW_USER:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          following: {
+            ...state.user.following,
+            [action.followuid]: true,
+          },
+        },
+        userlist: {
+          ...state.userlist,
+          [action.followuid]: {
+            ...state.userlist[action.followuid],
+            followers: state.userlist[action.followuid].followers + 1,
+          },
+        },
+      };
+    case UNFOLLOW_USER:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          following: removeByKey(state.user.following, action.followuid),
+        },
+        userlist: {
+          ...state.userlist,
+          [action.followuid]: {
+            ...state.userlist[action.followuid],
+            followers: state.userlist[action.followuid].followers - 1,
+          },
+        },
       };
     case FETCH_PLAYLIST_SUCCESS:
       return {

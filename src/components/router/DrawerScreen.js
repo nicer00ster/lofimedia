@@ -147,26 +147,25 @@ const DrawerScreen = props => (
           </View>
            {props.screenProps.user.user.authenticated
              ? <Button
-               onPress={() => props.screenProps.onfbLogout()}
-               loading={props.screenProps.user.fetching}
-               backgroundColor='#1f222e'
-               medium
-               raised
-               containerViewStyle={{ marginBottom: 15 }}
-               textStyle={styles.text}
-               icon={{ name: 'logout', type: 'simple-line-icon' }}
-               title='LOGOUT' />
+                 onPress={() => props.screenProps.onfbLogout()}
+                 loading={props.screenProps.user.fetching}
+                 backgroundColor='#1f222e'
+                 medium
+                 raised
+                 containerViewStyle={{ marginBottom: 15 }}
+                 textStyle={styles.text}
+                 icon={{ name: 'logout', type: 'simple-line-icon' }}
+                 title='LOGOUT' />
              : <Button
-               onPress={() => props.screenProps.onfbLogin()}
-               loading={props.screenProps.user.fetching}
-               backgroundColor='#3b5998'
-               raised
-               medium
-               containerViewStyle={{ marginBottom: 15 }}
-               textStyle={styles.text}
-               icon={{ name: 'social-facebook', type: 'simple-line-icon' }}
-               title="LOGIN WITH FACEBOOK"
-             />}
+                 onPress={() => props.screenProps.onfbLogin()}
+                 loading={props.screenProps.user.fetching}
+                 backgroundColor='#3b5998'
+                 raised
+                 medium
+                 containerViewStyle={{ marginBottom: 15 }}
+                 textStyle={styles.text}
+                 icon={{ name: 'social-facebook', type: 'simple-line-icon' }}
+                 title="LOGIN WITH FACEBOOK" />}
        </SafeAreaView>
      </View>
    </ScrollView>

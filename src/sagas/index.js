@@ -13,6 +13,8 @@ import {
   FETCH_USERS,
   FETCH_USERS_SUCCESS,
   FETCH_USERS_FAILURE,
+  FOLLOW_USER,
+  UNFOLLOW_USER,
   PLAYLIST_ADD,
   PLAYLIST_REMOVE,
   ADD_HEART,
@@ -64,6 +66,52 @@ function* fetchUsers() {
     yield put({ type: FETCH_USERS_SUCCESS, data });
   } catch (error) {
     yield put({ type: FETCH_USERS_FAILURE });
+  }
+}
+
+function* followUser(uid) {
+  const prevFollowing = yield call(rsf.database.read, `users/${uid.uid}/following`);
+  const prevFollowerData = yield call(rsf.database.read, `users/${uid.followuid}`);
+  try {
+    if (prevFollowing !== 0) {
+      yield call(rsf.database.patch, `users/${uid.uid}`, {
+        following: {
+          ...prevFollowing,
+          [uid.followuid]: true,
+        },
+      });
+    } else {
+      yield call(rsf.database.patch, `users/${uid.uid}`, {
+        following: {
+          [uid.followuid]: true,
+        },
+      });
+    }
+    yield call(rsf.database.patch, `users/${uid.followuid}`, {
+      followers: prevFollowerData.followers + 1,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function* unfollowUser(uid) {
+  const prevFollowerData = yield call(rsf.database.read, `users/${uid.followuid}`);
+  const userData = yield call(rsf.database.read, `users/${uid.uid}`);
+  try {
+    if (Object.keys(userData.following).length === 1) {
+      yield call(rsf.database.patch, `users/${uid.uid}`, {
+        following: 0,
+      });
+    } else {
+      yield call(rsf.database.delete, `users/${uid.uid}/following/${uid.followuid}`);
+    };
+
+    yield call(rsf.database.patch, `users/${uid.followuid}`, {
+      followers: prevFollowerData.followers - 1,
+    });
+  } catch (error) {
+    console.log(error);
   }
 }
 
@@ -167,6 +215,8 @@ function* rootSaga() {
   yield takeEvery(FETCH_PLAYLIST, playlistSaga);
   yield takeEvery(PLAYLIST_ADD, playlistAdd);
   yield takeEvery(PLAYLIST_REMOVE, playlistRemove);
+  yield takeEvery(FOLLOW_USER, followUser);
+  yield takeEvery(UNFOLLOW_USER, unfollowUser);
   yield takeEvery(LOGIN, facebookLogin);
   yield takeEvery(LOGOUT, facebookLogout);
   yield takeEvery(USER_UPDATED, updateUser);

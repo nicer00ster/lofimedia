@@ -18,6 +18,8 @@ import {
   shuffleMusic,
   shuffleSong,
   repeatMusic,
+  followUser,
+  unfollowUser,
   // repeatSong,
   nextSong,
   prevSong,
@@ -128,10 +130,10 @@ class Root extends React.Component {
             ...this.props,
             seek: this.seek.bind(this),
             duration: this.state.duration,
-            position: this.state.position
+            position: this.state.position,
           }}/>
       </React.Fragment>
-    )
+    );
   }
 }
 
@@ -157,6 +159,8 @@ const mapDispatchToProps = {
   nextSong,
   prevSong,
   shuffleSong,
+  followUser,
+  unfollowUser,
   // repeatSong,
   searchMusic,
   playlistAdd,

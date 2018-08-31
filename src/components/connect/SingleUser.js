@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   Platform,
 } from 'react-native';
-import { Icon, Badge } from 'react-native-elements';
+import { Button } from 'react-native-elements';
 
 const { width } = Dimensions.get('window');
 const imageWidth = width;
@@ -19,7 +19,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
+    width,
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
@@ -44,7 +45,8 @@ const styles = StyleSheet.create({
   image: {
     borderWidth: 0.5,
     borderRadius: 1,
-    width: imageWidth,
+    elevation: 6,
+    width,
     height: imageHeight,
   },
   imageText: {
@@ -56,35 +58,16 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
   },
-  title: {
+  text: {
     fontSize: 36,
-    fontFamily: Platform.OS === 'android' ? 'sans-serif-thin' : 'HelveticaNeue',
-    fontWeight: '800',
-    color: '#fff',
+    fontFamily: Platform.OS === 'android' ? 'sans-serif-thin' : 'HelveticaNeue-Thin',
+    color: '#1f222e',
     margin: 10,
   },
-  artist: {
-    fontFamily: Platform.OS === 'android' ? 'sans-serif-thin' : 'HelveticaNeue',
-    fontWeight: '600',
-    fontSize: 20,
-    color: '#fff',
-    margin: 12,
-  },
-  heartContainer: {
-    position: 'absolute',
-    paddingBottom: 5,
-  },
-  heartText: {
-    color: '#fff',
-    fontSize: 12,
-    fontWeight: 'bold',
-  },
-  badge: {
-    backgroundColor: 'rgba(31, 34, 46, 0.25)',
-    height: 25,
-    width: 25,
-    padding: 5,
-    marginLeft: 15,
+  bottomContent: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
   },
 });
 
@@ -101,31 +84,38 @@ class SingleUser extends React.Component {
     trackID: PropTypes.string,
   }
   render() {
-    const { navigation } = this.props;
-    const { userlist } = this.props.screenProps.user;
+    const { navigation, screenProps } = this.props;
+    const { userlist, user } = this.props.screenProps.user;
     return (
       <View style={styles.container}>
         <View>
           <Image style={styles.image} source={{ uri: `${navigation.state.params.photoURL}?width=400` }} />
-          {/* <View style={[styles.imageText, styles.overlay]}>
-            <Text style={styles.title}>{navigation.state.params.title}</Text>
-            <Text style={styles.artist}>{navigation.state.params.artist}</Text>
-          </View>
-
-          <View style={styles.add}>
-            <Icon
-              type="font-awesome"
-              name="heart"
-              size={50}
-              color={toggleHeart}
-              onPress={() => this.handleHeart()}
-              />
-              <Badge
-                containerStyle={styles.badge}
-                wrapperStyle={styles.heartContainer}
-                textStyle={styles.heartText}
-                value={this.props.screenProps.tracks.tracks[navigation.state.params.uid].hearts} />
-          </View> */}
+          <Text style={styles.text}>Followers: {navigation.state.params.followers.length}</Text>
+          <Text style={styles.text}>Following: {navigation.state.params.following.length}</Text>
+        </View>
+        <View style={styles.bottomContent}>
+          {
+            !user.following[navigation.state.params.uid]
+            // user.following === 0
+              ? <Button
+                onPress={() => screenProps.followUser(user.uid, navigation.state.params.uid)}
+                medium
+                raised
+                backgroundColor='#1f222e'
+                buttonStyle={{ width }}
+                textStyle={{ fontWeight: 'bold' }}
+                icon={{ name: 'user-follow', type: 'simple-line-icon', color: '#fff' }}
+                title='FOLLOW' />
+              : <Button
+                onPress={() => screenProps.unfollowUser(user.uid, navigation.state.params.uid)}
+                medium
+                raised
+                backgroundColor='#1f222e'
+                buttonStyle={{ width }}
+                textStyle={{ fontWeight: 'bold' }}
+                icon={{ name: 'user-unfollow', type: 'simple-line-icon', color: '#fff' }}
+                title='UNFOLLOW' />
+          }
         </View>
       </View>
     );

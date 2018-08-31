@@ -10,6 +10,8 @@ import {
   NEXT_SONG,
   PREV_SONG,
   SHUFFLE_SONG,
+  FOLLOW_USER,
+  UNFOLLOW_USER,
   // REPEAT_SONG,
   TOGGLE_NOTIFICATIONS,
   TOGGLE_SHUFFLE,
@@ -39,6 +41,22 @@ export function fetchUsers(data) {
   return {
     type: FETCH_USERS,
     data,
+  };
+}
+
+export function followUser(uid, followuid) {
+  return {
+    type: FOLLOW_USER,
+    uid,
+    followuid,
+  };
+}
+
+export function unfollowUser(uid, followuid) {
+  return {
+    type: UNFOLLOW_USER,
+    uid,
+    followuid,
   };
 }
 

@@ -13,6 +13,7 @@ import {
   Icon,
   CheckBox,
   Text,
+  Card,
 } from 'react-native-elements';
 import Spinner from 'react-native-spinkit';
 import LoginMethods from './LoginMethods';
@@ -33,16 +34,16 @@ const styles = StyleSheet.create({
     ...Platform.select({
       ios: {
         borderWidth: 0,
-        borderRadius: 2,
-        width: imageWidth,
+        // borderRadius: 2,
+        width,
         height: imageHeight,
       },
       android: {
         borderWidth: 1,
-        borderRadius: 2,
-        width: imageWidth,
+        // borderRadius: 2,
+        width,
         height: imageHeight,
-        elevation: 8,
+        // elevation: 8,
         backgroundColor: '#000',
       },
     }),
@@ -98,11 +99,11 @@ const styles = StyleSheet.create({
     width: imageWidth,
     marginLeft: 10,
     marginRight: 10,
-    backgroundColor: 'rgba(31, 34, 46, 0.25)',
+    backgroundColor: 'rgba(31, 34, 46, 0.5)',
     borderWidth: 0,
     padding: 10,
-    borderRadius: 3,
-    elevation: 6,
+    borderRadius: 2,
+    elevation: 2,
   },
 });
 
@@ -163,43 +164,43 @@ export default class Profile extends React.Component {
                   <Text style={styles.text}>{screenProps.user.user.email}</Text>
                 </View>
               </View>
-                  <View style={styles.info}>
-                    <Text style={styles.text}>
-                      Followers: 0
-                    </Text>
-                    <Text style={styles.text}>
-                      Following: 0
-                    </Text>
-                    <View style={{ flexDirection: 'row', marginBottom: 10, alignSelf: 'center' }}>
-                      <CheckBox
-                        title='Notifications'
-                        checked={screenProps.user.user.notifications}
-                        checkedIcon='check'
-                        containerStyle={{ backgroundColor: '#1f222e', borderWidth: 0 }}
-                        textStyle={{ color: '#fff' }}
-                        checkedColor='#fff'
-                        onPress={() => screenProps.toggleNotifications(screenProps.user.user.uid, screenProps.user.user.notifications)}
-                      />
-                      <CheckBox
-                        title='Superuser'
-                        checked={screenProps.user.user.superuser}
-                        checkedIcon='check'
-                        disabled
-                        containerStyle={{ backgroundColor: '#1f222e', borderWidth: 0 }}
-                        textStyle={{ color: screenProps.user.user.superuser ? '#fff' : '#8a8989' }}
-                        checkedColor='#fff'
-                      />
-                    </View>
-                    <Button
-                      onPress={() => alert('You\'re request has been sent')}
-                      loading={this.props.screenProps.user.fetching}
-                      backgroundColor='#1f222e'
-                      small
-                      raised
-                      textStyle={{ fontWeight: 'bold' }}
-                      icon={{ name: 'diamond', type: 'simple-line-icon', color: 'rgb(255, 226, 77)' }}
-                      title='Request to upload' />
-                  </View>
+              <Card containerStyle={styles.info}>
+                <Text style={styles.text}>
+                  Followers: 0
+                </Text>
+                <Text style={styles.text}>
+                  Following: 0
+                </Text>
+                <View style={{ flexDirection: 'row', marginBottom: 10, alignSelf: 'center' }}>
+                  <CheckBox
+                    title='Notifications'
+                    checked={screenProps.user.user.notifications}
+                    checkedIcon='check'
+                    containerStyle={{ backgroundColor: '#1f222e', borderWidth: 0 }}
+                    textStyle={{ color: '#fff' }}
+                    checkedColor='#fff'
+                    onPress={() => screenProps.toggleNotifications(screenProps.user.user.uid, screenProps.user.user.notifications)}
+                  />
+                  <CheckBox
+                    title='Superuser'
+                    checked={screenProps.user.user.superuser}
+                    checkedIcon='check'
+                    disabled
+                    containerStyle={{ backgroundColor: '#1f222e', borderWidth: 0 }}
+                    textStyle={{ color: screenProps.user.user.superuser ? '#fff' : '#8a8989' }}
+                    checkedColor='#fff'
+                  />
+                </View>
+                <Button
+                  onPress={() => alert('You\'re request has been sent')}
+                  loading={this.props.screenProps.user.fetching}
+                  backgroundColor='#1f222e'
+                  small
+                  raised
+                  textStyle={{ fontWeight: 'bold' }}
+                  icon={{ name: 'diamond', type: 'simple-line-icon', color: 'rgb(255, 226, 77)' }}
+                  title='Request to upload' />
+              </Card>
               <View style={styles.bottomContent}>
                 <Button
                   onPress={() => screenProps.onfbLogout()}
