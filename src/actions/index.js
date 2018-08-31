@@ -1,6 +1,7 @@
 import {
   FETCH_MUSIC,
   FETCH_DAILY,
+  FETCH_USERS,
   LOGIN,
   LOGOUT,
   USER_UPDATED,
@@ -19,9 +20,6 @@ import {
   PLAYLIST_REMOVE,
   ADD_TRACK,
   GLOBAL_PLAY,
-  // SET_TIME,
-  // SET_DURATION,
-  // SEEK_TIME,
 } from '../constants';
 
 // API METHODS
@@ -34,6 +32,13 @@ export function fetchMusic() {
 export function fetchDaily() {
   return {
     type: FETCH_DAILY,
+  };
+}
+
+export function fetchUsers(data) {
+  return {
+    type: FETCH_USERS,
+    data,
   };
 }
 
@@ -167,26 +172,3 @@ export function addTrack(track) {
     track,
   };
 }
-
-// export function setDuration(data) {
-//   return {
-//     type: SET_DURATION,
-//     data
-//   };
-// };
-//
-// export function setTime(data) {
-//   return {
-//     type: SET_TIME,
-//     data
-//   };
-// };
-//
-// export function seek(time) {
-//   // this.props.screenProps.forwardedRef && this.props.screenProps.forwardedRef.seek(time);
-//   time = Math.round(time);
-//   return {
-//     type: SEEK_TIME,
-//     time
-//   };
-// };

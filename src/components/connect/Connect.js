@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import Spinner from 'react-native-spinkit';
 import {
   StyleSheet,
-  View,
   Text,
+  View,
   FlatList,
   ScrollView,
   Platform,
@@ -55,41 +55,30 @@ export default class Playlist extends React.PureComponent {
     playlistRemove: PropTypes.func,
   }
   render() {
-    const { user } = this.props.screenProps.user;
-    const playlist = !user.playlist ? [] : objToArray(user.playlist);
+    const { userlist, user } = this.props.screenProps.user;
+    const users = !userlist ? [] : objToArray(userlist);
     return (
       <Container
         navigation={this.props.navigation}
         avatar={user.photoURL}
         daily={this.props.screenProps.daily}>
         <Header leftComponent={<Text style={styles.headerText}>Connect</Text>} backgroundColor='transparent' />
-        {!playlist
+        {this.props.screenProps.user.fetching
           ? <Spinner type="9CubeGrid" size={100} color="#fff" style={{ flex: 1, alignSelf: 'center' }}/>
           : <ScrollView>
             <FlatList
-              data={playlist}
+              data={users}
               renderItem={({ item }) => (
             <ListItem
               containerStyle={{ width: '100%' }}
               avatar={item.photoURL}
               key={item.uid}
-              onPress={() => this.props.navigation.navigate('Single', { ...item })}
-              // rightIcon={
-              //   <PlaylistItems
-              //   key={item.uid}
-              //   uid={user.uid}
-              //   hearts={this.props.screenProps.tracks.tracks[item.uid].hearts}
-              //   track={item}
-              //   trackID={item.uid}
-              //   screenProps={this.props.screenProps}
-              //   navigation={this.props.navigation}
-              //   remove={this.props.screenProps.playlistRemove} />}
-              title={item.title}
+              onPress={() => this.props.navigation.navigate('SingleUser', { ...item })}
+              title={item.displayName}
               titleStyle={styles.listTitle}
-              subtitle={item.artist}
+              subtitle={`Followers: ${item.followers}`}
               subtitleStyle={styles.listSubtitle} />
-              )}
-            />
+              )} />
           </ScrollView>}
       </Container>
     );

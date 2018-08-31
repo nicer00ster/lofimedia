@@ -9,6 +9,7 @@ import {
   fetchMusic,
   fetchDaily,
   fetchPlaylist,
+  fetchUsers,
   onfbLogin,
   onfbLogout,
   updateUserInfo,
@@ -50,6 +51,7 @@ class Root extends React.Component {
     fetchUser(this.props.updateUserInfo);
     this.props.fetchMusic();
     this.props.fetchDaily();
+    this.props.fetchUsers();
     setTimeout(() => {
       this.props.fetchPlaylist(this.props.user.user.uid);
     }, 1000);
@@ -144,6 +146,7 @@ const mapDispatchToProps = {
   fetchMusic,
   fetchDaily,
   fetchPlaylist,
+  fetchUsers,
   onfbLogin,
   onfbLogout,
   updateUserInfo,
@@ -161,9 +164,6 @@ const mapDispatchToProps = {
   addTrack,
   globalPlay,
   toggleNotifications,
-  // setDuration,
-  // setTime,
-  // seek
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Root);

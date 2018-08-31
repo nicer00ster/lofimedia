@@ -18,7 +18,7 @@ import {
   Icon,
   Button,
   List,
-  ListItem
+  ListItem,
 } from 'react-native-elements';
 
 const list = [
@@ -104,7 +104,7 @@ const DrawerScreen = props => (
          resizeMode='cover'
        />
        <SafeAreaView style={{ flex: 1, backgroundColor: 'transparent' }} forceInset={{ top: 'always', horizontal: 'never' }}>
-         <Text style={styles.header}>Lofi Media</Text>
+         <Text style={styles.header}>darknet.fm</Text>
          <TouchableOpacity
            onPress={() => props.navigation.closeDrawer()}
            style={styles.cancel}>

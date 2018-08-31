@@ -10,6 +10,9 @@ import {
   FETCH_PLAYLIST,
   FETCH_PLAYLIST_SUCCESS,
   FETCH_PLAYLIST_FAILURE,
+  FETCH_USERS,
+  FETCH_USERS_SUCCESS,
+  FETCH_USERS_FAILURE,
   PLAYLIST_ADD,
   PLAYLIST_REMOVE,
   ADD_HEART,
@@ -52,6 +55,15 @@ function* fetchDaily() {
     yield put({ type: FETCH_DAILY_SUCCESS, data });
   } catch (error) {
     yield put({ type: FETCH_DAILY_FAILURE });
+  }
+}
+
+function* fetchUsers() {
+  try {
+    const data = yield call(rsf.database.read, 'users');
+    yield put({ type: FETCH_USERS_SUCCESS, data });
+  } catch (error) {
+    yield put({ type: FETCH_USERS_FAILURE });
   }
 }
 
@@ -151,6 +163,7 @@ function* addTrack(action) {
 function* rootSaga() {
   yield takeEvery(FETCH_MUSIC, fetchMusic);
   yield takeEvery(FETCH_DAILY, fetchDaily);
+  yield takeEvery(FETCH_USERS, fetchUsers);
   yield takeEvery(FETCH_PLAYLIST, playlistSaga);
   yield takeEvery(PLAYLIST_ADD, playlistAdd);
   yield takeEvery(PLAYLIST_REMOVE, playlistRemove);

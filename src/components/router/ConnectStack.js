@@ -16,7 +16,7 @@ const ConnectStack = createStackNavigator({
   SingleUser: {
     screen: SingleUser,
     navigationOptions: ({ navigation }) => ({
-      title: navigation.state.params.title,
+      title: navigation.state.params.displayName,
       headerLeft: <Icon name="chevron-left" onPress={() => navigation.goBack()} size={35} color="white" />,
       headerBackTitle: null,
       headerStyle: {

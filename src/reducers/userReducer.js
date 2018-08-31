@@ -11,6 +11,9 @@ import {
   FETCH_PLAYLIST,
   FETCH_PLAYLIST_SUCCESS,
   FETCH_PLAYLIST_FAILURE,
+  FETCH_USERS,
+  FETCH_USERS_SUCCESS,
+  FETCH_USERS_FAILURE,
   PLAYLIST_ADD,
   PLAYLIST_REMOVE,
   TOGGLE_NOTIFICATIONS,
@@ -23,10 +26,13 @@ const initialState = {
     email: '',
     photoURL: '',
     uid: '',
+    followers: 0,
+    following: 0,
     playlist: [],
     superuser: false,
     notifications: true,
   },
+  userlist: null,
   fetching: false,
   error: false,
 };
@@ -62,6 +68,7 @@ export default function userReducer(state = initialState, action = {}) {
         fetching: false,
       };
     case LOGOUT:
+    case FETCH_USERS:
     case FETCH_PLAYLIST:
       return {
         ...state,
@@ -71,8 +78,15 @@ export default function userReducer(state = initialState, action = {}) {
     case USER_UPDATED_FAILURE:
       return {
         ...initialState,
+        userlist: state.userlist,
+      };
+    case FETCH_USERS_SUCCESS:
+      return {
+        ...state,
+        userlist: action.data,
       };
     case USER_UPDATED:
+    console.log('hererere', action);
       return {
         ...state,
         user: {
@@ -86,13 +100,16 @@ export default function userReducer(state = initialState, action = {}) {
         fetching: true,
       };
     case USER_UPDATED_SUCCESS:
+    console.log('here', action);
       return {
         ...state,
         user: {
           ...state.user,
-          superuser: action.user.superuser,
-          playlist: action.user.playlist,
-          notifications: action.user.notifications,
+          superuser: action.user === null ? state.user.superuser : action.user.superuser,
+          playlist: action.user === null ? state.user.playlist : action.user.playlist,
+          notifications: action.user === null ? state.user.notifications : action.user.notifications,
+          followers: action.user === null ? state.user.followers : action.user.followers,
+          following: action.user === null ? state.user.following : action.user.following,
         },
         fetching: false,
       };
@@ -105,6 +122,7 @@ export default function userReducer(state = initialState, action = {}) {
           playlist: action.data,
         },
       };
+    case FETCH_USERS_FAILURE:
     case FETCH_PLAYLIST_FAILURE:
       return {
         ...state,
@@ -132,7 +150,6 @@ export default function userReducer(state = initialState, action = {}) {
         },
       };
     case TOGGLE_NOTIFICATIONS:
-    console.log('reducer notifc', action);
       return {
         ...state,
         user: {

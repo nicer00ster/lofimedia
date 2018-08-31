@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Dimensions } from 'react-native';
-import Video from 'react-native-video';
 import Spinner from 'react-native-spinkit';
 import Carousel from 'react-native-snap-carousel';
 import Gallery from './Gallery';
@@ -67,7 +66,6 @@ class Player extends React.Component {
 
     const keys = Object.keys(screenProps.tracks.tracks);
     const track = Object.assign({}, screenProps.tracks.tracks[keys[screenProps.tracks.index]]);
-    // const uri = track.mp3url ? track.mp3url : 'https://s3.us-east-2.amazonaws.com/lofi-media/Profound+Beats+-+Lo-Fi.mp3';
     return (
       <Container
         navigation={navigation}
@@ -101,20 +99,6 @@ class Player extends React.Component {
               shuffle={screenProps.tracks.shuffle}
               repeat={screenProps.tracks.repeat}
               paused={screenProps.tracks.paused} />
-            {/* <Video
-              source={{ uri }}
-              ref='audio'
-              doNotDetach
-              playInBackground={true}
-              paused={screenProps.tracks.paused}
-              repeat={screenProps.tracks.repeat}
-              onLoadStart={this.loadStart}
-              onLoad={this.setDuration.bind(this)}
-              onProgress={this.setTime.bind(this)}
-              progressUpdateInterval={1000}
-              onEnd={screenProps.shuffleSong}
-              onError={this.videoError}
-            /> */}
           </React.Fragment>}
       </Container>
     );

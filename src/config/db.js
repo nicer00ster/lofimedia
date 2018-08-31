@@ -15,6 +15,8 @@ const Database = {
         uid: user.uid,
         superuser: false,
         notifications: true,
+        followers: 0,
+        following: 0,
       });
     });
   },
