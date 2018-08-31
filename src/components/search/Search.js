@@ -62,7 +62,6 @@ export default class Search extends React.Component {
     }),
     navigation: PropTypes.shape({
       navigate: PropTypes.func,
-
     }),
   }
   state = { query: '' };

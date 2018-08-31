@@ -7,13 +7,15 @@ import {
   Text,
   Image,
   TouchableOpacity,
+  FlatList,
+  ScrollView,
   Platform,
 } from 'react-native';
-import { Button } from 'react-native-elements';
+import { Button, ListItem, Divider } from 'react-native-elements';
+import { objToArray } from '../../helpers';
 
 const { width } = Dimensions.get('window');
-const imageWidth = width;
-const imageHeight = width - 76;
+const screenWidth = width - 76;
 
 const styles = StyleSheet.create({
   container: {
@@ -21,33 +23,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
     width,
-  },
-  overlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0, 0, 0, 0.35)',
-  },
-  play: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100%',
-    width: '100%',
-    position: 'absolute',
-  },
-  add: {
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
-    flexDirection: 'row',
-    height: '100%',
-    width: '100%',
-    position: 'absolute',
-    padding: 10,
+    backgroundColor: '#1f222e',
   },
   image: {
     borderWidth: 0.5,
     borderRadius: 1,
     elevation: 6,
     width,
-    height: imageHeight,
+    height: screenWidth,
   },
   imageText: {
     position: 'absolute',
@@ -59,19 +42,27 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   text: {
-    fontSize: 36,
+    fontSize: 24,
     fontFamily: Platform.OS === 'android' ? 'sans-serif-thin' : 'HelveticaNeue-Thin',
-    color: '#1f222e',
+    color: '#efefef',
     margin: 10,
+  },
+  textContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   bottomContent: {
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
   },
+  divider: {
+    height: 1,
+    backgroundColor: '#efefef',
+  },
 });
 
-class SingleUser extends React.Component {
+class SingleUser extends React.PureComponent {
   static propTypes = {
     navigation: PropTypes.object,
     playlist: PropTypes.object,
@@ -90,33 +81,65 @@ class SingleUser extends React.Component {
       <View style={styles.container}>
         <View>
           <Image style={styles.image} source={{ uri: `${navigation.state.params.photoURL}?width=400` }} />
-          <Text style={styles.text}>Followers: {navigation.state.params.followers.length}</Text>
-          <Text style={styles.text}>Following: {navigation.state.params.following.length}</Text>
-        </View>
-        <View style={styles.bottomContent}>
           {
             !user.following[navigation.state.params.uid]
-            // user.following === 0
               ? <Button
-                onPress={() => screenProps.followUser(user.uid, navigation.state.params.uid)}
-                medium
-                raised
-                backgroundColor='#1f222e'
-                buttonStyle={{ width }}
-                textStyle={{ fontWeight: 'bold' }}
-                icon={{ name: 'user-follow', type: 'simple-line-icon', color: '#fff' }}
-                title='FOLLOW' />
+                  onPress={() => screenProps.followUser(navigation.state.params, user.uid, navigation.state.params.uid)}
+                  medium
+                  raised
+                  backgroundColor='#1f222e'
+                  buttonStyle={{ width: screenWidth, alignSelf: 'center' }}
+                  containerViewStyle={{ width: screenWidth, alignSelf: 'center' }}
+                  textStyle={{ fontWeight: 'bold' }}
+                  icon={{ name: 'user-follow', type: 'simple-line-icon', color: '#fff' }}
+                  title='FOLLOW' />
               : <Button
-                onPress={() => screenProps.unfollowUser(user.uid, navigation.state.params.uid)}
-                medium
-                raised
-                backgroundColor='#1f222e'
-                buttonStyle={{ width }}
-                textStyle={{ fontWeight: 'bold' }}
-                icon={{ name: 'user-unfollow', type: 'simple-line-icon', color: '#fff' }}
-                title='UNFOLLOW' />
-          }
+                  onPress={() => screenProps.unfollowUser(navigation.state.params, user.uid, navigation.state.params.uid)}
+                  medium
+                  raised
+                  backgroundColor='#1f222e'
+                  buttonStyle={{ width: screenWidth, alignSelf: 'center' }}
+                  containerViewStyle={{ width: screenWidth, alignSelf: 'center' }}
+                  textStyle={{ fontWeight: 'bold' }}
+                  icon={{ name: 'user-unfollow', type: 'simple-line-icon', color: '#fff' }}
+                  title='UNFOLLOW' />
+              }
+              <View style={styles.textContainer}>
+                <Text style={styles.text}>Followers: {userlist[navigation.state.params.uid].followers}</Text>
+                <Text style={styles.text}>Following: {
+                  typeof userlist[navigation.state.params.uid].following === 'object'
+                  ? Object.keys(userlist[navigation.state.params.uid].following).length
+                  : userlist[navigation.state.params.uid].following
+                }
+              </Text>
+              </View>
+          <Divider />
         </View>
+          <ScrollView>
+            {
+              !navigation.state.params.playlist
+                ? <Text style={styles.text}>User's playlist is empty.</Text>
+                : <React.Fragment>
+                  <Text style={styles.text}>{navigation.state.params.displayName}'s Playlist</Text>
+                    <FlatList
+                      data={objToArray(navigation.state.params.playlist)}
+                      renderItem={({ item }) => (
+                    <ListItem
+                      onPress={() => this.props.navigation.navigate('SingleTrack', { ...item })}
+                      containerStyle={{ width }}
+                      avatar={item.photoURL}
+                      rightIcon={{ name: 'playlist-add' }}
+                      titleStyle={{ color: 'white' }}
+                      title={item.title}
+                      subtitle={item.artist} />
+                      )} />
+              </React.Fragment>
+            }
+
+          </ScrollView>
+        {/* <View style={styles.bottomContent}> */}
+
+        {/* </View> */}
       </View>
     );
   }

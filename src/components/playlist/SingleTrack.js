@@ -10,6 +10,7 @@ import {
   Platform,
 } from 'react-native';
 import { Icon, Badge } from 'react-native-elements';
+import { delay } from '../../helpers';
 
 const { width } = Dimensions.get('window');
 const imageWidth = width;

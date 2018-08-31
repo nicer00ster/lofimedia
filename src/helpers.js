@@ -30,3 +30,7 @@ export const removeByKey = (obj, delKey) => Object.keys(obj)
     result[current] = obj[current];
     return result;
   }, {});
+
+export const delay = ms => new Promise(resolve => {
+  setTimeout(resolve, ms);
+});

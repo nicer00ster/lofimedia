@@ -34,17 +34,15 @@ const styles = StyleSheet.create({
     ...Platform.select({
       ios: {
         borderWidth: 0,
-        // borderRadius: 2,
         width,
         height: imageHeight,
       },
       android: {
         borderWidth: 1,
-        // borderRadius: 2,
         width,
         height: imageHeight,
-        // elevation: 8,
         backgroundColor: '#000',
+        elevation: 8,
       },
     }),
   },

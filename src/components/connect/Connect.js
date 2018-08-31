@@ -4,7 +4,6 @@ import Spinner from 'react-native-spinkit';
 import {
   StyleSheet,
   Text,
-  View,
   FlatList,
   ScrollView,
   Platform,
@@ -45,7 +44,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class Playlist extends React.PureComponent {
+export default class Connect extends React.PureComponent {
   static propTypes = {
     screenProps: PropTypes.object,
     user: PropTypes.object,

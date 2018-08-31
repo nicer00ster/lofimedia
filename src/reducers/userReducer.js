@@ -114,6 +114,7 @@ export default function userReducer(state = initialState, action = {}) {
         fetching: false,
       };
     case FOLLOW_USER:
+      console.log('reducer', action);
       return {
         ...state,
         user: {
@@ -125,6 +126,13 @@ export default function userReducer(state = initialState, action = {}) {
         },
         userlist: {
           ...state.userlist,
+          [action.uid]: {
+            ...state.userlist[action.uid],
+            following: {
+              ...state.userlist[action.uid].following,
+              [action.followuid]: action.user,
+            },
+          },
           [action.followuid]: {
             ...state.userlist[action.followuid],
             followers: state.userlist[action.followuid].followers + 1,
@@ -140,6 +148,10 @@ export default function userReducer(state = initialState, action = {}) {
         },
         userlist: {
           ...state.userlist,
+          [action.uid]: {
+            ...state.userlist[action.uid],
+            following: removeByKey(state.userlist[action.uid].following, action.followuid),
+          },
           [action.followuid]: {
             ...state.userlist[action.followuid],
             followers: state.userlist[action.followuid].followers - 1,

@@ -44,17 +44,19 @@ export function fetchUsers(data) {
   };
 }
 
-export function followUser(uid, followuid) {
+export function followUser(user, uid, followuid) {
   return {
     type: FOLLOW_USER,
+    user,
     uid,
     followuid,
   };
 }
 
-export function unfollowUser(uid, followuid) {
+export function unfollowUser(user, uid, followuid) {
   return {
     type: UNFOLLOW_USER,
+    user,
     uid,
     followuid,
   };

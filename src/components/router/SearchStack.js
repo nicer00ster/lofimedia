@@ -20,12 +20,12 @@ const SearchStack = createStackNavigator({
       headerLeft: <Icon name="chevron-left" onPress={() => navigation.goBack()} size={35} color="white" />,
       headerBackTitle: null,
       headerStyle: {
-        backgroundColor: 'rgba(31, 34, 46, 0.75)',
+        backgroundColor: '#1f222e',
         borderBottomWidth: 2,
-        borderBottomColor: '#fff',
+        borderBottomColor: '#efefef',
       },
       headerTitleStyle: {
-        color: '#fff',
+        color: '#efefef',
       },
     }),
   },

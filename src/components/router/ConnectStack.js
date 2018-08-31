@@ -5,6 +5,7 @@ import { Icon } from 'react-native-elements';
 import transitionConfig from './config';
 import Connect from '../connect/Connect';
 import SingleUser from '../connect/SingleUser';
+import SingleTrack from '../playlist/SingleTrack';
 
 const ConnectStack = createStackNavigator({
   Connect: {
@@ -20,12 +21,28 @@ const ConnectStack = createStackNavigator({
       headerLeft: <Icon name="chevron-left" onPress={() => navigation.goBack()} size={35} color="white" />,
       headerBackTitle: null,
       headerStyle: {
-        backgroundColor: 'rgba(31, 34, 46, 0.75)',
+        backgroundColor: '#1f222e',
         borderBottomWidth: 2,
-        borderBottomColor: '#fff',
+        borderBottomColor: '#efefef',
       },
       headerTitleStyle: {
-        color: '#fff',
+        color: '#efefef',
+      },
+    }),
+  },
+  SingleTrack: {
+    screen: SingleTrack,
+    navigationOptions: ({ navigation }) => ({
+      title: navigation.state.params.title,
+      headerLeft: <Icon name="chevron-left" onPress={() => navigation.goBack()} size={35} color="white" />,
+      headerBackTitle: null,
+      headerStyle: {
+        backgroundColor: '#1f222e',
+        borderBottomWidth: 2,
+        borderBottomColor: '#efefef',
+      },
+      headerTitleStyle: {
+        color: '#efefef',
       },
     }),
   },
