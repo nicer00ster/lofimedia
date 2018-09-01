@@ -104,7 +104,12 @@ const DrawerScreen = props => (
          resizeMode='cover'
        />
        <SafeAreaView style={{ flex: 1, backgroundColor: 'transparent' }} forceInset={{ top: 'always', horizontal: 'never' }}>
-         <Text style={styles.header}>darknet.fm</Text>
+         {/* <Text style={styles.header}>darknet.fm</Text> */}
+         <Image
+           style={{ width: 275, height: 175, margin: 10 }}
+           source={require('../../assets/img/Artboard.png')}
+           resizeMode='contain'
+         />
          <TouchableOpacity
            onPress={() => props.navigation.closeDrawer()}
            style={styles.cancel}>
@@ -115,7 +120,7 @@ const DrawerScreen = props => (
              size={36}
            />
          </TouchableOpacity>
-         <Divider style={styles.divider} />
+         {/* <Divider style={styles.divider} /> */}
          <DrawerItems {...props} activeTintColor={props.activeTintColor}
            onItemPress={routeOptions => {
              props.navigation.navigate(routeOptions.route.routes[routeOptions.route.index].routeName, {});

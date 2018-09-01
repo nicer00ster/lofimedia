@@ -4,14 +4,18 @@ import {
   Dimensions,
   StyleSheet,
   View,
-  Text,
   Image,
   TouchableOpacity,
   FlatList,
   ScrollView,
   Platform,
 } from 'react-native';
-import { Button, ListItem, Divider } from 'react-native-elements';
+import {
+  Button,
+  ListItem,
+  Divider,
+  Text,
+} from 'react-native-elements';
 import { objToArray } from '../../helpers';
 
 const { width } = Dimensions.get('window');
@@ -41,15 +45,34 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
   },
+  imageContainer: {
+    ...Platform.select({
+      ios: {
+        padding: 2,
+        shadowRadius: 12,
+        shadowOffset: { width: 0, height: 4 },
+        shadowColor: '#000',
+        shadowOpacity: 0.85,
+      },
+      android: {
+        padding: 2,
+      },
+    }),
+  },
   text: {
     fontSize: 24,
-    fontFamily: Platform.OS === 'android' ? 'sans-serif-thin' : 'HelveticaNeue-Thin',
     color: '#efefef',
-    margin: 10,
+    margin: 5,
   },
   textContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    position: 'absolute',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    elevation: 6,
   },
   bottomContent: {
     flex: 1,
@@ -79,67 +102,55 @@ class SingleUser extends React.PureComponent {
     const { userlist, user } = this.props.screenProps.user;
     return (
       <View style={styles.container}>
-        <View>
+        <View style={styles.imageContainer}>
           <Image style={styles.image} source={{ uri: `${navigation.state.params.photoURL}?width=400` }} />
-          {
-            !user.following[navigation.state.params.uid]
-              ? <Button
-                  onPress={() => screenProps.followUser(navigation.state.params, user.uid, navigation.state.params.uid)}
-                  medium
-                  raised
-                  backgroundColor='#1f222e'
-                  buttonStyle={{ width: screenWidth, alignSelf: 'center' }}
-                  containerViewStyle={{ width: screenWidth, alignSelf: 'center' }}
-                  textStyle={{ fontWeight: 'bold' }}
-                  icon={{ name: 'user-follow', type: 'simple-line-icon', color: '#fff' }}
-                  title='FOLLOW' />
-              : <Button
-                  onPress={() => screenProps.unfollowUser(navigation.state.params, user.uid, navigation.state.params.uid)}
-                  medium
-                  raised
-                  backgroundColor='#1f222e'
-                  buttonStyle={{ width: screenWidth, alignSelf: 'center' }}
-                  containerViewStyle={{ width: screenWidth, alignSelf: 'center' }}
-                  textStyle={{ fontWeight: 'bold' }}
-                  icon={{ name: 'user-unfollow', type: 'simple-line-icon', color: '#fff' }}
-                  title='UNFOLLOW' />
+            <View style={styles.textContainer}>
+              <Text style={[styles.text, { alignSelf: 'flex-start', marginLeft: 12 }]}>Followers: {userlist[navigation.state.params.uid].followers}</Text>
+              <Text style={[styles.text, { alignSelf: 'flex-start', marginLeft: 12 }]}>Following: {
+                typeof userlist[navigation.state.params.uid].following === 'object'
+                ? Object.keys(userlist[navigation.state.params.uid].following).length
+                : userlist[navigation.state.params.uid].following
               }
-              <View style={styles.textContainer}>
-                <Text style={styles.text}>Followers: {userlist[navigation.state.params.uid].followers}</Text>
-                <Text style={styles.text}>Following: {
-                  typeof userlist[navigation.state.params.uid].following === 'object'
-                  ? Object.keys(userlist[navigation.state.params.uid].following).length
-                  : userlist[navigation.state.params.uid].following
-                }
               </Text>
-              </View>
-          <Divider />
-        </View>
-          <ScrollView>
-            {
-              !navigation.state.params.playlist
-                ? <Text style={styles.text}>User's playlist is empty.</Text>
-                : <React.Fragment>
-                  <Text style={styles.text}>{navigation.state.params.displayName}'s Playlist</Text>
-                    <FlatList
-                      data={objToArray(navigation.state.params.playlist)}
-                      renderItem={({ item }) => (
-                    <ListItem
-                      onPress={() => this.props.navigation.navigate('SingleTrack', { ...item })}
-                      containerStyle={{ width }}
-                      avatar={item.photoURL}
-                      rightIcon={{ name: 'playlist-add' }}
-                      titleStyle={{ color: 'white' }}
-                      title={item.title}
-                      subtitle={item.artist} />
-                      )} />
-              </React.Fragment>
-            }
-
+              <View>
+                {
+                  !user.following[navigation.state.params.uid]
+                  ? <Button
+                    onPress={() => screenProps.followUser(navigation.state.params, user.uid, navigation.state.params.uid)}
+                    backgroundColor='rgba(31, 34, 46, 0.75)'
+                    buttonStyle={{ width }}
+                    containerViewStyle={{ width }}
+                    textStyle={{ fontWeight: 'bold' }}
+                    icon={{ name: 'user-follow', type: 'simple-line-icon', color: '#fff' }}
+                    title='FOLLOW' />
+                  : <Button
+                    onPress={() => screenProps.unfollowUser(navigation.state.params, user.uid, navigation.state.params.uid)}
+                    backgroundColor='rgba(31, 34, 46, 0.75)'
+                    buttonStyle={{ width }}
+                    containerViewStyle={{ width }}
+                    textStyle={{ fontWeight: 'bold' }}
+                    icon={{ name: 'user-unfollow', type: 'simple-line-icon', color: '#fff' }}
+                    title='UNFOLLOW' />
+                  }
+                  </View>
+            </View>
+          </View>
+          <ScrollView style={{ flex: 1 }}>
+              <Text style={styles.text}>{navigation.state.params.displayName}'s Playlist</Text>
+              <Divider />
+              <FlatList
+                data={objToArray(navigation.state.params.playlist)}
+                renderItem={({ item }) => (
+              <ListItem
+                onPress={() => this.props.navigation.navigate('SingleTrack', { ...item })}
+                containerStyle={{ width }}
+                avatar={item.photoURL}
+                rightIcon={{ name: 'playlist-add' }}
+                titleStyle={{ color: 'white' }}
+                title={item.title}
+                subtitle={item.artist} />
+                )} />
           </ScrollView>
-        {/* <View style={styles.bottomContent}> */}
-
-        {/* </View> */}
       </View>
     );
   }
