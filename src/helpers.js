@@ -16,12 +16,12 @@ export const filterObject = (obj, query) => {
   const arr = Array.from(Object.keys(obj), key => obj[key]);
   return new Promise((resolve, reject) => {
     if (query.length === 0) return resolve();
-    const results = arr.filter(item => item.title.includes(query) || item.artist.includes(query))
+    const results = arr.filter(item => item.title.includes(query) || item.artist.includes(query));
     return resolve(results);
   })
-  .catch(error => {
-    reject(error);
-  });
+    .catch(error => {
+      reject(error);
+    });
 };
 
 export const removeByKey = (obj, delKey) => Object.keys(obj)

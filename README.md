@@ -18,8 +18,8 @@ These instructions will get you a copy of the project up and running on your loc
 - [x] Transfer search functionality to redux
 - [ ] Have app up and running on both iOS and Android with near identical UI & functionality
 - [x] Fill up profile page with relative information
-- [ ] Add follow user feature
-- [ ] Add follower/following count in profile page
+- [x] Add follow user feature
+- [x] Add follower/following count in profile page
 - [x] Add delay to the logout button and display loading indicator
 - [x] Add authentication methods to drawer screen (Login & Logout)
 - [x] Add social icons to drawer screen
@@ -31,7 +31,8 @@ These instructions will get you a copy of the project up and running on your loc
 - [x] Build a superuser page (add music, delete music)
 - [ ] Have playlist buttons working.
 - [x] Enable push notifications.
-- [ ] Build a connect page, where users can connect with each other.
+- [x] Build a connect page, where users can connect with each other.
+- [x] Implement user error reporting
 
 ### Installing
 

@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
   },
   info: {
     width: imageWidth,
+    height: 200,
     marginLeft: 10,
     marginRight: 10,
     backgroundColor: 'rgba(31, 34, 46, 0.5)',
@@ -124,6 +125,7 @@ export default class Profile extends React.Component {
   }
   render() {
     const { screenProps } = this.props;
+    const followingUser = typeof screenProps.user.user.following === 'object' ? Object.keys(screenProps.user.user.following).length : screenProps.user.user.following
 
     if (!screenProps.user.user.authenticated) {
       return (
@@ -160,15 +162,11 @@ export default class Profile extends React.Component {
                         onPress={() => this.props.navigation.navigate('SuperUser')} />}
                   <Text style={styles.name}>{screenProps.user.user.displayName}</Text>
                   <Text style={styles.text}>{screenProps.user.user.email}</Text>
+                  <Text style={styles.text}>Followers: {screenProps.user.user.followers}</Text>
+                  <Text style={styles.text}>Following: {followingUser}</Text>
                 </View>
               </View>
               <Card containerStyle={styles.info}>
-                <Text style={styles.text}>
-                  Followers: 0
-                </Text>
-                <Text style={styles.text}>
-                  Following: 0
-                </Text>
                 <View style={{ flexDirection: 'row', marginBottom: 10, alignSelf: 'center' }}>
                   <CheckBox
                     title='Notifications'
@@ -195,9 +193,19 @@ export default class Profile extends React.Component {
                   backgroundColor='#1f222e'
                   small
                   raised
+                  containerViewStyle={{ margin: 5 }}
                   textStyle={{ fontWeight: 'bold' }}
                   icon={{ name: 'diamond', type: 'simple-line-icon', color: 'rgb(255, 226, 77)' }}
                   title='Request to upload' />
+                <Button
+                  onPress={() => this.props.navigation.navigate('Playlist')}
+                  backgroundColor='#1f222e'
+                  small
+                  raised
+                  containerViewStyle={{ margin: 5 }}
+                  textStyle={{ fontWeight: 'bold' }}
+                  icon={{ name: 'playlist', type: 'simple-line-icon', color: 'rgb(77, 164, 255)' }}
+                  title='View Playlist' />
               </Card>
               <View style={styles.bottomContent}>
                 <Button

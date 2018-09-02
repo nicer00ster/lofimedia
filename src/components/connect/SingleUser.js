@@ -5,7 +5,6 @@ import {
   StyleSheet,
   View,
   Image,
-  TouchableOpacity,
   FlatList,
   ScrollView,
   Platform,
@@ -44,6 +43,10 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0, 0, 0, 0.15)',
   },
   imageContainer: {
     ...Platform.select({
@@ -104,12 +107,12 @@ class SingleUser extends React.PureComponent {
       <View style={styles.container}>
         <View style={styles.imageContainer}>
           <Image style={styles.image} source={{ uri: `${navigation.state.params.photoURL}?width=400` }} />
-            <View style={styles.textContainer}>
+            <View style={[styles.textContainer, styles.overlay]}>
               <Text style={[styles.text, { alignSelf: 'flex-start', marginLeft: 12 }]}>Followers: {userlist[navigation.state.params.uid].followers}</Text>
               <Text style={[styles.text, { alignSelf: 'flex-start', marginLeft: 12 }]}>Following: {
                 typeof userlist[navigation.state.params.uid].following === 'object'
-                ? Object.keys(userlist[navigation.state.params.uid].following).length
-                : userlist[navigation.state.params.uid].following
+                  ? Object.keys(userlist[navigation.state.params.uid].following).length
+                  : userlist[navigation.state.params.uid].following
               }
               </Text>
               <View>
@@ -135,21 +138,27 @@ class SingleUser extends React.PureComponent {
                   </View>
             </View>
           </View>
-          <ScrollView style={{ flex: 1 }}>
-              <Text style={styles.text}>{navigation.state.params.displayName}'s Playlist</Text>
-              <Divider />
-              <FlatList
-                data={objToArray(navigation.state.params.playlist)}
-                renderItem={({ item }) => (
-              <ListItem
-                onPress={() => this.props.navigation.navigate('SingleTrack', { ...item })}
-                containerStyle={{ width }}
-                avatar={item.photoURL}
-                rightIcon={{ name: 'playlist-add' }}
-                titleStyle={{ color: 'white' }}
-                title={item.title}
-                subtitle={item.artist} />
-                )} />
+          <ScrollView>
+            {
+              !navigation.state.params.playlist
+                ? <Text style={styles.text}>User's playlist is empty.</Text>
+                : <React.Fragment>
+                  <Text style={styles.text}>{navigation.state.params.displayName}'s Playlist</Text>
+                  <Divider />
+                    <FlatList
+                      data={objToArray(navigation.state.params.playlist)}
+                      renderItem={({ item }) => (
+                    <ListItem
+                      onPress={() => this.props.navigation.navigate('SingleTrack', { ...item })}
+                      containerStyle={{ width }}
+                      avatar={item.photoURL}
+                      rightIcon={{ name: 'playlist-add' }}
+                      titleStyle={{ color: 'white' }}
+                      title={item.title}
+                      subtitle={item.artist} />
+                      )} />
+                  </React.Fragment>
+            }
           </ScrollView>
       </View>
     );

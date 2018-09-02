@@ -36,7 +36,7 @@ class _Modal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      modalVisible: false,
+      modalVisible: props.open,
     };
   }
   componentDidMount() {

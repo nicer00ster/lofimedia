@@ -105,7 +105,7 @@ function* unfollowUser(uid) {
       });
     } else {
       yield call(rsf.database.delete, `users/${uid.uid}/following/${uid.followuid}`);
-    };
+    }
 
     yield call(rsf.database.patch, `users/${uid.followuid}`, {
       followers: prevFollowerData.followers - 1,
