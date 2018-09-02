@@ -16,9 +16,6 @@ import {
   ADD_TRACK_SUCCESS,
   ADD_TRACK_FAILURE,
   GLOBAL_PLAY,
-  // SET_TIME,
-  // SET_DURATION,
-  // SEEK_TIME,
 } from '../constants';
 
 const initialState = {
@@ -155,24 +152,6 @@ export default function musicReducer(state = initialState, action = {}) {
         error: true,
         fetching: false,
       };
-    // case SEEK_TIME:
-    // console.log('seektime2', action);
-    //   return {
-    //     ...state,
-    //     position: action.time,
-    //   }
-    // case SET_DURATION:
-    // console.log('duration', action);
-    //   return {
-    //     ...state,
-    //     duration: Math.floor(action.data.duration),
-    //   }
-    // case SET_TIME:
-    // console.log('set_time', action.data.currentTime);
-    //   return {
-    //     ...state,
-    //     position: Math.floor(action.data.currentTime)
-    //   }
     default:
       return state;
   }

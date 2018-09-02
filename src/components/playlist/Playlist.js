@@ -2,49 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Spinner from 'react-native-spinkit';
 import {
-  StyleSheet,
   View,
   Text,
   FlatList,
   ScrollView,
-  Platform,
-  Dimensions,
 } from 'react-native';
 import { ListItem, Header } from 'react-native-elements';
 import { objToArray } from '../../helpers';
 import Container from '../containers/Container';
 import PlaylistItems from './PlaylistItems';
-
-const { width } = Dimensions.get('window');
-const screenWidth = width - 36;
-const screenHeight = width - 76;
-
-const styles = StyleSheet.create({
-  text: {
-    fontSize: 42,
-    fontFamily: Platform.OS === 'android' ? 'sans-serif-thin' : 'HelveticaNeue-Thin',
-    textAlign: 'center',
-    color: 'rgba(255, 255, 255, 0.50)',
-  },
-  textContainer: {
-    width: screenWidth,
-    height: screenHeight,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  headerText: {
-    fontSize: 36,
-    color: '#fff',
-    fontFamily: Platform.OS === 'android' ? 'sans-serif-thin' : 'HelveticaNeue-Thin',
-  },
-  listTitle: {
-    fontFamily: Platform.OS === 'android' ? 'sans-serif' : 'HelveticaNeue',
-    color: '#fff',
-  },
-  listSubtitle: {
-    fontFamily: Platform.OS === 'android' ? 'sans-serif' : 'HelveticaNeue',
-  },
-});
+import styles from './Playlist.styles';
 
 export default class Playlist extends React.PureComponent {
   static propTypes = {

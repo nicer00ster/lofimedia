@@ -5,7 +5,7 @@
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### TODO
-- [ ] Create a logo
+- [x] Create a logo
 - [x] User authentication with Facebook
 - [x] Setup Firebase -- Auth, Database. Possibly add storage in future so users can upload music.
 - [x] Get music playing, even while changing screens or app is minimized.
@@ -33,6 +33,8 @@ These instructions will get you a copy of the project up and running on your loc
 - [x] Enable push notifications.
 - [x] Build a connect page, where users can connect with each other.
 - [x] Implement user error reporting
+- [ ] Add a success callback after user submits a bug
+- [ ] Add donation system
 
 ### Installing
 
@@ -43,6 +45,7 @@ Step by step instructions that tell you how to get a development environment run
 * [React Native](https://facebook.github.io/react-native/)
 * [Firebase](https://firebase.google.com/)
 * [Redux](https://redux.js.org/)
+* [Sentry](https://sentry.io/)
 * [Redux Sagas](https://redux-saga.js.org/)
 * [React Native Firebase](https://rnfirebase.io/)
 * [React Native Elements](https://react-native-training.github.io/react-native-elements/)

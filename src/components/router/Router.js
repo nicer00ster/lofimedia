@@ -24,7 +24,6 @@ const RootStack = createBottomTabNavigator({
       mode: 'modal',
       tabBarLabel: 'PLAYLIST',
       tabBarIcon: ({ tintColor }) => <Icon name="playlist" type="simple-line-icon" size={25} color={tintColor} />,
-      // tabBarIcon: <AddButton />,
     },
   },
   Search: {
@@ -35,7 +34,6 @@ const RootStack = createBottomTabNavigator({
     },
   },
 }, {
-  // tabBarComponent: TabBar,
   tabBarOptions: {
     activeTintColor: '#fff',
     inactiveTintColor: 'rgba(255, 255, 255, 0.25)',

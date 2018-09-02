@@ -114,7 +114,6 @@ export default function userReducer(state = initialState, action = {}) {
         fetching: false,
       };
     case FOLLOW_USER:
-      console.log('reducer', action);
       return {
         ...state,
         user: {

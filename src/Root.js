@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Platform } from 'react-native';
 import { connect } from 'react-redux';
 import Video from 'react-native-video';
-import type { Notification } from 'react-native-firebase';
 import firebase from './config/firebase';
 import {
   fetchMusic,
