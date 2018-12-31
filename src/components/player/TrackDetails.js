@@ -34,9 +34,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const TrackDetails = ({ title, artist, onAddPress, onMorePress, onTitlePress, onArtistPress }) => (
+const TrackDetails = ({ title, artist, onPressPlaylist, onMorePress, onTitlePress, onArtistPress }) => (
   <View style={styles.container}>
-    <TouchableOpacity onPress={onAddPress}>
+    <TouchableOpacity onPress={onPressPlaylist}>
       <Icon type="simple-line-icon" name="playlist" color="white" size={35} />
     </TouchableOpacity>
     <View style={styles.detailsWrapper}>

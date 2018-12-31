@@ -82,7 +82,10 @@ class Player extends React.Component {
               sliderWidth={width}
               onSnapToItem={this.onSwipe}
             />
-            <TrackDetails title={track.title} artist={track.artist} />
+            <TrackDetails
+              onPressPlaylist={() => navigation.navigate('Playlist')}
+              title={track.title}
+              artist={track.artist} />
             <SeekBar
               onSeek={this.props.screenProps.seek}
               onSlidingStart={screenProps.pauseMusic}
