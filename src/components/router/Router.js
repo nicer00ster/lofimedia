@@ -37,6 +37,9 @@ const RootStack = createBottomTabNavigator({
   tabBarOptions: {
     activeTintColor: '#fff',
     inactiveTintColor: 'rgba(255, 255, 255, 0.25)',
+    style: {
+      height: 55,
+    },
     labelStyle: {
       fontWeight: '600',
     },
